@@ -31,6 +31,7 @@ export async function listarInsumosParaSelecao() {
   return db
     .select({
       id: insumos.id,
+      codigo: insumos.codigo,
       nome: insumos.nome,
       unidadeMedida: insumos.unidadeMedida,
       custo: insumos.custo,

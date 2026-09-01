@@ -22,6 +22,8 @@ export const usuarios = pgTable("usuarios", {
 
 export const insumos = pgTable("insumos", {
   id: uuid("id").primaryKey().defaultRandom(),
+  // Código curto e sequencial para referência humana (ex: INS-0007) — não é a chave primária.
+  codigo: integer("codigo").generatedAlwaysAsIdentity().notNull().unique(),
   nome: text("nome").notNull(),
   unidadeMedida: unidadeMedidaEnum("unidade_medida").notNull().default("g"),
   // Preço: R$ por 100g (g), R$ por 100ml (ml), ou R$ por unidade (un)
@@ -57,6 +59,8 @@ export const insumoPrecoHistorico = pgTable("insumo_preco_historico", {
 
 export const receitas = pgTable("receitas", {
   id: uuid("id").primaryKey().defaultRandom(),
+  // Código curto e sequencial para referência humana (ex: REC-0014) — não é a chave primária.
+  codigo: integer("codigo").generatedAlwaysAsIdentity().notNull().unique(),
   nome: text("nome").notNull(),
   rendimentoTotalG: numeric("rendimento_total_g", { precision: 10, scale: 2, mode: "number" })
     .notNull()
@@ -87,6 +91,8 @@ export const receitaInsumos = pgTable("receita_insumos", {
 
 export const pratos = pgTable("pratos", {
   id: uuid("id").primaryKey().defaultRandom(),
+  // Código curto e sequencial para referência humana (ex: PRT-0003) — não é a chave primária.
+  codigo: integer("codigo").generatedAlwaysAsIdentity().notNull().unique(),
   nome: text("nome").notNull(),
   custoEmbalagem: numeric("custo_embalagem", { precision: 10, scale: 2, mode: "number" })
     .notNull()

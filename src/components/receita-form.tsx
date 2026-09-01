@@ -11,13 +11,14 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { calcularCustoItem, calcularCMV, formatarMoeda, somarMacros, escalarMacros } from "@/lib/calculations";
+import { calcularCustoItem, calcularCMV, formatarMoeda, formatarCodigo, somarMacros, escalarMacros } from "@/lib/calculations";
 import type { receitas } from "@/db/schema";
 
 type Receita = typeof receitas.$inferSelect;
 
 export interface InsumoParaReceita {
   id: string;
+  codigo: number;
   nome: string;
   unidadeMedida: "g" | "ml" | "un";
   custo: number;
@@ -187,6 +188,7 @@ export function ReceitaForm({
                       <SelectContent>
                         {insumosDisponiveis.map((i) => (
                           <SelectItem key={i.id} value={i.id}>
+                            <span className="font-mono text-xs text-muted-foreground">{formatarCodigo("INS", i.codigo)}</span>{" "}
                             {i.nome}
                           </SelectItem>
                         ))}

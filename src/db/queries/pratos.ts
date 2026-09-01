@@ -125,6 +125,7 @@ export async function buscarPratoComItens(id: string) {
 
 export interface ReceitaParaMontagem {
   id: string;
+  codigo: number;
   nome: string;
   rendimentoTotalG: number;
   custoPorGrama: number;
@@ -144,6 +145,7 @@ export async function listarReceitasParaMontagemPrato(): Promise<ReceitaParaMont
     const r = resumoReceitas.get(receita.id);
     return {
       id: receita.id,
+      codigo: receita.codigo,
       nome: receita.nome,
       rendimentoTotalG: receita.rendimentoTotalG,
       custoPorGrama: r?.cmv ?? 0,

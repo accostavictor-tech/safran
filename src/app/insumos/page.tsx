@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { Plus, Package, Wheat, Milk } from "lucide-react";
 import { listarInsumosComContagem } from "@/db/queries/insumos";
-import { formatarMoeda, formatarNumero } from "@/lib/calculations";
+import { formatarMoeda, formatarNumero, formatarCodigo } from "@/lib/calculations";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -49,9 +49,10 @@ export default async function InsumosPage() {
         />
       ) : (
         <Card className="overflow-hidden py-0">
-          <Table className="min-w-[820px]">
+          <Table className="min-w-[880px]">
             <TableHeader>
               <TableRow>
+                <TableHead>Código</TableHead>
                 <TableHead>Nome</TableHead>
                 <TableHead>Custo</TableHead>
                 <TableHead>FC</TableHead>
@@ -64,6 +65,9 @@ export default async function InsumosPage() {
             <TableBody>
               {linhas.map(({ insumo, receitasCount }) => (
                 <TableRow key={insumo.id}>
+                  <TableCell className="font-mono text-xs text-muted-foreground">
+                    {formatarCodigo("INS", insumo.codigo)}
+                  </TableCell>
                   <TableCell className="font-medium text-foreground">
                     <Link href={`/insumos/${insumo.id}`} className="hover:text-primary hover:underline">
                       {insumo.nome}

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { Plus, UtensilsCrossed, TrendingUp, DollarSign, AlertTriangle } from "lucide-react";
 import { listarPratosComPrecificacao } from "@/db/queries/pratos";
-import { formatarMoeda, formatarPercentual, classificarSaudeMargem } from "@/lib/calculations";
+import { formatarMoeda, formatarPercentual, classificarSaudeMargem, formatarCodigo } from "@/lib/calculations";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -76,9 +76,10 @@ export default async function PratosPage() {
         />
       ) : (
         <Card className="overflow-hidden py-0">
-          <Table className="min-w-[820px]">
+          <Table className="min-w-[880px]">
             <TableHeader>
               <TableRow>
+                <TableHead>Código</TableHead>
                 <TableHead>Nome</TableHead>
                 <TableHead>Peso</TableHead>
                 <TableHead>Custo total</TableHead>
@@ -93,6 +94,9 @@ export default async function PratosPage() {
                 const saude = classificarSaudeMargem(precificacao.margemLiquidaPct);
                 return (
                   <TableRow key={prato.id}>
+                    <TableCell className="font-mono text-xs text-muted-foreground">
+                      {formatarCodigo("PRT", prato.codigo)}
+                    </TableCell>
                     <TableCell className="font-medium text-foreground">
                       <Link href={`/pratos/${prato.id}`} className="hover:text-primary hover:underline">
                         {prato.nome}

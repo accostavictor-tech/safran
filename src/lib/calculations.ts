@@ -196,6 +196,10 @@ export function formatarPercentual(valor: number, decimais = 1): string {
   return `${formatarNumero(valor, decimais)}%`;
 }
 
+export function formatarCodigo(prefixo: "INS" | "REC" | "PRT", codigo: number): string {
+  return `${prefixo}-${String(codigo).padStart(4, "0")}`;
+}
+
 export type SaudeMargemStatus = "prejuizo" | "apertada" | "ok" | "saudavel" | "excelente";
 
 export function classificarSaudeMargem(margemLiquidaPct: number): { status: SaudeMargemStatus; label: string } {

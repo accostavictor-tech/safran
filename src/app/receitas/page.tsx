@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { Plus, NotebookText } from "lucide-react";
 import { listarReceitasComCusto } from "@/db/queries/receitas";
-import { formatarMoeda } from "@/lib/calculations";
+import { formatarMoeda, formatarCodigo } from "@/lib/calculations";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -43,9 +43,10 @@ export default async function ReceitasPage() {
         />
       ) : (
         <Card className="overflow-hidden py-0">
-          <Table className="min-w-[900px]">
+          <Table className="min-w-[960px]">
             <TableHeader>
               <TableRow>
+                <TableHead>Código</TableHead>
                 <TableHead>Nome</TableHead>
                 <TableHead>Rendimento</TableHead>
                 <TableHead>Porção</TableHead>
@@ -59,6 +60,9 @@ export default async function ReceitasPage() {
             <TableBody>
               {linhas.map(({ receita, custoTotal, cmv, custoPorcao, pratosCount }) => (
                 <TableRow key={receita.id}>
+                  <TableCell className="font-mono text-xs text-muted-foreground">
+                    {formatarCodigo("REC", receita.codigo)}
+                  </TableCell>
                   <TableCell className="font-medium text-foreground">
                     <Link href={`/receitas/${receita.id}`} className="hover:text-primary hover:underline">
                       {receita.nome}

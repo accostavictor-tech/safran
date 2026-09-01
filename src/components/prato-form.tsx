@@ -18,6 +18,7 @@ import {
   somarMacrosLista,
   formatarMoeda,
   formatarPercentual,
+  formatarCodigo,
   classificarSaudeMargem,
   MACRO_ZERO,
 } from "@/lib/calculations";
@@ -161,6 +162,7 @@ export function PratoForm({
                       <SelectContent>
                         {receitasDisponiveis.map((r) => (
                           <SelectItem key={r.id} value={r.id}>
+                            <span className="font-mono text-xs text-muted-foreground">{formatarCodigo("REC", r.codigo)}</span>{" "}
                             {r.nome}
                           </SelectItem>
                         ))}

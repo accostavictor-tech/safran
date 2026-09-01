@@ -7,7 +7,7 @@ import { insumoPrecoHistorico } from "@/db/schema";
 import { InsumoForm } from "@/components/insumo-form";
 import { PageHeader } from "@/components/page-header";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { formatarMoeda } from "@/lib/calculations";
+import { formatarMoeda, formatarCodigo } from "@/lib/calculations";
 
 export default async function EditarInsumoPage({ params }: PageProps<"/insumos/[id]">) {
   const { id } = await params;
@@ -23,7 +23,7 @@ export default async function EditarInsumoPage({ params }: PageProps<"/insumos/[
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-6 sm:px-6 sm:py-8">
-      <PageHeader title="Editar insumo" description={insumo.nome} />
+      <PageHeader title="Editar insumo" description={`${formatarCodigo("INS", insumo.codigo)} · ${insumo.nome}`} />
       <InsumoForm insumo={insumo} />
 
       {historico.length > 0 ? (
