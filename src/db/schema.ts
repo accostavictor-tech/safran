@@ -10,7 +10,8 @@ import {
 } from "drizzle-orm/pg-core";
 
 export const unidadeMedidaEnum = pgEnum("unidade_medida", ["g", "ml", "un"]);
-export const macroFonteEnum = pgEnum("macro_fonte", ["taco", "tbca", "rotulo", "manual"]);
+export const tipoInsumoEnum = pgEnum("tipo_insumo", ["in_natura", "industrializado"]);
+export const macroFonteEnum = pgEnum("macro_fonte", ["taco", "tbca", "fabricante"]);
 
 // Os 3 sócios que operam o sistema. Sem cadastro público — contas criadas via seed.
 export const usuarios = pgTable("usuarios", {
@@ -26,6 +27,8 @@ export const insumos = pgTable("insumos", {
   // Código curto e sequencial para referência humana (ex: INS-0007) — não é a chave primária.
   codigo: integer("codigo").generatedAlwaysAsIdentity().notNull().unique(),
   nome: text("nome").notNull(),
+  // Nulo nos insumos migrados que ainda não foram classificados; obrigatório para novos/editados.
+  tipo: tipoInsumoEnum("tipo"),
   unidadeMedida: unidadeMedidaEnum("unidade_medida").notNull().default("g"),
   // Preço: R$ por 100g (g), R$ por 100ml (ml), ou R$ por unidade (un)
   custo: numeric("custo", { precision: 12, scale: 4, mode: "number" }).notNull().default(0),

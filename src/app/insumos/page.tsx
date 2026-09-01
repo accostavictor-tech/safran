@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { Plus, Package, Wheat, Milk, CheckCircle2, CircleAlert } from "lucide-react";
 import { listarInsumosComContagem } from "@/db/queries/insumos";
-import { formatarMoeda, formatarNumero, formatarCodigo } from "@/lib/calculations";
+import { formatarMoeda, formatarNumero, formatarCodigo, TIPO_INSUMO_LABEL } from "@/lib/calculations";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -23,6 +23,7 @@ export default async function InsumosPage() {
   const linhas = await listarInsumosComContagem();
   const revisados = linhas.filter(({ insumo }) => insumo.macroRevisadoEm).length;
   const semRevisao = linhas.length - revisados;
+  const naoClassificados = linhas.filter(({ insumo }) => !insumo.tipo).length;
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
@@ -43,13 +44,20 @@ export default async function InsumosPage() {
       />
 
       {linhas.length > 0 ? (
-        <div className="mb-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div className="mb-5 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <StatTile icon={CheckCircle2} label="Macros revisados" value={String(revisados)} tone="success" />
           <StatTile
             icon={CircleAlert}
-            label="Ainda sem revisão"
+            label="Macros sem revisão"
             value={String(semRevisao)}
             tone={semRevisao > 0 ? "warning" : "default"}
+          />
+          <StatTile icon={Package} label="Tipo classificado" value={String(linhas.length - naoClassificados)} tone="success" />
+          <StatTile
+            icon={CircleAlert}
+            label="Tipo não classificado"
+            value={String(naoClassificados)}
+            tone={naoClassificados > 0 ? "warning" : "default"}
           />
         </div>
       ) : null}
@@ -64,11 +72,12 @@ export default async function InsumosPage() {
         />
       ) : (
         <Card className="overflow-hidden py-0">
-          <Table className="min-w-[880px]">
+          <Table className="min-w-[960px]">
             <TableHeader>
               <TableRow>
                 <TableHead>Código</TableHead>
                 <TableHead>Nome</TableHead>
+                <TableHead>Tipo</TableHead>
                 <TableHead>Custo</TableHead>
                 <TableHead>FC</TableHead>
                 <TableHead>Restrições</TableHead>
@@ -87,6 +96,16 @@ export default async function InsumosPage() {
                     <Link href={`/insumos/${insumo.id}`} className="hover:text-primary hover:underline">
                       {insumo.nome}
                     </Link>
+                  </TableCell>
+                  <TableCell>
+                    {insumo.tipo ? (
+                      <Badge variant="secondary">{TIPO_INSUMO_LABEL[insumo.tipo]}</Badge>
+                    ) : (
+                      <Badge variant="warning">
+                        <CircleAlert className="size-3" />
+                        Pendente
+                      </Badge>
+                    )}
                   </TableCell>
                   <TableCell className="text-foreground">
                     {formatarMoeda(insumo.custo)}

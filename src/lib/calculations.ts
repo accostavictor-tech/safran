@@ -200,13 +200,25 @@ export function formatarCodigo(prefixo: "INS" | "REC" | "PRT", codigo: number): 
   return `${prefixo}-${String(codigo).padStart(4, "0")}`;
 }
 
-export type MacroFonte = "taco" | "tbca" | "rotulo" | "manual";
+export type TipoInsumo = "in_natura" | "industrializado";
+
+export const TIPO_INSUMO_LABEL: Record<TipoInsumo, string> = {
+  in_natura: "In natura",
+  industrializado: "Industrializado",
+};
+
+export type MacroFonte = "taco" | "tbca" | "fabricante";
 
 export const MACRO_FONTE_LABEL: Record<MacroFonte, string> = {
   taco: "TACO",
   tbca: "TBCA",
-  rotulo: "Rótulo do fabricante",
-  manual: "Estimativa manual",
+  fabricante: "Fabricante (rótulo)",
+};
+
+/** Fontes válidas de macronutrientes para cada tipo de insumo. */
+export const FONTES_POR_TIPO: Record<TipoInsumo, MacroFonte[]> = {
+  in_natura: ["taco", "tbca"],
+  industrializado: ["fabricante"],
 };
 
 export type SaudeMargemStatus = "prejuizo" | "apertada" | "ok" | "saudavel" | "excelente";

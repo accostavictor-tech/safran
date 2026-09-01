@@ -6,6 +6,7 @@ import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "@/db";
 import { insumos, insumoPrecoHistorico } from "@/db/schema";
+import { FONTES_POR_TIPO } from "@/lib/calculations";
 
 const CAMPOS_MACRO = [
   "energiaKcal",
@@ -21,6 +22,7 @@ const CAMPOS_MACRO = [
 
 const insumoSchema = z.object({
   nome: z.string().trim().min(1, "Informe o nome."),
+  tipo: z.enum(["in_natura", "industrializado"], { message: "Selecione o tipo do insumo." }),
   unidadeMedida: z.enum(["g", "ml", "un"]),
   custo: z.coerce.number().min(0, "Custo não pode ser negativo."),
   fatorCorrecao: z.coerce.number().min(0.01, "Fator de correção deve ser maior que zero."),
@@ -35,7 +37,10 @@ const insumoSchema = z.object({
   gordurasTrans: z.coerce.number().optional().nullable(),
   fibraAlimentar: z.coerce.number().optional().nullable(),
   sodio: z.coerce.number().optional().nullable(),
-  macroFonte: z.enum(["taco", "tbca", "rotulo", "manual"]).optional().nullable(),
+  macroFonte: z.enum(["taco", "tbca", "fabricante"]).optional().nullable(),
+}).refine((data) => !data.macroFonte || FONTES_POR_TIPO[data.tipo].includes(data.macroFonte), {
+  message: "Essa fonte não é válida para o tipo de insumo selecionado.",
+  path: ["macroFonte"],
 });
 
 type InsumoParsed = z.infer<typeof insumoSchema>;
@@ -51,6 +56,7 @@ function parseFormData(formData: FormData) {
 
   return {
     nome: formData.get("nome"),
+    tipo: formData.get("tipo"),
     unidadeMedida: formData.get("unidadeMedida"),
     custo: formData.get("custo"),
     fatorCorrecao: formData.get("fatorCorrecao") || "1",

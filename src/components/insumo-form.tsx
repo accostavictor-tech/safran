@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { useRouter } from "next/navigation";
 import { CheckCircle2, CircleAlert } from "lucide-react";
 import { criarInsumoAction, atualizarInsumoAction, type InsumoFormState } from "@/actions/insumos";
@@ -11,7 +11,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { MACRO_FONTE_LABEL } from "@/lib/calculations";
+import { MACRO_FONTE_LABEL, TIPO_INSUMO_LABEL, FONTES_POR_TIPO, type TipoInsumo, type MacroFonte } from "@/lib/calculations";
 import type { insumos } from "@/db/schema";
 
 type Insumo = typeof insumos.$inferSelect;
@@ -35,6 +35,19 @@ export function InsumoForm({ insumo }: { insumo?: Insumo }) {
   const action = insumo ? atualizarInsumoAction.bind(null, insumo.id) : criarInsumoAction;
   const [state, formAction, pending] = useActionState(action, initialState);
 
+  const [tipo, setTipo] = useState<TipoInsumo | undefined>(insumo?.tipo ?? undefined);
+  const [macroFonte, setMacroFonte] = useState<MacroFonte | undefined>(insumo?.macroFonte ?? undefined);
+
+  const fontesDisponiveis = tipo ? FONTES_POR_TIPO[tipo] : (Object.keys(MACRO_FONTE_LABEL) as MacroFonte[]);
+
+  function handleTipoChange(valor: string) {
+    const novoTipo = valor as TipoInsumo;
+    setTipo(novoTipo);
+    if (macroFonte && !FONTES_POR_TIPO[novoTipo].includes(macroFonte)) {
+      setMacroFonte(undefined);
+    }
+  }
+
   return (
     <form action={formAction} className="space-y-5">
       <Card>
@@ -46,6 +59,22 @@ export function InsumoForm({ insumo }: { insumo?: Insumo }) {
             <div className="space-y-1.5 sm:col-span-2">
               <Label htmlFor="nome">Nome</Label>
               <Input id="nome" name="nome" required defaultValue={insumo?.nome} placeholder="Ex: Peito de frango" autoFocus />
+            </div>
+
+            <div className="space-y-1.5">
+              <Label htmlFor="tipo">Tipo</Label>
+              <Select name="tipo" value={tipo} onValueChange={handleTipoChange}>
+                <SelectTrigger id="tipo" className="w-full">
+                  <SelectValue placeholder="Selecione o tipo..." />
+                </SelectTrigger>
+                <SelectContent>
+                  {Object.entries(TIPO_INSUMO_LABEL).map(([valor, label]) => (
+                    <SelectItem key={valor} value={valor}>
+                      {label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             <div className="space-y-1.5">
@@ -116,20 +145,24 @@ export function InsumoForm({ insumo }: { insumo?: Insumo }) {
         <CardContent className="space-y-4">
           <div className="space-y-1.5 sm:max-w-xs">
             <Label htmlFor="macroFonte">Fonte dos dados</Label>
-            <Select name="macroFonte" defaultValue={insumo?.macroFonte ?? undefined}>
+            <Select name="macroFonte" value={macroFonte} onValueChange={(v) => setMacroFonte(v as MacroFonte)}>
               <SelectTrigger id="macroFonte" className="w-full">
                 <SelectValue placeholder="Selecione a fonte..." />
               </SelectTrigger>
               <SelectContent>
-                {Object.entries(MACRO_FONTE_LABEL).map(([valor, label]) => (
+                {fontesDisponiveis.map((valor) => (
                   <SelectItem key={valor} value={valor}>
-                    {label}
+                    {MACRO_FONTE_LABEL[valor]}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
             <p className="text-xs text-muted-foreground">
-              Insumo natural: TACO ou TBCA. Industrializado: rótulo do fabricante.
+              {tipo
+                ? tipo === "in_natura"
+                  ? "Insumo in natura: use TACO ou TBCA."
+                  : "Insumo industrializado: use o rótulo do fabricante."
+                : "Insumo natural: TACO ou TBCA. Industrializado: rótulo do fabricante."}
             </p>
           </div>
 

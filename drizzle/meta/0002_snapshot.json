@@ -1,5 +1,5 @@
 {
-  "id": "eea39a92-b0e9-4892-bce3-a9a6b4302734",
+  "id": "758ef90e-8bce-4875-81ec-6bc175ce1f68",
   "prevId": "be104347-27ca-4f3e-baec-c0ab5d192d5c",
   "version": "7",
   "dialect": "postgresql",
@@ -96,6 +96,13 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "tipo": {
+          "name": "tipo",
+          "type": "tipo_insumo",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
         },
         "unidade_medida": {
           "name": "unidade_medida",
@@ -637,8 +644,15 @@
       "values": [
         "taco",
         "tbca",
-        "rotulo",
-        "manual"
+        "fabricante"
+      ]
+    },
+    "public.tipo_insumo": {
+      "name": "tipo_insumo",
+      "schema": "public",
+      "values": [
+        "in_natura",
+        "industrializado"
       ]
     },
     "public.unidade_medida": {
