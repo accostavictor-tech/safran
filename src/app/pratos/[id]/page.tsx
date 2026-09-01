@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { buscarPratoComItens, listarReceitasParaMontagemPrato } from "@/db/queries/pratos";
 import { PratoForm } from "@/components/prato-form";
+import { PageHeader } from "@/components/page-header";
 
 export default async function EditarPratoPage({ params }: PageProps<"/pratos/[id]">) {
   const { id } = await params;
@@ -11,8 +12,8 @@ export default async function EditarPratoPage({ params }: PageProps<"/pratos/[id
   if (!dados) notFound();
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
-      <h1 className="mb-6 text-xl font-semibold text-neutral-900">Editar prato</h1>
+    <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8">
+      <PageHeader title="Editar prato" description={dados.prato.nome} />
       <PratoForm
         prato={dados.prato}
         itensIniciais={dados.itens.map((i) => ({ receitaId: i.receitaId, quantidadeG: i.quantidadeG }))}

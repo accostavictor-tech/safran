@@ -2,14 +2,23 @@
 
 import { useActionState, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Plus, X, GripVertical, Wheat, Milk } from "lucide-react";
 import { criarPratoAction, atualizarPratoAction, type PratoFormState } from "@/actions/pratos";
-import { Field, Input, Select, Button, Card } from "@/components/ui";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import {
   calcularPrecificacao,
   escalarMacros,
   somarMacrosLista,
   formatarMoeda,
   formatarPercentual,
+  classificarSaudeMargem,
   MACRO_ZERO,
 } from "@/lib/calculations";
 import type { pratos } from "@/db/schema";
@@ -24,6 +33,14 @@ interface ItemLinha {
 }
 
 const initialState: PratoFormState = {};
+
+const BADGE_POR_STATUS = {
+  prejuizo: "destructive",
+  apertada: "warning",
+  ok: "secondary",
+  saudavel: "success",
+  excelente: "success",
+} as const;
 
 export function PratoForm({
   prato,
@@ -95,149 +112,174 @@ export function PratoForm({
   const pesoTotalG = itensValidos.reduce((acc, i) => acc + i.quantidadeG, 0);
   const temGluten = itensValidos.some((i) => i.receita.temGluten);
   const temLactose = itensValidos.some((i) => i.receita.temLactose);
+  const saude = classificarSaudeMargem(precificacao.margemLiquidaPct);
 
   const itensJson = JSON.stringify(itensValidos.map((i) => ({ receitaId: i.receita.id, quantidadeG: i.quantidadeG })));
 
   return (
-    <form action={formAction} className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+    <form action={formAction} className="grid grid-cols-1 gap-5 lg:grid-cols-3">
       <input type="hidden" name="itens" value={itensJson} />
 
-      <div className="space-y-6 lg:col-span-2">
-        <Card className="space-y-4 p-5">
-          <h2 className="text-sm font-semibold text-neutral-900">Dados básicos</h2>
-          <Field label="Nome do prato" htmlFor="nome">
-            <Input id="nome" name="nome" required defaultValue={prato?.nome} placeholder="Ex: Marmita frango xadrez" />
-          </Field>
-          <label className="flex items-center gap-2 text-sm text-neutral-700">
-            <input type="checkbox" name="ativo" defaultChecked={prato?.ativo ?? true} className="h-4 w-4 rounded border-neutral-300" />
-            Prato ativo no cardápio
-          </label>
+      <div className="space-y-5 lg:col-span-2">
+        <Card>
+          <CardHeader>
+            <CardTitle>Dados básicos</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="space-y-1.5">
+              <Label htmlFor="nome">Nome do prato</Label>
+              <Input id="nome" name="nome" required defaultValue={prato?.nome} placeholder="Ex: Marmita frango xadrez" autoFocus />
+            </div>
+            <label className="flex items-center gap-2 text-sm text-foreground">
+              <Checkbox name="ativo" defaultChecked={prato?.ativo ?? true} />
+              Prato ativo no cardápio
+            </label>
+          </CardContent>
         </Card>
 
-        <Card className="space-y-4 p-5">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-neutral-900">Composição (receitas)</h2>
-            <Button type="button" variant="secondary" onClick={addLinha}>
-              + Adicionar receita
+        <Card>
+          <CardHeader className="flex-row items-center justify-between space-y-0">
+            <CardTitle>Composição (receitas)</CardTitle>
+            <Button type="button" variant="secondary" size="sm" onClick={addLinha}>
+              <Plus />
+              Adicionar receita
             </Button>
-          </div>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="space-y-2">
+              {itens.map((item) => {
+                const receita = receitasPorId.get(item.receitaId);
+                const qtd = Number(item.quantidadeG.replace(",", "."));
+                const custoItem = receita && Number.isFinite(qtd) ? receita.custoPorGrama * qtd : 0;
+                return (
+                  <div key={item.key} className="flex items-center gap-2">
+                    <GripVertical className="size-4 shrink-0 text-muted-foreground/40" />
+                    <Select value={item.receitaId} onValueChange={(v) => atualizarLinha(item.key, "receitaId", v)}>
+                      <SelectTrigger className="flex-[2]">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {receitasDisponiveis.map((r) => (
+                          <SelectItem key={r.id} value={r.id}>
+                            {r.nome}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <Input
+                      type="number"
+                      step="0.01"
+                      min="0"
+                      placeholder="Qtd. (g)"
+                      value={item.quantidadeG}
+                      onChange={(e) => atualizarLinha(item.key, "quantidadeG", e.target.value)}
+                      className="w-24"
+                    />
+                    <span className="w-4 shrink-0 text-xs text-muted-foreground">g</span>
+                    <span className="w-24 shrink-0 text-right text-sm tabular-nums text-muted-foreground">
+                      {formatarMoeda(custoItem)}
+                    </span>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => removerLinha(item.key)}
+                      className="shrink-0 text-muted-foreground hover:text-destructive"
+                      aria-label="Remover receita"
+                    >
+                      <X className="size-4" />
+                    </Button>
+                  </div>
+                );
+              })}
+              {receitasDisponiveis.length === 0 ? (
+                <p className="text-sm text-muted-foreground">Nenhuma receita ativa cadastrada.</p>
+              ) : null}
+            </div>
 
-          <div className="space-y-2">
-            {itens.map((item) => {
-              const receita = receitasPorId.get(item.receitaId);
-              const qtd = Number(item.quantidadeG.replace(",", "."));
-              const custoItem = receita && Number.isFinite(qtd) ? receita.custoPorGrama * qtd : 0;
-              return (
-                <div key={item.key} className="flex items-center gap-2">
-                  <Select
-                    value={item.receitaId}
-                    onChange={(e) => atualizarLinha(item.key, "receitaId", e.target.value)}
-                    className="flex-[2]"
-                  >
-                    {receitasDisponiveis.map((r) => (
-                      <option key={r.id} value={r.id}>
-                        {r.nome}
-                      </option>
-                    ))}
-                  </Select>
-                  <Input
-                    type="number"
-                    step="0.01"
-                    min="0"
-                    placeholder="Qtd. (g)"
-                    value={item.quantidadeG}
-                    onChange={(e) => atualizarLinha(item.key, "quantidadeG", e.target.value)}
-                    className="w-24"
-                  />
-                  <span className="w-6 text-xs text-neutral-400">g</span>
-                  <span className="w-24 shrink-0 text-right text-sm text-neutral-600">{formatarMoeda(custoItem)}</span>
-                  <button
-                    type="button"
-                    onClick={() => removerLinha(item.key)}
-                    className="shrink-0 px-2 text-sm text-red-500 hover:text-red-700"
-                    aria-label="Remover receita"
-                  >
-                    ✕
-                  </button>
-                </div>
-              );
-            })}
-            {receitasDisponiveis.length === 0 ? (
-              <p className="text-sm text-neutral-400">Nenhuma receita ativa cadastrada.</p>
-            ) : null}
-          </div>
-
-          <div className="border-t border-neutral-100 pt-3 text-sm text-neutral-600">
-            Peso total da porção: <span className="font-semibold text-neutral-900">{pesoTotalG.toFixed(0)} g</span>
-          </div>
+            <div className="border-t border-border pt-3 text-sm text-muted-foreground">
+              Peso total da porção: <span className="font-semibold text-foreground">{pesoTotalG.toFixed(0)} g</span>
+            </div>
+          </CardContent>
         </Card>
 
-        <Card className="space-y-4 p-5">
-          <h2 className="text-sm font-semibold text-neutral-900">Precificação</h2>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-            <Field label="Embalagem (R$)" htmlFor="custoEmbalagem">
-              <Input
-                id="custoEmbalagem"
-                name="custoEmbalagem"
-                type="number"
-                step="0.01"
-                min="0"
-                value={custoEmbalagem}
-                onChange={(e) => setCustoEmbalagem(Number(e.target.value) || 0)}
-              />
-            </Field>
-            <Field label="Margem bruta (%)" htmlFor="margemLucro" hint="Define o preço de venda">
-              <Input
-                id="margemLucro"
-                name="margemLucro"
-                type="number"
-                step="0.1"
-                min="0"
-                max="99.99"
-                value={margemLucro}
-                onChange={(e) => setMargemLucro(Number(e.target.value) || 0)}
-              />
-            </Field>
-            <Field label="Taxa de cartão (%)" htmlFor="taxaCartao">
-              <Input
-                id="taxaCartao"
-                name="taxaCartao"
-                type="number"
-                step="0.1"
-                min="0"
-                value={taxaCartao}
-                onChange={(e) => setTaxaCartao(Number(e.target.value) || 0)}
-              />
-            </Field>
-            <Field label="Imposto (%)" htmlFor="imposto">
-              <Input
-                id="imposto"
-                name="imposto"
-                type="number"
-                step="0.1"
-                min="0"
-                value={imposto}
-                onChange={(e) => setImposto(Number(e.target.value) || 0)}
-              />
-            </Field>
-            <Field label="Comissão (%)" htmlFor="comissao" hint="Marketplace, entregador, etc.">
-              <Input
-                id="comissao"
-                name="comissao"
-                type="number"
-                step="0.1"
-                min="0"
-                value={comissao}
-                onChange={(e) => setComissao(Number(e.target.value) || 0)}
-              />
-            </Field>
-          </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>Precificação</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+              <div className="space-y-1.5">
+                <Label htmlFor="custoEmbalagem">Embalagem (R$)</Label>
+                <Input
+                  id="custoEmbalagem"
+                  name="custoEmbalagem"
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  value={custoEmbalagem}
+                  onChange={(e) => setCustoEmbalagem(Number(e.target.value) || 0)}
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="margemLucro">Margem bruta (%)</Label>
+                <Input
+                  id="margemLucro"
+                  name="margemLucro"
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  max="99.99"
+                  value={margemLucro}
+                  onChange={(e) => setMargemLucro(Number(e.target.value) || 0)}
+                />
+                <p className="text-xs text-muted-foreground">Define o preço de venda</p>
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="taxaCartao">Taxa de cartão (%)</Label>
+                <Input
+                  id="taxaCartao"
+                  name="taxaCartao"
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  value={taxaCartao}
+                  onChange={(e) => setTaxaCartao(Number(e.target.value) || 0)}
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="imposto">Imposto (%)</Label>
+                <Input
+                  id="imposto"
+                  name="imposto"
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  value={imposto}
+                  onChange={(e) => setImposto(Number(e.target.value) || 0)}
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="comissao">Comissão (%)</Label>
+                <Input
+                  id="comissao"
+                  name="comissao"
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  value={comissao}
+                  onChange={(e) => setComissao(Number(e.target.value) || 0)}
+                />
+                <p className="text-xs text-muted-foreground">Marketplace, entregador, etc.</p>
+              </div>
+            </div>
+          </CardContent>
         </Card>
 
-        {state.erro ? <p className="text-sm text-red-600">{state.erro}</p> : null}
+        {state.erro ? <p className="text-sm text-destructive">{state.erro}</p> : null}
 
         <div className="flex gap-3">
-          <Button type="submit" disabled={pending}>
+          <Button type="submit" loading={pending}>
             {pending ? "Salvando..." : "Salvar"}
           </Button>
           <Button type="button" variant="secondary" onClick={() => router.push("/pratos")}>
@@ -246,84 +288,95 @@ export function PratoForm({
         </div>
       </div>
 
-      <div className="space-y-4 lg:sticky lg:top-4 lg:self-start">
-        <Card className="space-y-3 p-5">
-          <h2 className="text-sm font-semibold text-neutral-900">Resumo</h2>
-          <dl className="space-y-2 text-sm">
-            <div className="flex justify-between">
-              <dt className="text-neutral-500">Custo de produção</dt>
-              <dd className="font-medium text-neutral-900">{formatarMoeda(custoProducao)}</dd>
-            </div>
-            <div className="flex justify-between">
-              <dt className="text-neutral-500">+ Embalagem</dt>
-              <dd className="font-medium text-neutral-900">{formatarMoeda(custoEmbalagem)}</dd>
-            </div>
-            <div className="flex justify-between border-t border-neutral-100 pt-2">
-              <dt className="text-neutral-500">Custo total</dt>
-              <dd className="font-semibold text-neutral-900">{formatarMoeda(precificacao.custoTotal)}</dd>
-            </div>
-            <div className="flex justify-between">
-              <dt className="text-neutral-500">Preço de venda sugerido</dt>
-              <dd className="text-base font-semibold text-purple-800">{formatarMoeda(precificacao.precoVenda)}</dd>
-            </div>
-            <div className="flex justify-between border-t border-neutral-100 pt-2 text-xs text-neutral-500">
-              <dt>Taxa de cartão</dt>
-              <dd>− {formatarMoeda(precificacao.valorTaxaCartao)}</dd>
-            </div>
-            <div className="flex justify-between text-xs text-neutral-500">
-              <dt>Imposto</dt>
-              <dd>− {formatarMoeda(precificacao.valorImposto)}</dd>
-            </div>
-            <div className="flex justify-between text-xs text-neutral-500">
-              <dt>Comissão</dt>
-              <dd>− {formatarMoeda(precificacao.valorComissao)}</dd>
-            </div>
-            <div className="flex justify-between border-t border-neutral-100 pt-2">
-              <dt className="text-neutral-500">Lucro líquido</dt>
-              <dd
-                className={`font-semibold ${precificacao.lucroLiquido < 0 ? "text-red-600" : "text-green-600"}`}
-              >
-                {formatarMoeda(precificacao.lucroLiquido)}
-              </dd>
-            </div>
-            <div className="flex justify-between">
-              <dt className="text-neutral-500">Margem líquida</dt>
-              <dd
-                className={`font-semibold ${
-                  precificacao.margemLiquidaPct < 0
-                    ? "text-red-600"
-                    : precificacao.margemLiquidaPct < 15
-                      ? "text-amber-600"
-                      : "text-green-600"
-                }`}
-              >
-                {formatarPercentual(precificacao.margemLiquidaPct)}
-              </dd>
-            </div>
-          </dl>
+      <div className="space-y-5 lg:sticky lg:top-6 lg:self-start">
+        <Card>
+          <CardHeader>
+            <CardTitle>Resumo</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <dl className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <dt className="text-muted-foreground">Custo de produção</dt>
+                <dd className="font-medium text-foreground">{formatarMoeda(custoProducao)}</dd>
+              </div>
+              <div className="flex justify-between">
+                <dt className="text-muted-foreground">+ Embalagem</dt>
+                <dd className="font-medium text-foreground">{formatarMoeda(custoEmbalagem)}</dd>
+              </div>
+              <div className="flex justify-between border-t border-border pt-2">
+                <dt className="text-muted-foreground">Custo total</dt>
+                <dd className="font-semibold text-foreground">{formatarMoeda(precificacao.custoTotal)}</dd>
+              </div>
+              <div className="flex justify-between">
+                <dt className="text-muted-foreground">Preço de venda sugerido</dt>
+                <dd className="text-base font-semibold text-primary">{formatarMoeda(precificacao.precoVenda)}</dd>
+              </div>
+              <div className="flex justify-between border-t border-border pt-2 text-xs text-muted-foreground">
+                <dt>Taxa de cartão</dt>
+                <dd>− {formatarMoeda(precificacao.valorTaxaCartao)}</dd>
+              </div>
+              <div className="flex justify-between text-xs text-muted-foreground">
+                <dt>Imposto</dt>
+                <dd>− {formatarMoeda(precificacao.valorImposto)}</dd>
+              </div>
+              <div className="flex justify-between text-xs text-muted-foreground">
+                <dt>Comissão</dt>
+                <dd>− {formatarMoeda(precificacao.valorComissao)}</dd>
+              </div>
+              <div className="flex justify-between border-t border-border pt-2">
+                <dt className="text-muted-foreground">Lucro líquido</dt>
+                <dd className={precificacao.lucroLiquido < 0 ? "font-semibold text-destructive" : "font-semibold text-success"}>
+                  {formatarMoeda(precificacao.lucroLiquido)}
+                </dd>
+              </div>
+              <div className="flex items-center justify-between">
+                <dt className="text-muted-foreground">Margem líquida</dt>
+                <dd>
+                  <Badge variant={BADGE_POR_STATUS[saude.status]}>
+                    {formatarPercentual(precificacao.margemLiquidaPct)} · {saude.label}
+                  </Badge>
+                </dd>
+              </div>
+            </dl>
+          </CardContent>
         </Card>
 
-        <Card className="space-y-3 p-5">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-neutral-900">Tabela nutricional</h2>
-            <span className="text-xs text-neutral-400">porção de {pesoTotalG.toFixed(0)} g</span>
-          </div>
-          <dl className="space-y-1.5 text-sm">
-            <Linha label="Valor energético" valor={`${macros.energiaKcal.toFixed(0)} kcal`} />
-            <Linha label="Carboidratos" valor={`${macros.carboidratos.toFixed(1)} g`} />
-            <Linha label="Açúcares totais" valor={`${macros.acucaresTotais.toFixed(1)} g`} />
-            <Linha label="Proteínas" valor={`${macros.proteinas.toFixed(1)} g`} />
-            <Linha label="Gorduras totais" valor={`${macros.gordurasTotais.toFixed(1)} g`} />
-            <Linha label="Gorduras saturadas" valor={`${macros.gordurasSaturadas.toFixed(1)} g`} />
-            <Linha label="Gorduras trans" valor={`${macros.gordurasTrans.toFixed(1)} g`} />
-            <Linha label="Fibra alimentar" valor={`${macros.fibraAlimentar.toFixed(1)} g`} />
-            <Linha label="Sódio" valor={`${macros.sodio.toFixed(0)} mg`} />
-          </dl>
-          <div className="flex gap-1.5 border-t border-neutral-100 pt-3">
-            {temGluten ? <span className="rounded bg-amber-100 px-1.5 py-0.5 text-xs text-amber-700">Contém glúten</span> : null}
-            {temLactose ? <span className="rounded bg-sky-100 px-1.5 py-0.5 text-xs text-sky-700">Contém lactose</span> : null}
-            {!temGluten && !temLactose ? <span className="text-xs text-neutral-400">Sem glúten ou lactose nos insumos cadastrados</span> : null}
-          </div>
+        <Card>
+          <CardHeader className="flex-row items-center justify-between space-y-0">
+            <CardTitle>Tabela nutricional</CardTitle>
+            <span className="text-xs text-muted-foreground">porção de {pesoTotalG.toFixed(0)} g</span>
+          </CardHeader>
+          <CardContent>
+            <dl className="space-y-1.5 text-sm">
+              <Linha label="Valor energético" valor={`${macros.energiaKcal.toFixed(0)} kcal`} />
+              <Linha label="Carboidratos" valor={`${macros.carboidratos.toFixed(1)} g`} />
+              <Linha label="Açúcares totais" valor={`${macros.acucaresTotais.toFixed(1)} g`} />
+              <Linha label="Proteínas" valor={`${macros.proteinas.toFixed(1)} g`} />
+              <Linha label="Gorduras totais" valor={`${macros.gordurasTotais.toFixed(1)} g`} />
+              <Linha label="Gorduras saturadas" valor={`${macros.gordurasSaturadas.toFixed(1)} g`} />
+              <Linha label="Gorduras trans" valor={`${macros.gordurasTrans.toFixed(1)} g`} />
+              <Linha label="Fibra alimentar" valor={`${macros.fibraAlimentar.toFixed(1)} g`} />
+              <Linha label="Sódio" valor={`${macros.sodio.toFixed(0)} mg`} />
+            </dl>
+            <Separator className="my-3" />
+            <div className="flex flex-wrap gap-1.5">
+              {temGluten ? (
+                <Badge variant="amber">
+                  <Wheat className="size-3" />
+                  Contém glúten
+                </Badge>
+              ) : null}
+              {temLactose ? (
+                <Badge variant="sky">
+                  <Milk className="size-3" />
+                  Contém lactose
+                </Badge>
+              ) : null}
+              {!temGluten && !temLactose ? (
+                <span className="text-xs text-muted-foreground">Sem glúten ou lactose nos insumos cadastrados</span>
+              ) : null}
+            </div>
+          </CardContent>
         </Card>
       </div>
     </form>
@@ -333,8 +386,8 @@ export function PratoForm({
 function Linha({ label, valor }: { label: string; valor: string }) {
   return (
     <div className="flex justify-between">
-      <dt className="text-neutral-500">{label}</dt>
-      <dd className="text-neutral-900">{valor}</dd>
+      <dt className="text-muted-foreground">{label}</dt>
+      <dd className="text-foreground">{valor}</dd>
     </div>
   );
 }

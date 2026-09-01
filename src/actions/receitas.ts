@@ -73,7 +73,7 @@ export async function criarReceitaAction(
   await salvarItens(nova.id, itens);
 
   revalidatePath("/receitas");
-  redirect("/receitas");
+  redirect("/receitas?toast=criado");
 }
 
 export async function atualizarReceitaAction(
@@ -92,7 +92,7 @@ export async function atualizarReceitaAction(
 
   revalidatePath("/receitas");
   revalidatePath(`/receitas/${id}`);
-  redirect("/receitas");
+  redirect("/receitas?toast=atualizado");
 }
 
 export async function excluirReceitaAction(id: string) {

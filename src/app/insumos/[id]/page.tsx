@@ -1,9 +1,12 @@
 import { notFound } from "next/navigation";
+import { History, TrendingDown, TrendingUp } from "lucide-react";
 import { desc, eq } from "drizzle-orm";
 import { buscarInsumo } from "@/db/queries/insumos";
 import { db } from "@/db";
 import { insumoPrecoHistorico } from "@/db/schema";
 import { InsumoForm } from "@/components/insumo-form";
+import { PageHeader } from "@/components/page-header";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { formatarMoeda } from "@/lib/calculations";
 
 export default async function EditarInsumoPage({ params }: PageProps<"/insumos/[id]">) {
@@ -19,24 +22,40 @@ export default async function EditarInsumoPage({ params }: PageProps<"/insumos/[
     .limit(5);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
-      <h1 className="mb-6 text-xl font-semibold text-neutral-900">Editar insumo</h1>
+    <div className="mx-auto max-w-3xl px-4 py-6 sm:px-6 sm:py-8">
+      <PageHeader title="Editar insumo" description={insumo.nome} />
       <InsumoForm insumo={insumo} />
 
       {historico.length > 0 ? (
-        <div className="mt-8">
-          <h2 className="mb-2 text-sm font-semibold text-neutral-900">Histórico de preço</h2>
-          <ul className="space-y-1 text-sm text-neutral-600">
-            {historico.map((h) => (
-              <li key={h.id} className="flex justify-between border-b border-neutral-100 py-1.5">
-                <span>{new Date(h.createdAt).toLocaleDateString("pt-BR")}</span>
-                <span>
-                  {formatarMoeda(h.precoAnterior)} → {formatarMoeda(h.precoNovo)}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <Card className="mt-5">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <History className="size-4 text-muted-foreground" />
+              Histórico de preço
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-1">
+            {historico.map((h) => {
+              const subiu = h.precoNovo > h.precoAnterior;
+              return (
+                <div
+                  key={h.id}
+                  className="flex items-center justify-between border-b border-border py-2 text-sm last:border-0"
+                >
+                  <span className="text-muted-foreground">{new Date(h.createdAt).toLocaleDateString("pt-BR")}</span>
+                  <span className="flex items-center gap-1.5 text-foreground">
+                    {formatarMoeda(h.precoAnterior)} → {formatarMoeda(h.precoNovo)}
+                    {subiu ? (
+                      <TrendingUp className="size-3.5 text-destructive" />
+                    ) : (
+                      <TrendingDown className="size-3.5 text-success" />
+                    )}
+                  </span>
+                </div>
+              );
+            })}
+          </CardContent>
+        </Card>
       ) : null}
     </div>
   );

@@ -63,7 +63,7 @@ export async function criarInsumoAction(
 
   await db.insert(insumos).values(parsed.data);
   revalidatePath("/insumos");
-  redirect("/insumos");
+  redirect("/insumos?toast=criado");
 }
 
 export async function atualizarInsumoAction(
@@ -96,7 +96,7 @@ export async function atualizarInsumoAction(
 
   revalidatePath("/insumos");
   revalidatePath(`/insumos/${id}`);
-  redirect("/insumos");
+  redirect("/insumos?toast=atualizado");
 }
 
 export async function excluirInsumoAction(id: string) {

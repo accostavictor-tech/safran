@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { obterSessao } from "@/lib/auth";
-import { NavHeader } from "@/components/nav-header";
+import { AppSidebar } from "@/components/app-sidebar";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,13 +24,17 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   const sessao = await obterSessao();
 
   return (
-    <html
-      lang="pt-BR"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col bg-neutral-50 text-neutral-900">
-        {sessao ? <NavHeader nome={sessao.nome} /> : null}
-        <main className="flex-1">{children}</main>
+    <html lang="pt-BR" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+      <body className="min-h-full bg-background text-foreground">
+        {sessao ? (
+          <>
+            <AppSidebar nome={sessao.nome} />
+            <main className="min-h-screen md:pl-60">{children}</main>
+          </>
+        ) : (
+          <main className="min-h-screen">{children}</main>
+        )}
+        <Toaster />
       </body>
     </html>
   );

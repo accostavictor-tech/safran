@@ -195,3 +195,13 @@ export function formatarNumero(valor: number, decimais = 1): string {
 export function formatarPercentual(valor: number, decimais = 1): string {
   return `${formatarNumero(valor, decimais)}%`;
 }
+
+export type SaudeMargemStatus = "prejuizo" | "apertada" | "ok" | "saudavel" | "excelente";
+
+export function classificarSaudeMargem(margemLiquidaPct: number): { status: SaudeMargemStatus; label: string } {
+  if (margemLiquidaPct < 0) return { status: "prejuizo", label: "Prejuízo" };
+  if (margemLiquidaPct < 15) return { status: "apertada", label: "Apertada" };
+  if (margemLiquidaPct < 25) return { status: "ok", label: "Ok" };
+  if (margemLiquidaPct < 40) return { status: "saudavel", label: "Saudável" };
+  return { status: "excelente", label: "Excelente" };
+}

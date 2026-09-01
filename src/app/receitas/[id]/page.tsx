@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { buscarReceitaComItens } from "@/db/queries/receitas";
 import { listarInsumosParaSelecao } from "@/db/queries/insumos";
 import { ReceitaForm } from "@/components/receita-form";
+import { PageHeader } from "@/components/page-header";
 
 export default async function EditarReceitaPage({ params }: PageProps<"/receitas/[id]">) {
   const { id } = await params;
@@ -12,8 +13,8 @@ export default async function EditarReceitaPage({ params }: PageProps<"/receitas
   if (!dados) notFound();
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
-      <h1 className="mb-6 text-xl font-semibold text-neutral-900">Editar receita</h1>
+    <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8">
+      <PageHeader title="Editar receita" description={dados.receita.nome} />
       <ReceitaForm
         receita={dados.receita}
         itensIniciais={dados.itens.map((i) => ({ insumoId: i.insumoId, quantidadeLiquida: i.quantidadeLiquida }))}

@@ -1,84 +1,113 @@
 import Link from "next/link";
+import { Suspense } from "react";
+import { Plus, Package, Wheat, Milk } from "lucide-react";
 import { listarInsumosComContagem } from "@/db/queries/insumos";
 import { formatarMoeda, formatarNumero } from "@/lib/calculations";
-import { Card, LinkButton } from "@/components/ui";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
+import { PageHeader } from "@/components/page-header";
+import { EmptyState } from "@/components/empty-state";
+import { ToastFromQuery } from "@/components/toast-from-query";
 import { ExcluirInsumoButton } from "./excluir-button";
 
 function unidadeLabel(u: string) {
-  if (u === "g") return "R$ / 100g";
-  if (u === "ml") return "R$ / 100ml";
-  return "R$ / unidade";
+  if (u === "g") return "/ 100g";
+  if (u === "ml") return "/ 100ml";
+  return "/ un";
 }
 
 export default async function InsumosPage() {
   const linhas = await listarInsumosComContagem();
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-      <div className="mb-6 flex items-center justify-between">
-        <div>
-          <h1 className="text-xl font-semibold text-neutral-900">Insumos</h1>
-          <p className="text-sm text-neutral-500">{linhas.length} insumos cadastrados</p>
-        </div>
-        <LinkButton href="/insumos/novo">+ Novo insumo</LinkButton>
-      </div>
+    <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
+      <Suspense fallback={null}>
+        <ToastFromQuery messages={{ criado: "Insumo criado.", atualizado: "Insumo atualizado." }} />
+      </Suspense>
+      <PageHeader
+        title="Insumos"
+        description={`${linhas.length} insumo${linhas.length === 1 ? "" : "s"} cadastrado${linhas.length === 1 ? "" : "s"}`}
+        action={
+          <Button asChild>
+            <Link href="/insumos/novo">
+              <Plus />
+              Novo insumo
+            </Link>
+          </Button>
+        }
+      />
 
-      <Card className="overflow-x-auto">
-        <table className="w-full min-w-[820px] text-sm">
-          <thead>
-            <tr className="border-b border-neutral-200 text-left text-xs uppercase tracking-wide text-neutral-500">
-              <th className="px-4 py-3 font-medium">Nome</th>
-              <th className="px-4 py-3 font-medium">Custo</th>
-              <th className="px-4 py-3 font-medium">FC</th>
-              <th className="px-4 py-3 font-medium">Restrições</th>
-              <th className="px-4 py-3 font-medium">Receitas</th>
-              <th className="px-4 py-3 font-medium">Atualizado</th>
-              <th className="px-4 py-3" />
-            </tr>
-          </thead>
-          <tbody>
-            {linhas.map(({ insumo, receitasCount }) => (
-              <tr key={insumo.id} className="border-b border-neutral-100 last:border-0 hover:bg-neutral-50">
-                <td className="px-4 py-3 font-medium text-neutral-900">{insumo.nome}</td>
-                <td className="px-4 py-3 text-neutral-700">
-                  {formatarMoeda(insumo.custo)}
-                  <span className="ml-1 text-xs text-neutral-400">{unidadeLabel(insumo.unidadeMedida)}</span>
-                </td>
-                <td className="px-4 py-3 text-neutral-700">{formatarNumero(insumo.fatorCorrecao, 2)}</td>
-                <td className="px-4 py-3">
-                  <div className="flex gap-1">
-                    {insumo.temGluten ? (
-                      <span className="rounded bg-amber-100 px-1.5 py-0.5 text-xs text-amber-700">Glúten</span>
-                    ) : null}
-                    {insumo.temLactose ? (
-                      <span className="rounded bg-sky-100 px-1.5 py-0.5 text-xs text-sky-700">Lactose</span>
-                    ) : null}
-                  </div>
-                </td>
-                <td className="px-4 py-3 text-neutral-700">{receitasCount}</td>
-                <td className="px-4 py-3 text-neutral-500">
-                  {new Date(insumo.updatedAt).toLocaleDateString("pt-BR")}
-                </td>
-                <td className="px-4 py-3">
-                  <div className="flex justify-end gap-2">
-                    <Link href={`/insumos/${insumo.id}`} className="text-sm font-medium text-purple-700 hover:underline">
-                      Editar
+      {linhas.length === 0 ? (
+        <EmptyState
+          icon={Package}
+          title="Nenhum insumo cadastrado"
+          description="Cadastre os insumos que vocês compram — depois é só montar as receitas com eles."
+          actionHref="/insumos/novo"
+          actionLabel="Cadastrar insumo"
+        />
+      ) : (
+        <Card className="overflow-hidden py-0">
+          <Table className="min-w-[820px]">
+            <TableHeader>
+              <TableRow>
+                <TableHead>Nome</TableHead>
+                <TableHead>Custo</TableHead>
+                <TableHead>FC</TableHead>
+                <TableHead>Restrições</TableHead>
+                <TableHead>Em receitas</TableHead>
+                <TableHead>Atualizado</TableHead>
+                <TableHead className="text-right">Ações</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {linhas.map(({ insumo, receitasCount }) => (
+                <TableRow key={insumo.id}>
+                  <TableCell className="font-medium text-foreground">
+                    <Link href={`/insumos/${insumo.id}`} className="hover:text-primary hover:underline">
+                      {insumo.nome}
                     </Link>
-                    <ExcluirInsumoButton id={insumo.id} disabled={receitasCount > 0} />
-                  </div>
-                </td>
-              </tr>
-            ))}
-            {linhas.length === 0 ? (
-              <tr>
-                <td colSpan={7} className="px-4 py-10 text-center text-sm text-neutral-400">
-                  Nenhum insumo cadastrado ainda.
-                </td>
-              </tr>
-            ) : null}
-          </tbody>
-        </table>
-      </Card>
+                  </TableCell>
+                  <TableCell className="text-foreground">
+                    {formatarMoeda(insumo.custo)}
+                    <span className="ml-1 text-xs text-muted-foreground">{unidadeLabel(insumo.unidadeMedida)}</span>
+                  </TableCell>
+                  <TableCell className="text-muted-foreground">{formatarNumero(insumo.fatorCorrecao, 2)}</TableCell>
+                  <TableCell>
+                    <div className="flex gap-1">
+                      {insumo.temGluten ? (
+                        <Badge variant="amber">
+                          <Wheat className="size-3" />
+                          Glúten
+                        </Badge>
+                      ) : null}
+                      {insumo.temLactose ? (
+                        <Badge variant="sky">
+                          <Milk className="size-3" />
+                          Lactose
+                        </Badge>
+                      ) : null}
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-muted-foreground">{receitasCount}</TableCell>
+                  <TableCell className="text-muted-foreground">
+                    {new Date(insumo.updatedAt).toLocaleDateString("pt-BR")}
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex justify-end gap-3">
+                      <Link href={`/insumos/${insumo.id}`} className="text-sm font-medium text-primary hover:underline">
+                        Editar
+                      </Link>
+                      <ExcluirInsumoButton id={insumo.id} disabled={receitasCount > 0} />
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Card>
+      )}
     </div>
   );
 }

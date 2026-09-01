@@ -74,7 +74,7 @@ export async function criarPratoAction(_prevState: PratoFormState, formData: For
   await salvarItens(novo.id, itens);
 
   revalidatePath("/pratos");
-  redirect("/pratos");
+  redirect("/pratos?toast=criado");
 }
 
 export async function atualizarPratoAction(
@@ -93,7 +93,7 @@ export async function atualizarPratoAction(
 
   revalidatePath("/pratos");
   revalidatePath(`/pratos/${id}`);
-  redirect("/pratos");
+  redirect("/pratos?toast=atualizado");
 }
 
 export async function excluirPratoAction(id: string) {
