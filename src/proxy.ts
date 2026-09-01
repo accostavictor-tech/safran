@@ -23,6 +23,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  // Rotas de API cuidam da própria autenticação (ex.: /api/admin-setup, por token).
   matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };
