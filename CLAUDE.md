@@ -1,3 +1,5 @@
+@AGENTS.md
+
 # Safran Alimentos LTDA — Contexto do negócio
 
 Este repositório é dedicado ao trabalho relacionado à **Safran Alimentos LTDA**
