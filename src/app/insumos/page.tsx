@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import { Plus, Package, Wheat, Milk } from "lucide-react";
+import { Plus, Package, Wheat, Milk, CheckCircle2, CircleAlert } from "lucide-react";
 import { listarInsumosComContagem } from "@/db/queries/insumos";
 import { formatarMoeda, formatarNumero, formatarCodigo } from "@/lib/calculations";
 import { Card } from "@/components/ui/card";
@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import { PageHeader } from "@/components/page-header";
 import { EmptyState } from "@/components/empty-state";
+import { StatTile } from "@/components/stat-tile";
 import { ToastFromQuery } from "@/components/toast-from-query";
 import { ExcluirInsumoButton } from "./excluir-button";
 
@@ -20,6 +21,8 @@ function unidadeLabel(u: string) {
 
 export default async function InsumosPage() {
   const linhas = await listarInsumosComContagem();
+  const revisados = linhas.filter(({ insumo }) => insumo.macroRevisadoEm).length;
+  const semRevisao = linhas.length - revisados;
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
@@ -39,6 +42,18 @@ export default async function InsumosPage() {
         }
       />
 
+      {linhas.length > 0 ? (
+        <div className="mb-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <StatTile icon={CheckCircle2} label="Macros revisados" value={String(revisados)} tone="success" />
+          <StatTile
+            icon={CircleAlert}
+            label="Ainda sem revisão"
+            value={String(semRevisao)}
+            tone={semRevisao > 0 ? "warning" : "default"}
+          />
+        </div>
+      ) : null}
+
       {linhas.length === 0 ? (
         <EmptyState
           icon={Package}
@@ -57,8 +72,8 @@ export default async function InsumosPage() {
                 <TableHead>Custo</TableHead>
                 <TableHead>FC</TableHead>
                 <TableHead>Restrições</TableHead>
+                <TableHead>Macros</TableHead>
                 <TableHead>Em receitas</TableHead>
-                <TableHead>Atualizado</TableHead>
                 <TableHead className="text-right">Ações</TableHead>
               </TableRow>
             </TableHeader>
@@ -94,10 +109,20 @@ export default async function InsumosPage() {
                       ) : null}
                     </div>
                   </TableCell>
-                  <TableCell className="text-muted-foreground">{receitasCount}</TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {new Date(insumo.updatedAt).toLocaleDateString("pt-BR")}
+                  <TableCell>
+                    {insumo.macroRevisadoEm ? (
+                      <Badge variant="success">
+                        <CheckCircle2 className="size-3" />
+                        {new Date(insumo.macroRevisadoEm).toLocaleDateString("pt-BR")}
+                      </Badge>
+                    ) : (
+                      <Badge variant="warning">
+                        <CircleAlert className="size-3" />
+                        Pendente
+                      </Badge>
+                    )}
                   </TableCell>
+                  <TableCell className="text-muted-foreground">{receitasCount}</TableCell>
                   <TableCell>
                     <div className="flex justify-end gap-3">
                       <Link href={`/insumos/${insumo.id}`} className="text-sm font-medium text-primary hover:underline">

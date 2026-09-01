@@ -1,0 +1,1 @@
+export const MIGRATION_SQL_0002 = "CREATE TYPE \"public\".\"macro_fonte\" AS ENUM('taco', 'tbca', 'rotulo', 'manual');--> statement-breakpoint\nALTER TABLE \"insumos\" ADD COLUMN \"macro_fonte\" \"macro_fonte\";--> statement-breakpoint\nALTER TABLE \"insumos\" ADD COLUMN \"macro_revisado_em\" timestamp with time zone;";

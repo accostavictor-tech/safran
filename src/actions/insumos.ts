@@ -7,6 +7,18 @@ import { z } from "zod";
 import { db } from "@/db";
 import { insumos, insumoPrecoHistorico } from "@/db/schema";
 
+const CAMPOS_MACRO = [
+  "energiaKcal",
+  "carboidratos",
+  "acucaresTotais",
+  "proteinas",
+  "gordurasTotais",
+  "gordurasSaturadas",
+  "gordurasTrans",
+  "fibraAlimentar",
+  "sodio",
+] as const;
+
 const insumoSchema = z.object({
   nome: z.string().trim().min(1, "Informe o nome."),
   unidadeMedida: z.enum(["g", "ml", "un"]),
@@ -23,7 +35,10 @@ const insumoSchema = z.object({
   gordurasTrans: z.coerce.number().optional().nullable(),
   fibraAlimentar: z.coerce.number().optional().nullable(),
   sodio: z.coerce.number().optional().nullable(),
+  macroFonte: z.enum(["taco", "tbca", "rotulo", "manual"]).optional().nullable(),
 });
+
+type InsumoParsed = z.infer<typeof insumoSchema>;
 
 export interface InsumoFormState {
   erro?: string;
@@ -32,6 +47,7 @@ export interface InsumoFormState {
 function parseFormData(formData: FormData) {
   const numOrNull = (v: FormDataEntryValue | null) =>
     v === null || v === "" ? null : v;
+  const strOrNull = (v: FormDataEntryValue | null) => (v === null || v === "" ? null : v);
 
   return {
     nome: formData.get("nome"),
@@ -49,7 +65,14 @@ function parseFormData(formData: FormData) {
     gordurasTrans: numOrNull(formData.get("gordurasTrans")),
     fibraAlimentar: numOrNull(formData.get("fibraAlimentar")),
     sodio: numOrNull(formData.get("sodio")),
+    macroFonte: strOrNull(formData.get("macroFonte")),
   };
+}
+
+/** true se algum campo de macro ou a fonte mudou em relação ao registro atual. */
+function macrosMudaram(atual: typeof insumos.$inferSelect, novo: InsumoParsed): boolean {
+  if ((atual.macroFonte ?? null) !== (novo.macroFonte ?? null)) return true;
+  return CAMPOS_MACRO.some((campo) => (atual[campo] ?? null) !== (novo[campo] ?? null));
 }
 
 export async function criarInsumoAction(
@@ -61,7 +84,10 @@ export async function criarInsumoAction(
     return { erro: parsed.error.issues[0]?.message ?? "Dados inválidos." };
   }
 
-  await db.insert(insumos).values(parsed.data);
+  await db.insert(insumos).values({
+    ...parsed.data,
+    macroRevisadoEm: parsed.data.macroFonte ? new Date() : null,
+  });
   revalidatePath("/insumos");
   redirect("/insumos?toast=criado");
 }
@@ -81,9 +107,11 @@ export async function atualizarInsumoAction(
     return { erro: "Insumo não encontrado." };
   }
 
+  const macroRevisadoEm = macrosMudaram(atual, parsed.data) ? new Date() : atual.macroRevisadoEm;
+
   await db
     .update(insumos)
-    .set({ ...parsed.data, updatedAt: new Date() })
+    .set({ ...parsed.data, macroRevisadoEm, updatedAt: new Date() })
     .where(eq(insumos.id, id));
 
   if (atual.custo !== parsed.data.custo) {

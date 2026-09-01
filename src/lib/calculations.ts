@@ -200,6 +200,15 @@ export function formatarCodigo(prefixo: "INS" | "REC" | "PRT", codigo: number): 
   return `${prefixo}-${String(codigo).padStart(4, "0")}`;
 }
 
+export type MacroFonte = "taco" | "tbca" | "rotulo" | "manual";
+
+export const MACRO_FONTE_LABEL: Record<MacroFonte, string> = {
+  taco: "TACO",
+  tbca: "TBCA",
+  rotulo: "Rótulo do fabricante",
+  manual: "Estimativa manual",
+};
+
 export type SaudeMargemStatus = "prejuizo" | "apertada" | "ok" | "saudavel" | "excelente";
 
 export function classificarSaudeMargem(margemLiquidaPct: number): { status: SaudeMargemStatus; label: string } {

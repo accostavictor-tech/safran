@@ -10,6 +10,7 @@ import {
 } from "drizzle-orm/pg-core";
 
 export const unidadeMedidaEnum = pgEnum("unidade_medida", ["g", "ml", "un"]);
+export const macroFonteEnum = pgEnum("macro_fonte", ["taco", "tbca", "rotulo", "manual"]);
 
 // Os 3 sócios que operam o sistema. Sem cadastro público — contas criadas via seed.
 export const usuarios = pgTable("usuarios", {
@@ -43,6 +44,9 @@ export const insumos = pgTable("insumos", {
   gordurasTrans: numeric("gorduras_trans", { precision: 10, scale: 2, mode: "number" }),
   fibraAlimentar: numeric("fibra_alimentar", { precision: 10, scale: 2, mode: "number" }),
   sodio: numeric("sodio", { precision: 10, scale: 2, mode: "number" }),
+  // De onde vieram os valores de macronutrientes, e quando foram conferidos pela última vez.
+  macroFonte: macroFonteEnum("macro_fonte"),
+  macroRevisadoEm: timestamp("macro_revisado_em", { withTimezone: true }),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });

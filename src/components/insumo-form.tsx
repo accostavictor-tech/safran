@@ -2,13 +2,16 @@
 
 import { useActionState } from "react";
 import { useRouter } from "next/navigation";
+import { CheckCircle2, CircleAlert } from "lucide-react";
 import { criarInsumoAction, atualizarInsumoAction, type InsumoFormState } from "@/actions/insumos";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { MACRO_FONTE_LABEL } from "@/lib/calculations";
 import type { insumos } from "@/db/schema";
 
 type Insumo = typeof insumos.$inferSelect;
@@ -93,11 +96,43 @@ export function InsumoForm({ insumo }: { insumo?: Insumo }) {
       </Card>
 
       <Card>
-        <CardHeader>
-          <CardTitle>Macronutrientes por 100g/100ml/unidade</CardTitle>
-          <CardDescription>Opcional — usado para calcular a tabela nutricional dos pratos.</CardDescription>
+        <CardHeader className="flex-row items-start justify-between space-y-0">
+          <div>
+            <CardTitle>Macronutrientes por 100g/100ml/unidade</CardTitle>
+            <CardDescription className="mt-1">Usado para calcular a tabela nutricional dos pratos.</CardDescription>
+          </div>
+          {insumo?.macroRevisadoEm ? (
+            <Badge variant="success" className="shrink-0">
+              <CheckCircle2 className="size-3" />
+              Revisado em {new Date(insumo.macroRevisadoEm).toLocaleDateString("pt-BR")}
+            </Badge>
+          ) : (
+            <Badge variant="warning" className="shrink-0">
+              <CircleAlert className="size-3" />
+              Ainda não revisado
+            </Badge>
+          )}
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-4">
+          <div className="space-y-1.5 sm:max-w-xs">
+            <Label htmlFor="macroFonte">Fonte dos dados</Label>
+            <Select name="macroFonte" defaultValue={insumo?.macroFonte ?? undefined}>
+              <SelectTrigger id="macroFonte" className="w-full">
+                <SelectValue placeholder="Selecione a fonte..." />
+              </SelectTrigger>
+              <SelectContent>
+                {Object.entries(MACRO_FONTE_LABEL).map(([valor, label]) => (
+                  <SelectItem key={valor} value={valor}>
+                    {label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="text-xs text-muted-foreground">
+              Insumo natural: TACO ou TBCA. Industrializado: rótulo do fabricante.
+            </p>
+          </div>
+
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
             {MACRO_FIELDS.map((f) => (
               <div key={f.name} className="space-y-1.5">
