@@ -70,6 +70,7 @@ da lógica já validada no protótipo anterior (ver `calcularCustoItem`,
 | `npm run db:migrate` | Aplica migrations geradas |
 | `npm run db:seed` | Cria as contas dos 3 sócios |
 | `npm run db:studio` | Abre o Drizzle Studio (explorador visual do banco) |
+| `npm run db:import-lovable -- <pasta> [--reset]` | Importa o export CSV do Lovable/Supabase (ver seção abaixo) |
 
 ## Deploy no Vercel
 
@@ -84,11 +85,35 @@ da lógica já validada no protótipo anterior (ver `calcularCustoItem`,
 
 ## Migração dos dados do Lovable
 
-O protótipo anterior ("Tabela Fácil") guardava os dados em Supabase, nas
-tabelas `ingredientes`, `fichas_tecnicas` e `ficha_ingredientes`. Para trazer
-o que já foi cadastrado lá para este sistema, é preciso um script pontual de
-migração que leia dessas tabelas (via URL + service key do projeto Supabase
-antigo) e grave nas tabelas equivalentes daqui (`insumos`, `receitas`,
-`receita_insumos` — ver `src/db/schema.ts`). Esse script ainda não foi
-escrito nesta pasta; peça para o Claude gerar quando tiver as credenciais do
-projeto Supabase antigo em mãos (fora do chat, num `.env`).
+`src/db/migrate-lovable.ts` importa o export CSV feito direto do Supabase do
+protótipo anterior ("Tabela Fácil"). Ele espera uma pasta com os arquivos
+`ingredientes-export*.csv`, `fichas_tecnicas-export*.csv`,
+`ficha_ingredientes-export*.csv`, `rotulos-export*.csv`,
+`rotulo_fichas-export*.csv` e `ingrediente_preco_historico-export*.csv`
+(delimitador `;`, igual ao export padrão do Supabase).
+
+```bash
+npm run db:import-lovable -- /caminho/para/pasta/com/os/csvs
+# ou, para apagar o que já existe e reimportar do zero:
+npm run db:import-lovable -- /caminho/para/pasta/com/os/csvs --reset
+```
+
+Mapeamento: `ingredientes` → `insumos` (usa `nome_exibicao` como nome, já que
+é o nome amigável usado no dia a dia), `fichas_tecnicas` → `receitas`,
+`ficha_ingredientes` → `receita_insumos`, `rotulos` → `pratos`,
+`rotulo_fichas` → `prato_receitas`, `ingrediente_preco_historico` →
+`insumo_preco_historico`. Os UUIDs originais são preservados, então as
+relações continuam íntegras.
+
+**O que não é migrado** (o protótipo tinha camadas que este sistema não
+tem):
+- `ficha_custo_historico` (auditoria detalhada de variação de custo por
+  ficha) — este sistema só guarda o histórico de preço por insumo.
+- Alergênicos além de glúten/lactose (ex.: "Ovo") — o formulário de insumos
+  só tem essas duas checkboxes; o script avisa no terminal quais insumos
+  tinham outras marcações para revisão manual.
+- Açúcares adicionados (separado de açúcares totais) — não faz parte da
+  tabela nutricional simplificada deste sistema.
+- O conceito de "sub-receita" (`is_sub_receita`) — no export atual nenhuma
+  ficha era de fato usada como ingrediente de outra, então isso não afeta os
+  dados; a flag em si só não é migrada.
