@@ -2,18 +2,24 @@
 
 import { useActionState, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, X, GripVertical, Wheat, Milk } from "lucide-react";
+import { Plus, X, GripVertical, Wheat, Milk, Store, TriangleAlert } from "lucide-react";
 import { criarPratoAction, atualizarPratoAction, type PratoFormState } from "@/actions/pratos";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import {
   calcularPrecificacao,
+  calcularMargemRealizada,
+  calcularPrecoParaMargem,
+  abaixoDoPiso,
+  PISO_MARGEM_CONTRIBUICAO_PCT,
+  centavosParaReais,
   escalarMacros,
   somarMacrosLista,
   formatarMoeda,
@@ -22,6 +28,7 @@ import {
   classificarSaudeMargem,
   MACRO_ZERO,
 } from "@/lib/calculations";
+import { gerarSlug } from "@/lib/slug";
 import type { pratos } from "@/db/schema";
 import type { ReceitaParaMontagem } from "@/db/queries/pratos";
 
@@ -38,7 +45,7 @@ const initialState: PratoFormState = {};
 const BADGE_POR_STATUS = {
   prejuizo: "destructive",
   apertada: "warning",
-  ok: "secondary",
+  abaixo_piso: "warning",
   saudavel: "success",
   excelente: "success",
 } as const;
@@ -71,6 +78,14 @@ export function PratoForm({
   const [taxaCartao, setTaxaCartao] = useState(prato?.taxaCartao ?? 0);
   const [imposto, setImposto] = useState(prato?.imposto ?? 0);
   const [comissao, setComissao] = useState(prato?.comissao ?? 0);
+
+  // Vitrine
+  const [nome, setNome] = useState(prato?.nome ?? "");
+  const [precoVenda, setPrecoVenda] = useState(
+    prato?.precoVendaCentavos != null ? String(centavosParaReais(prato.precoVendaCentavos)) : ""
+  );
+  const [disponibilidade, setDisponibilidade] = useState(prato?.disponibilidade ?? "sempre");
+  const [publicado, setPublicado] = useState(prato?.publicado ?? false);
 
   const receitasPorId = useMemo(() => new Map(receitasDisponiveis.map((r) => [r.id, r])), [receitasDisponiveis]);
 
@@ -113,7 +128,29 @@ export function PratoForm({
   const pesoTotalG = itensValidos.reduce((acc, i) => acc + i.quantidadeG, 0);
   const temGluten = itensValidos.some((i) => i.receita.temGluten);
   const temLactose = itensValidos.some((i) => i.receita.temLactose);
-  const saude = classificarSaudeMargem(precificacao.margemLiquidaPct);
+  // Margem do preço que a loja realmente cobra (quando já definido).
+  const precoVendaNum = Number(precoVenda.replace(",", "."));
+  const temPrecoVenda = Number.isFinite(precoVendaNum) && precoVendaNum > 0;
+  const realizada = temPrecoVenda
+    ? calcularMargemRealizada({
+        precoVenda: precoVendaNum,
+        custoProducao,
+        custoEmbalagem,
+        taxaCartao,
+        imposto,
+        comissao,
+      })
+    : null;
+  // O resumo mostra os números do preço que a loja cobra; só cai no sugerido
+  // enquanto não existe preço definido.
+  const efetiva = realizada ?? precificacao;
+  const efetivaEhReal = realizada !== null;
+  const saudeEfetiva = classificarSaudeMargem(efetiva.margemLiquidaPct);
+  const precoNoPiso = calcularPrecoParaMargem(
+    precificacao.custoTotal,
+    { taxaCartao, imposto, comissao },
+    PISO_MARGEM_CONTRIBUICAO_PCT
+  );
 
   const itensJson = JSON.stringify(itensValidos.map((i) => ({ receitaId: i.receita.id, quantidadeG: i.quantidadeG })));
 
@@ -129,12 +166,142 @@ export function PratoForm({
           <CardContent className="space-y-3">
             <div className="space-y-1.5">
               <Label htmlFor="nome">Nome do prato</Label>
-              <Input id="nome" name="nome" required defaultValue={prato?.nome} placeholder="Ex: Marmita frango xadrez" autoFocus />
+              <Input
+                id="nome"
+                name="nome"
+                required
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+                placeholder="Ex: Marmita frango xadrez"
+                autoFocus
+              />
             </div>
             <label className="flex items-center gap-2 text-sm text-foreground">
               <Checkbox name="ativo" defaultChecked={prato?.ativo ?? true} />
-              Prato ativo no cardápio
+              Prato ativo (em uso internamente)
             </label>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Store className="size-4 text-muted-foreground" />
+              Loja
+            </CardTitle>
+            <CardDescription className="mt-1">
+              O preço aqui é o que o cliente paga. A fórmula ao lado só sugere — quem decide é você.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="space-y-1.5">
+                <Label htmlFor="precoVenda">Preço de venda (R$)</Label>
+                <Input
+                  id="precoVenda"
+                  name="precoVenda"
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  value={precoVenda}
+                  onChange={(e) => setPrecoVenda(e.target.value)}
+                  placeholder={precificacao.precoVenda > 0 ? precificacao.precoVenda.toFixed(2) : "0,00"}
+                />
+                {realizada ? (
+                  <p className="text-xs text-muted-foreground">
+                    Margem real{" "}
+                    <span className={abaixoDoPiso(realizada.margemLiquidaPct) ? "font-semibold text-warning-foreground" : "font-semibold text-success"}>
+                      {formatarPercentual(realizada.margemLiquidaPct)}
+                    </span>{" "}
+                    · sugerido {formatarMoeda(precificacao.precoVenda)}
+                  </p>
+                ) : (
+                  <p className="text-xs text-muted-foreground">Vazio = prato sem preço, não pode ser publicado.</p>
+                )}
+              </div>
+
+              <div className="space-y-1.5">
+                <Label htmlFor="categoria">Categoria</Label>
+                <Input
+                  id="categoria"
+                  name="categoria"
+                  defaultValue={prato?.categoria ?? ""}
+                  placeholder="Ex: Pratos principais"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <Label htmlFor="descricao">Descrição para o cliente</Label>
+              <Textarea
+                id="descricao"
+                name="descricao"
+                rows={3}
+                defaultValue={prato?.descricao ?? ""}
+                placeholder="O que vem no prato, do jeito que o cliente lê no cardápio."
+              />
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="space-y-1.5">
+                <Label htmlFor="disponibilidade">Disponibilidade</Label>
+                <Select name="disponibilidade" value={disponibilidade} onValueChange={(v) => setDisponibilidade(v as typeof disponibilidade)}>
+                  <SelectTrigger id="disponibilidade" className="w-full">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="sempre">Sempre (sob encomenda)</SelectItem>
+                    <SelectItem value="estoque">Controlado por estoque</SelectItem>
+                    <SelectItem value="indisponivel">Indisponível</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {disponibilidade === "estoque" ? (
+                <div className="space-y-1.5">
+                  <Label htmlFor="estoqueUnidades">Unidades em estoque</Label>
+                  <Input
+                    id="estoqueUnidades"
+                    name="estoqueUnidades"
+                    type="number"
+                    min="0"
+                    step="1"
+                    defaultValue={prato?.estoqueUnidades ?? 0}
+                  />
+                  <p className="text-xs text-muted-foreground">Sai da vitrine quando zerar.</p>
+                </div>
+              ) : null}
+            </div>
+
+            <div className="space-y-1.5">
+              <Label htmlFor="slug">Endereço na loja</Label>
+              <Input
+                id="slug"
+                name="slug"
+                defaultValue={prato?.slug ?? ""}
+                placeholder={nome ? gerarSlug(nome) : "gerado a partir do nome"}
+              />
+              <p className="text-xs text-muted-foreground">Deixe vazio para gerar do nome automaticamente.</p>
+            </div>
+
+            <Separator />
+
+            <label className="flex items-start gap-2 text-sm text-foreground">
+              <Checkbox name="publicado" checked={publicado} onCheckedChange={(v) => setPublicado(v === true)} />
+              <span>
+                Publicado na loja
+                <span className="block text-xs text-muted-foreground">
+                  Visível para o cliente no cardápio online.
+                </span>
+              </span>
+            </label>
+
+            {publicado && !temPrecoVenda ? (
+              <p className="flex items-center gap-1.5 text-sm text-destructive">
+                <TriangleAlert className="size-4 shrink-0" />
+                Defina o preço de venda antes de publicar.
+              </p>
+            ) : null}
           </CardContent>
         </Card>
 
@@ -310,36 +477,54 @@ export function PratoForm({
                 <dd className="font-semibold text-foreground">{formatarMoeda(precificacao.custoTotal)}</dd>
               </div>
               <div className="flex justify-between">
-                <dt className="text-muted-foreground">Preço de venda sugerido</dt>
-                <dd className="text-base font-semibold text-primary">{formatarMoeda(precificacao.precoVenda)}</dd>
+                <dt className="text-muted-foreground">Sugerido ({formatarPercentual(margemLucro, 0)})</dt>
+                <dd className="font-medium text-muted-foreground">{formatarMoeda(precificacao.precoVenda)}</dd>
+              </div>
+              <div className="flex justify-between">
+                <dt className={efetivaEhReal ? "font-medium text-foreground" : "text-muted-foreground"}>
+                  {efetivaEhReal ? "Preço cobrado" : "Sem preço definido"}
+                </dt>
+                <dd className="text-base font-semibold text-primary">
+                  {efetivaEhReal ? formatarMoeda(efetiva.precoVenda) : "—"}
+                </dd>
               </div>
               <div className="flex justify-between border-t border-border pt-2 text-xs text-muted-foreground">
                 <dt>Taxa de cartão</dt>
-                <dd>− {formatarMoeda(precificacao.valorTaxaCartao)}</dd>
+                <dd>− {formatarMoeda(efetiva.valorTaxaCartao)}</dd>
               </div>
               <div className="flex justify-between text-xs text-muted-foreground">
                 <dt>Imposto</dt>
-                <dd>− {formatarMoeda(precificacao.valorImposto)}</dd>
+                <dd>− {formatarMoeda(efetiva.valorImposto)}</dd>
               </div>
               <div className="flex justify-between text-xs text-muted-foreground">
                 <dt>Comissão</dt>
-                <dd>− {formatarMoeda(precificacao.valorComissao)}</dd>
+                <dd>− {formatarMoeda(efetiva.valorComissao)}</dd>
               </div>
               <div className="flex justify-between border-t border-border pt-2">
                 <dt className="text-muted-foreground">Lucro líquido</dt>
-                <dd className={precificacao.lucroLiquido < 0 ? "font-semibold text-destructive" : "font-semibold text-success"}>
-                  {formatarMoeda(precificacao.lucroLiquido)}
+                <dd className={efetiva.lucroLiquido < 0 ? "font-semibold text-destructive" : "font-semibold text-success"}>
+                  {formatarMoeda(efetiva.lucroLiquido)}
                 </dd>
               </div>
               <div className="flex items-center justify-between">
-                <dt className="text-muted-foreground">Margem líquida</dt>
+                <dt className="text-muted-foreground">Margem de contribuição</dt>
                 <dd>
-                  <Badge variant={BADGE_POR_STATUS[saude.status]}>
-                    {formatarPercentual(precificacao.margemLiquidaPct)} · {saude.label}
+                  <Badge variant={BADGE_POR_STATUS[saudeEfetiva.status]}>
+                    {formatarPercentual(efetiva.margemLiquidaPct)} · {saudeEfetiva.label}
                   </Badge>
                 </dd>
               </div>
             </dl>
+
+            {efetivaEhReal && abaixoDoPiso(efetiva.margemLiquidaPct) && precoNoPiso > 0 ? (
+              <p className="mt-3 flex items-start gap-1.5 rounded-md bg-warning/10 p-2 text-xs text-warning-foreground">
+                <TriangleAlert className="size-3.5 shrink-0 translate-y-px" />
+                <span>
+                  Abaixo do piso de {PISO_MARGEM_CONTRIBUICAO_PCT}%. Para atingir o piso, o preço precisa ser{" "}
+                  <strong>{formatarMoeda(precoNoPiso)}</strong>.
+                </span>
+              </p>
+            ) : null}
           </CardContent>
         </Card>
 

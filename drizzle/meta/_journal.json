@@ -22,6 +22,20 @@
       "when": 1788271489119,
       "tag": "0002_special_doctor_spectrum",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1789771994332,
+      "tag": "0003_dusty_beast",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1789772057222,
+      "tag": "0004_backfill_slug_pratos",
+      "breakpoints": true
     }
   ]
 }

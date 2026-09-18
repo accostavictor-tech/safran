@@ -16,7 +16,7 @@ import { ExcluirPratoButton } from "./excluir-button";
 const BADGE_POR_STATUS = {
   prejuizo: "destructive",
   apertada: "warning",
-  ok: "secondary",
+  abaixo_piso: "warning",
   saudavel: "success",
   excelente: "success",
 } as const;

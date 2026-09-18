@@ -145,22 +145,26 @@ export interface PrecificacaoResultado {
   cmvPctSobrePreco: number; // custo / preço, referência de saúde do prato
 }
 
+export interface TaxasVariaveis {
+  taxaCartao: number; // %
+  imposto: number; // %
+  comissao: number; // %
+}
+
 /**
- * Mesma fórmula usada no sistema anterior:
- * 1. Preço = (custo produção + embalagem) / (1 - margem bruta%)
- * 2. Cartão, imposto e comissão são descontados sobre o preço de venda
- * 3. Lucro líquido = preço - deduções - custo total
+ * Dado um preço de venda e o custo total, calcula deduções, lucro e margens.
+ * É o núcleo compartilhado: tanto "margem-alvo -> preço sugerido" quanto
+ * "preço cobrado -> margem realizada" passam por aqui, para que não existam
+ * duas fórmulas de margem divergindo no sistema.
  */
-export function calcularPrecificacao(input: PrecificacaoInput): PrecificacaoResultado {
-  const custoTotal = input.custoProducao + input.custoEmbalagem;
-  const margemDecimal = input.margemLucro / 100;
-  const margemValida = margemDecimal < 1;
-
-  const precoVenda = margemValida && custoTotal > 0 ? custoTotal / (1 - margemDecimal) : 0;
-
-  const valorTaxaCartao = precoVenda * (input.taxaCartao / 100);
-  const valorImposto = precoVenda * (input.imposto / 100);
-  const valorComissao = precoVenda * (input.comissao / 100);
+export function analisarPreco(
+  precoVenda: number,
+  custoTotal: number,
+  taxas: TaxasVariaveis
+): PrecificacaoResultado {
+  const valorTaxaCartao = precoVenda * (taxas.taxaCartao / 100);
+  const valorImposto = precoVenda * (taxas.imposto / 100);
+  const valorComissao = precoVenda * (taxas.comissao / 100);
   const totalDeducoes = valorTaxaCartao + valorImposto + valorComissao;
 
   const recebidoLiquido = precoVenda - totalDeducoes;
@@ -182,6 +186,48 @@ export function calcularPrecificacao(input: PrecificacaoInput): PrecificacaoResu
   };
 }
 
+/**
+ * Mesma fórmula usada no sistema anterior:
+ * 1. Preço = (custo produção + embalagem) / (1 - margem bruta%)
+ * 2. Cartão, imposto e comissão são descontados sobre o preço de venda
+ * 3. Lucro líquido = preço - deduções - custo total
+ *
+ * O resultado é uma SUGESTÃO. O preço que o cliente paga é o
+ * `precoVendaCentavos` do prato, definido por uma pessoa.
+ */
+export function calcularPrecificacao(input: PrecificacaoInput): PrecificacaoResultado {
+  const custoTotal = input.custoProducao + input.custoEmbalagem;
+  const margemDecimal = input.margemLucro / 100;
+  const margemValida = margemDecimal < 1;
+
+  const precoVenda = margemValida && custoTotal > 0 ? custoTotal / (1 - margemDecimal) : 0;
+
+  return analisarPreco(precoVenda, custoTotal, input);
+}
+
+export interface MargemRealizadaInput extends TaxasVariaveis {
+  precoVenda: number; // o preço efetivamente cobrado
+  custoProducao: number;
+  custoEmbalagem: number;
+}
+
+/** Margem real de um preço já decidido — o inverso de `calcularPrecificacao`. */
+export function calcularMargemRealizada(input: MargemRealizadaInput): PrecificacaoResultado {
+  return analisarPreco(input.precoVenda, input.custoProducao + input.custoEmbalagem, input);
+}
+
+/**
+ * Piso de margem de contribuição por item, formalizado pela empresa.
+ * `margemLiquidaPct` deste módulo já é a margem de contribuição: desconta do
+ * preço todos os custos variáveis (produção, embalagem, cartão, imposto,
+ * comissão) e nada de custo fixo.
+ */
+export const PISO_MARGEM_CONTRIBUICAO_PCT = 45;
+
+export function abaixoDoPiso(margemLiquidaPct: number): boolean {
+  return margemLiquidaPct < PISO_MARGEM_CONTRIBUICAO_PCT;
+}
+
 export function formatarMoeda(valor: number): string {
   return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(
     Number.isFinite(valor) ? valor : 0
@@ -196,8 +242,25 @@ export function formatarPercentual(valor: number, decimais = 1): string {
   return `${formatarNumero(valor, decimais)}%`;
 }
 
-export function formatarCodigo(prefixo: "INS" | "REC" | "PRT", codigo: number): string {
+export function formatarCodigo(prefixo: "INS" | "REC" | "PRT" | "PED", codigo: number): string {
   return `${prefixo}-${String(codigo).padStart(4, "0")}`;
+}
+
+// --- Dinheiro ---
+// Valor cobrado de cliente trafega e é gravado como inteiro em centavos.
+// Conta em float aqui gera divergência de centavo na conciliação com o
+// provedor de pagamento.
+
+export function reaisParaCentavos(reais: number): number {
+  return Math.round(reais * 100);
+}
+
+export function centavosParaReais(centavos: number): number {
+  return centavos / 100;
+}
+
+export function formatarCentavos(centavos: number): string {
+  return formatarMoeda(centavos / 100);
 }
 
 export type TipoInsumo = "in_natura" | "industrializado";
@@ -221,12 +284,33 @@ export const FONTES_POR_TIPO: Record<TipoInsumo, MacroFonte[]> = {
   industrializado: ["fabricante"],
 };
 
-export type SaudeMargemStatus = "prejuizo" | "apertada" | "ok" | "saudavel" | "excelente";
+export type SaudeMargemStatus = "prejuizo" | "apertada" | "abaixo_piso" | "saudavel" | "excelente";
 
+/** Escala ancorada no piso de contribuição da empresa, para que rótulo e alerta nunca se contradigam. */
 export function classificarSaudeMargem(margemLiquidaPct: number): { status: SaudeMargemStatus; label: string } {
   if (margemLiquidaPct < 0) return { status: "prejuizo", label: "Prejuízo" };
-  if (margemLiquidaPct < 15) return { status: "apertada", label: "Apertada" };
-  if (margemLiquidaPct < 25) return { status: "ok", label: "Ok" };
-  if (margemLiquidaPct < 40) return { status: "saudavel", label: "Saudável" };
+  if (margemLiquidaPct < 30) return { status: "apertada", label: "Apertada" };
+  if (margemLiquidaPct < PISO_MARGEM_CONTRIBUICAO_PCT) return { status: "abaixo_piso", label: "Abaixo do piso" };
+  if (margemLiquidaPct < 55) return { status: "saudavel", label: "Saudável" };
   return { status: "excelente", label: "Excelente" };
+}
+
+/**
+ * Preço que entrega exatamente a margem de contribuição desejada.
+ *
+ * Diferente de `calcularPrecificacao`, que usa margem BRUTA
+ * (custo / (1 - margem)) e por isso fica abaixo do alvo sempre que existe
+ * taxa de cartão, imposto ou comissão — as deduções saem depois. Aqui o alvo
+ * é a margem líquida de verdade:
+ *   margem = 1 - taxas - custo/P   =>   P = custo / (1 - taxas - margem)
+ */
+export function calcularPrecoParaMargem(
+  custoTotal: number,
+  taxas: TaxasVariaveis,
+  margemAlvoPct: number
+): number {
+  const taxasDecimal = (taxas.taxaCartao + taxas.imposto + taxas.comissao) / 100;
+  const divisor = 1 - taxasDecimal - margemAlvoPct / 100;
+  if (divisor <= 0 || custoTotal <= 0) return 0;
+  return custoTotal / divisor;
 }
