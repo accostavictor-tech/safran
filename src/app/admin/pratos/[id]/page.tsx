@@ -4,7 +4,7 @@ import { PratoForm } from "@/components/prato-form";
 import { PageHeader } from "@/components/page-header";
 import { formatarCodigo } from "@/lib/calculations";
 
-export default async function EditarPratoPage({ params }: PageProps<"/pratos/[id]">) {
+export default async function EditarPratoPage({ params }: PageProps<"/admin/pratos/[id]">) {
   const { id } = await params;
   const [dados, receitasDisponiveis] = await Promise.all([
     buscarPratoComItens(id),

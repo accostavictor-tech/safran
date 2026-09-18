@@ -10,9 +10,20 @@ export interface LoginState {
   erro?: string;
 }
 
+/**
+ * Só aceita voltar para dentro do admin. Sem isso, `?de=` viraria um
+ * redirecionamento aberto para qualquer URL.
+ */
+function destinoSeguro(de: string | null): string {
+  if (!de) return "/admin";
+  if (de.startsWith("/admin") && !de.startsWith("/admin//")) return de;
+  return "/admin";
+}
+
 export async function loginAction(_prevState: LoginState, formData: FormData): Promise<LoginState> {
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const senha = String(formData.get("senha") ?? "");
+  const destino = destinoSeguro(formData.get("de") ? String(formData.get("de")) : null);
 
   if (!email || !senha) {
     return { erro: "Informe email e senha." };
@@ -25,7 +36,7 @@ export async function loginAction(_prevState: LoginState, formData: FormData): P
   }
 
   await criarSessao({ userId: usuario.id, nome: usuario.nome, email: usuario.email });
-  redirect("/");
+  redirect(destino);
 }
 
 export async function logoutAction() {

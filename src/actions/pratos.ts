@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
@@ -8,6 +8,7 @@ import { db } from "@/db";
 import { pratos, pratoReceitas } from "@/db/schema";
 import { reaisParaCentavos } from "@/lib/calculations";
 import { gerarSlug } from "@/lib/slug";
+import { TAG_VITRINE } from "@/db/queries/loja";
 
 const itemSchema = z.object({
   receitaId: z.string().uuid(),
@@ -125,8 +126,9 @@ export async function criarPratoAction(_prevState: PratoFormState, formData: For
   }
   await salvarItens(novoId, itens);
 
-  revalidatePath("/pratos");
-  redirect("/pratos?toast=criado");
+  revalidatePath("/admin/pratos");
+  updateTag(TAG_VITRINE);
+  redirect("/admin/pratos?toast=criado");
 }
 
 export async function atualizarPratoAction(
@@ -151,12 +153,14 @@ export async function atualizarPratoAction(
   }
   await salvarItens(id, itens);
 
-  revalidatePath("/pratos");
-  revalidatePath(`/pratos/${id}`);
-  redirect("/pratos?toast=atualizado");
+  revalidatePath("/admin/pratos");
+  updateTag(TAG_VITRINE);
+  revalidatePath(`/admin/pratos/${id}`);
+  redirect("/admin/pratos?toast=atualizado");
 }
 
 export async function excluirPratoAction(id: string) {
   await db.delete(pratos).where(eq(pratos.id, id));
-  revalidatePath("/pratos");
+  revalidatePath("/admin/pratos");
+  updateTag(TAG_VITRINE);
 }

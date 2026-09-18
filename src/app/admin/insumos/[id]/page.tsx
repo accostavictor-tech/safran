@@ -9,7 +9,7 @@ import { PageHeader } from "@/components/page-header";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { formatarMoeda, formatarCodigo } from "@/lib/calculations";
 
-export default async function EditarInsumoPage({ params }: PageProps<"/insumos/[id]">) {
+export default async function EditarInsumoPage({ params }: PageProps<"/admin/insumos/[id]">) {
   const { id } = await params;
   const insumo = await buscarInsumo(id);
   if (!insumo) notFound();

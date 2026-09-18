@@ -25,7 +25,7 @@ export default async function ReceitasPage() {
         description={`${linhas.length} ficha${linhas.length === 1 ? "" : "s"} técnica${linhas.length === 1 ? "" : "s"} cadastrada${linhas.length === 1 ? "" : "s"}`}
         action={
           <Button asChild>
-            <Link href="/receitas/nova">
+            <Link href="/admin/receitas/nova">
               <Plus />
               Nova receita
             </Link>
@@ -38,7 +38,7 @@ export default async function ReceitasPage() {
           icon={NotebookText}
           title="Nenhuma receita cadastrada"
           description="Monte a ficha técnica de uma receita a partir dos insumos já cadastrados."
-          actionHref="/receitas/nova"
+          actionHref="/admin/receitas/nova"
           actionLabel="Criar receita"
         />
       ) : (
@@ -64,7 +64,7 @@ export default async function ReceitasPage() {
                     {formatarCodigo("REC", receita.codigo)}
                   </TableCell>
                   <TableCell className="font-medium text-foreground">
-                    <Link href={`/receitas/${receita.id}`} className="hover:text-primary hover:underline">
+                    <Link href={`/admin/receitas/${receita.id}`} className="hover:text-primary hover:underline">
                       {receita.nome}
                     </Link>
                     {!receita.ativa ? (
@@ -83,7 +83,7 @@ export default async function ReceitasPage() {
                   </TableCell>
                   <TableCell>
                     <div className="flex justify-end gap-3">
-                      <Link href={`/receitas/${receita.id}`} className="text-sm font-medium text-primary hover:underline">
+                      <Link href={`/admin/receitas/${receita.id}`} className="text-sm font-medium text-primary hover:underline">
                         Editar
                       </Link>
                       <ExcluirReceitaButton id={receita.id} disabled={pratosCount > 0} />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useMemo, useState } from "react";
+import { useActionState, useMemo, useState, startTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, X, GripVertical, Wheat, Milk, Store, TriangleAlert } from "lucide-react";
 import { criarPratoAction, atualizarPratoAction, type PratoFormState } from "@/actions/pratos";
@@ -154,8 +154,20 @@ export function PratoForm({
 
   const itensJson = JSON.stringify(itensValidos.map((i) => ({ receitaId: i.receita.id, quantidadeG: i.quantidadeG })));
 
+  /**
+   * A action é disparada na mão, e não por `<form action={...}>`, porque o React
+   * reseta o form depois que a action termina. Num erro de validação isso
+   * apagava os campos e, pior, desmarcava "publicado" via o tratamento de reset
+   * do Radix — o prato era salvo despublicado sem ninguém perceber.
+   */
+  function enviar(evento: React.FormEvent<HTMLFormElement>) {
+    evento.preventDefault();
+    const dados = new FormData(evento.currentTarget);
+    startTransition(() => formAction(dados));
+  }
+
   return (
-    <form action={formAction} className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+    <form onSubmit={enviar} className="grid grid-cols-1 gap-5 lg:grid-cols-3">
       <input type="hidden" name="itens" value={itensJson} />
 
       <div className="space-y-5 lg:col-span-2">
@@ -451,7 +463,7 @@ export function PratoForm({
           <Button type="submit" loading={pending}>
             {pending ? "Salvando..." : "Salvar"}
           </Button>
-          <Button type="button" variant="secondary" onClick={() => router.push("/pratos")}>
+          <Button type="button" variant="secondary" onClick={() => router.push("/admin/pratos")}>
             Cancelar
           </Button>
         </div>

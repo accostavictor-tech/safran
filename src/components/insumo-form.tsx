@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useState, startTransition } from "react";
 import { useRouter } from "next/navigation";
 import { CheckCircle2, CircleAlert } from "lucide-react";
 import { criarInsumoAction, atualizarInsumoAction, type InsumoFormState } from "@/actions/insumos";
@@ -48,8 +48,19 @@ export function InsumoForm({ insumo }: { insumo?: Insumo }) {
     }
   }
 
+  /**
+   * A action é disparada na mão, e não por `<form action={...}>`, porque o React
+   * reseta o form depois que a action termina — num erro de validação isso
+   * apagava o que a pessoa tinha digitado.
+   */
+  function enviar(evento: React.FormEvent<HTMLFormElement>) {
+    evento.preventDefault();
+    const dados = new FormData(evento.currentTarget);
+    startTransition(() => formAction(dados));
+  }
+
   return (
-    <form action={formAction} className="space-y-5">
+    <form onSubmit={enviar} className="space-y-5">
       <Card>
         <CardHeader>
           <CardTitle>Dados básicos</CardTitle>
@@ -192,7 +203,7 @@ export function InsumoForm({ insumo }: { insumo?: Insumo }) {
         <Button type="submit" loading={pending}>
           {pending ? "Salvando..." : "Salvar"}
         </Button>
-        <Button type="button" variant="secondary" onClick={() => router.push("/insumos")}>
+        <Button type="button" variant="secondary" onClick={() => router.push("/admin/insumos")}>
           Cancelar
         </Button>
       </div>

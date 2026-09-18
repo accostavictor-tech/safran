@@ -12,7 +12,7 @@ export default async function NovaReceitaPage() {
       {insumos.length === 0 ? (
         <p className="text-sm text-muted-foreground">
           Cadastre ao menos um insumo antes de criar uma receita.{" "}
-          <Link href="/insumos/novo" className="font-medium text-primary hover:underline">
+          <Link href="/admin/insumos/novo" className="font-medium text-primary hover:underline">
             Ir para insumos
           </Link>
         </p>

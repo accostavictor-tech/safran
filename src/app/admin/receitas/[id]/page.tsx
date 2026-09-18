@@ -5,7 +5,7 @@ import { ReceitaForm } from "@/components/receita-form";
 import { PageHeader } from "@/components/page-header";
 import { formatarCodigo } from "@/lib/calculations";
 
-export default async function EditarReceitaPage({ params }: PageProps<"/receitas/[id]">) {
+export default async function EditarReceitaPage({ params }: PageProps<"/admin/receitas/[id]">) {
   const { id } = await params;
   const [dados, insumosDisponiveis] = await Promise.all([
     buscarReceitaComItens(id),

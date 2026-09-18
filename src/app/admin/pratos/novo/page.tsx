@@ -12,7 +12,7 @@ export default async function NovoPratoPage() {
       {receitas.length === 0 ? (
         <p className="text-sm text-muted-foreground">
           Cadastre ao menos uma receita ativa antes de montar um prato.{" "}
-          <Link href="/receitas/nova" className="font-medium text-primary hover:underline">
+          <Link href="/admin/receitas/nova" className="font-medium text-primary hover:underline">
             Ir para receitas
           </Link>
         </p>

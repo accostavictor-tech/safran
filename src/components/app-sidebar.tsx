@@ -9,9 +9,9 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const LINKS = [
-  { href: "/insumos", label: "Insumos", icon: Package },
-  { href: "/receitas", label: "Receitas", icon: NotebookText },
-  { href: "/pratos", label: "Pratos", icon: UtensilsCrossed },
+  { href: "/admin/insumos", label: "Insumos", icon: Package },
+  { href: "/admin/receitas", label: "Receitas", icon: NotebookText },
+  { href: "/admin/pratos", label: "Pratos", icon: UtensilsCrossed },
 ];
 
 function Brand() {

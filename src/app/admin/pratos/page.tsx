@@ -40,7 +40,7 @@ export default async function PratosPage() {
         description={`${linhas.length} prato${linhas.length === 1 ? "" : "s"} cadastrado${linhas.length === 1 ? "" : "s"}`}
         action={
           <Button asChild>
-            <Link href="/pratos/novo">
+            <Link href="/admin/pratos/novo">
               <Plus />
               Novo prato
             </Link>
@@ -71,7 +71,7 @@ export default async function PratosPage() {
           icon={UtensilsCrossed}
           title="Nenhum prato cadastrado"
           description="Monte um prato a partir das receitas já cadastradas para calcular preço de venda e margem."
-          actionHref="/pratos/novo"
+          actionHref="/admin/pratos/novo"
           actionLabel="Criar prato"
         />
       ) : (
@@ -98,7 +98,7 @@ export default async function PratosPage() {
                       {formatarCodigo("PRT", prato.codigo)}
                     </TableCell>
                     <TableCell className="font-medium text-foreground">
-                      <Link href={`/pratos/${prato.id}`} className="hover:text-primary hover:underline">
+                      <Link href={`/admin/pratos/${prato.id}`} className="hover:text-primary hover:underline">
                         {prato.nome}
                       </Link>
                       {!prato.ativo ? (
@@ -118,7 +118,7 @@ export default async function PratosPage() {
                     <TableCell className="text-muted-foreground">{macros.energiaKcal.toFixed(0)}</TableCell>
                     <TableCell>
                       <div className="flex justify-end gap-3">
-                        <Link href={`/pratos/${prato.id}`} className="text-sm font-medium text-primary hover:underline">
+                        <Link href={`/admin/pratos/${prato.id}`} className="text-sm font-medium text-primary hover:underline">
                           Editar
                         </Link>
                         <ExcluirPratoButton id={prato.id} />

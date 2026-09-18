@@ -1,11 +1,12 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "@/db";
 import { insumos, insumoPrecoHistorico } from "@/db/schema";
+import { TAG_VITRINE } from "@/db/queries/loja";
 import { FONTES_POR_TIPO } from "@/lib/calculations";
 
 const CAMPOS_MACRO = [
@@ -94,8 +95,9 @@ export async function criarInsumoAction(
     ...parsed.data,
     macroRevisadoEm: parsed.data.macroFonte ? new Date() : null,
   });
-  revalidatePath("/insumos");
-  redirect("/insumos?toast=criado");
+  revalidatePath("/admin/insumos");
+  updateTag(TAG_VITRINE);
+  redirect("/admin/insumos?toast=criado");
 }
 
 export async function atualizarInsumoAction(
@@ -128,9 +130,10 @@ export async function atualizarInsumoAction(
     });
   }
 
-  revalidatePath("/insumos");
-  revalidatePath(`/insumos/${id}`);
-  redirect("/insumos?toast=atualizado");
+  revalidatePath("/admin/insumos");
+  updateTag(TAG_VITRINE);
+  revalidatePath(`/admin/insumos/${id}`);
+  redirect("/admin/insumos?toast=atualizado");
 }
 
 export async function excluirInsumoAction(id: string) {
@@ -140,5 +143,6 @@ export async function excluirInsumoAction(id: string) {
     // Provavelmente em uso por alguma receita (restrição de chave estrangeira).
     return;
   }
-  revalidatePath("/insumos");
+  revalidatePath("/admin/insumos");
+  updateTag(TAG_VITRINE);
 }

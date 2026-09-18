@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useMemo, useState } from "react";
+import { useActionState, useMemo, useState, startTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, X, GripVertical } from "lucide-react";
 import { criarReceitaAction, atualizarReceitaAction, type ReceitaFormState } from "@/actions/receitas";
@@ -115,8 +115,19 @@ export function ReceitaForm({
       .map((i) => ({ insumoId: i.insumoId, quantidadeLiquida: Number(i.quantidadeLiquida.replace(",", ".")) }))
   );
 
+  /**
+   * A action é disparada na mão, e não por `<form action={...}>`, porque o React
+   * reseta o form depois que a action termina — num erro de validação isso
+   * apagava o que a pessoa tinha digitado.
+   */
+  function enviar(evento: React.FormEvent<HTMLFormElement>) {
+    evento.preventDefault();
+    const dados = new FormData(evento.currentTarget);
+    startTransition(() => formAction(dados));
+  }
+
   return (
-    <form action={formAction} className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+    <form onSubmit={enviar} className="grid grid-cols-1 gap-5 lg:grid-cols-3">
       <input type="hidden" name="itens" value={itensJson} />
 
       <div className="space-y-5 lg:col-span-2">
@@ -265,7 +276,7 @@ export function ReceitaForm({
           <Button type="submit" loading={pending}>
             {pending ? "Salvando..." : "Salvar"}
           </Button>
-          <Button type="button" variant="secondary" onClick={() => router.push("/receitas")}>
+          <Button type="button" variant="secondary" onClick={() => router.push("/admin/receitas")}>
             Cancelar
           </Button>
         </div>

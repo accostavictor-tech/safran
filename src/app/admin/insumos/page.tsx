@@ -35,7 +35,7 @@ export default async function InsumosPage() {
         description={`${linhas.length} insumo${linhas.length === 1 ? "" : "s"} cadastrado${linhas.length === 1 ? "" : "s"}`}
         action={
           <Button asChild>
-            <Link href="/insumos/novo">
+            <Link href="/admin/insumos/novo">
               <Plus />
               Novo insumo
             </Link>
@@ -67,7 +67,7 @@ export default async function InsumosPage() {
           icon={Package}
           title="Nenhum insumo cadastrado"
           description="Cadastre os insumos que vocês compram — depois é só montar as receitas com eles."
-          actionHref="/insumos/novo"
+          actionHref="/admin/insumos/novo"
           actionLabel="Cadastrar insumo"
         />
       ) : (
@@ -93,7 +93,7 @@ export default async function InsumosPage() {
                     {formatarCodigo("INS", insumo.codigo)}
                   </TableCell>
                   <TableCell className="font-medium text-foreground">
-                    <Link href={`/insumos/${insumo.id}`} className="hover:text-primary hover:underline">
+                    <Link href={`/admin/insumos/${insumo.id}`} className="hover:text-primary hover:underline">
                       {insumo.nome}
                     </Link>
                   </TableCell>
@@ -144,7 +144,7 @@ export default async function InsumosPage() {
                   <TableCell className="text-muted-foreground">{receitasCount}</TableCell>
                   <TableCell>
                     <div className="flex justify-end gap-3">
-                      <Link href={`/insumos/${insumo.id}`} className="text-sm font-medium text-primary hover:underline">
+                      <Link href={`/admin/insumos/${insumo.id}`} className="text-sm font-medium text-primary hover:underline">
                         Editar
                       </Link>
                       <ExcluirInsumoButton id={insumo.id} disabled={receitasCount > 0} />

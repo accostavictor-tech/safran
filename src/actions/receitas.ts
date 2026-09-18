@@ -1,11 +1,12 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "@/db";
 import { receitas, receitaInsumos } from "@/db/schema";
+import { TAG_VITRINE } from "@/db/queries/loja";
 
 const itemSchema = z.object({
   insumoId: z.string().uuid(),
@@ -72,8 +73,9 @@ export async function criarReceitaAction(
   const [nova] = await db.insert(receitas).values(dados).returning({ id: receitas.id });
   await salvarItens(nova.id, itens);
 
-  revalidatePath("/receitas");
-  redirect("/receitas?toast=criado");
+  revalidatePath("/admin/receitas");
+  updateTag(TAG_VITRINE);
+  redirect("/admin/receitas?toast=criado");
 }
 
 export async function atualizarReceitaAction(
@@ -90,9 +92,10 @@ export async function atualizarReceitaAction(
   await db.update(receitas).set({ ...dados, updatedAt: new Date() }).where(eq(receitas.id, id));
   await salvarItens(id, itens);
 
-  revalidatePath("/receitas");
-  revalidatePath(`/receitas/${id}`);
-  redirect("/receitas?toast=atualizado");
+  revalidatePath("/admin/receitas");
+  updateTag(TAG_VITRINE);
+  revalidatePath(`/admin/receitas/${id}`);
+  redirect("/admin/receitas?toast=atualizado");
 }
 
 export async function excluirReceitaAction(id: string) {
@@ -101,5 +104,6 @@ export async function excluirReceitaAction(id: string) {
   } catch {
     return;
   }
-  revalidatePath("/receitas");
+  revalidatePath("/admin/receitas");
+  updateTag(TAG_VITRINE);
 }
