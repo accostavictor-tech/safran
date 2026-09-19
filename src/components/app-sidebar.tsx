@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Package, NotebookText, UtensilsCrossed, ClipboardList, Store, LogOut, Menu, X } from "lucide-react";
+import { Package, NotebookText, UtensilsCrossed, ClipboardList, TicketPercent, Store, LogOut, Menu, X } from "lucide-react";
 import { logoutAction } from "@/actions/auth";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -13,6 +13,7 @@ const LINKS = [
   { href: "/admin/insumos", label: "Insumos", icon: Package },
   { href: "/admin/receitas", label: "Receitas", icon: NotebookText },
   { href: "/admin/pratos", label: "Pratos", icon: UtensilsCrossed },
+  { href: "/admin/cupons", label: "Cupons", icon: TicketPercent },
 ];
 
 function Brand() {

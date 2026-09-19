@@ -8,6 +8,7 @@ import { db } from "@/db";
 import { pratos, pratoReceitas } from "@/db/schema";
 import { reaisParaCentavos } from "@/lib/calculations";
 import { gerarSlug } from "@/lib/slug";
+import { eViolacaoDeUnicidade } from "@/lib/db-erros";
 import { TAG_VITRINE } from "@/db/queries/loja";
 
 const itemSchema = z.object({
@@ -88,11 +89,6 @@ function parseFormData(formData: FormData) {
   };
 }
 
-/** Postgres: violação de unicidade. Aqui só o slug do prato pode colidir. */
-function eSlugDuplicado(err: unknown): boolean {
-  return (err as { code?: string })?.code === "23505";
-}
-
 async function salvarItens(pratoId: string, itens: { receitaId: string; quantidadeG: number }[]) {
   await db.delete(pratoReceitas).where(eq(pratoReceitas.pratoId, pratoId));
   if (itens.length === 0) return;
@@ -119,7 +115,7 @@ export async function criarPratoAction(_prevState: PratoFormState, formData: For
     const [novo] = await db.insert(pratos).values(valores).returning({ id: pratos.id });
     novoId = novo.id;
   } catch (err) {
-    if (eSlugDuplicado(err)) {
+    if (eViolacaoDeUnicidade(err)) {
       return { erro: `Já existe um prato com o endereço "${valores.slug}". Escolha outro.` };
     }
     throw err;
@@ -146,7 +142,7 @@ export async function atualizarPratoAction(
   try {
     await db.update(pratos).set({ ...valores, updatedAt: new Date() }).where(eq(pratos.id, id));
   } catch (err) {
-    if (eSlugDuplicado(err)) {
+    if (eViolacaoDeUnicidade(err)) {
       return { erro: `Já existe um prato com o endereço "${valores.slug}". Escolha outro.` };
     }
     throw err;

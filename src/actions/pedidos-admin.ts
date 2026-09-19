@@ -3,10 +3,11 @@
 import { revalidatePath, updateTag } from "next/cache";
 import { and, eq, sql } from "drizzle-orm";
 import { db } from "@/db";
-import { pedidoEventos, pedidoItens, pedidos, pratos } from "@/db/schema";
+import { creditoMovimentos, pedidoEventos, pedidoItens, pedidos, pratos } from "@/db/schema";
 import { TAG_VITRINE } from "@/db/queries/loja";
 import { obterSessao } from "@/lib/auth";
 import { podeTransicionar } from "@/lib/pedido-status";
+import { MOTIVO_COMPRA, cashbackDoPedido } from "@/lib/cashback";
 import type { PedidoStatus } from "@/db/queries/pedidos";
 
 export interface TransicaoState {
@@ -48,6 +49,18 @@ export async function mudarStatusPedidoAction(
       para: novoStatus,
       autor: sessao.nome,
     });
+
+    // Cashback entra só na entrega: creditar antes premiaria pedido que ainda
+    // pode ser cancelado. A chave única (pedido, motivo) segura o crédito duplo.
+    if (novoStatus === "entregue" && pedido.clienteId) {
+      const centavos = cashbackDoPedido(pedido.subtotalCentavos);
+      if (centavos > 0) {
+        await tx
+          .insert(creditoMovimentos)
+          .values({ clienteId: pedido.clienteId, pedidoId, centavos, motivo: MOTIVO_COMPRA })
+          .onConflictDoNothing();
+      }
+    }
 
     if (novoStatus === "cancelado") {
       const itens = await tx

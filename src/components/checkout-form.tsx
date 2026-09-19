@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState, useMemo, useState, startTransition } from "react";
-import { ShoppingBag } from "lucide-react";
+import { useActionState, useMemo, useState, useTransition, startTransition } from "react";
+import { ShoppingBag, TicketPercent } from "lucide-react";
 import { criarPedidoAction, type CheckoutState } from "@/actions/pedidos";
+import { conferirCupomAction, type PreviaCupom } from "@/actions/cupons";
 import { useCarrinho } from "@/lib/carrinho-store";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -29,6 +30,22 @@ export function CheckoutForm({ pratos, bairros }: { pratos: PratoVitrine[]; bair
   const [state, formAction, pending] = useActionState(criarPedidoAction, initialState);
   const { itens, carregado } = useCarrinho();
   const [bairro, setBairro] = useState("");
+  const [codigoCupom, setCodigoCupom] = useState("");
+  const [cupom, setCupom] = useState<PreviaCupom | null>(null);
+  const [conferindo, iniciarConferencia] = useTransition();
+
+  function conferirCupom() {
+    const codigo = codigoCupom.trim();
+    if (!codigo) return;
+    iniciarConferencia(async () => {
+      setCupom(await conferirCupomAction(codigo, itens));
+    });
+  }
+
+  function limparCupom() {
+    setCupom(null);
+    setCodigoCupom("");
+  }
 
   const porId = useMemo(() => new Map(pratos.map((p) => [p.id, p])), [pratos]);
   const linhas = itens
@@ -42,8 +59,11 @@ export function CheckoutForm({ pratos, bairros }: { pratos: PratoVitrine[]; bair
     linhas.map((l) => ({ precoUnitarioCentavos: l.prato.precoVendaCentavos, quantidade: l.quantidade }))
   );
   const zonaEscolhida = bairros.find((b) => b.bairro === bairro) ?? null;
-  const frete = resolverFrete(zonaEscolhida, subtotal);
-  const total = calcularTotal(subtotal, frete);
+  const freteBase = resolverFrete(zonaEscolhida, subtotal);
+  const cupomValido = cupom?.ok ? cupom : null;
+  const frete = cupomValido?.freteGratis ? 0 : freteBase;
+  const desconto = cupomValido?.descontoCentavos ?? 0;
+  const total = calcularTotal(subtotal, frete, desconto);
   const falta = faltaParaMinimo(subtotal);
 
   const itensJson = JSON.stringify(itens);
@@ -71,6 +91,7 @@ export function CheckoutForm({ pratos, bairros }: { pratos: PratoVitrine[]; bair
   return (
     <form onSubmit={enviar} className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
       <input type="hidden" name="itens" value={itensJson} />
+      {cupomValido ? <input type="hidden" name="cupom" value={cupomValido.codigo} /> : null}
 
       <div className="space-y-5 lg:col-span-2">
         <Card>
@@ -162,15 +183,78 @@ export function CheckoutForm({ pratos, bairros }: { pratos: PratoVitrine[]; bair
 
           <Separator className="my-3" />
 
+          {cupomValido ? (
+            <div className="mb-3 flex items-center justify-between gap-2 rounded-md bg-success/10 p-2.5">
+              <span className="flex items-center gap-1.5 text-sm text-success">
+                <TicketPercent className="size-4 shrink-0" />
+                <span className="font-medium">{cupomValido.codigo}</span> aplicado
+              </span>
+              <button
+                type="button"
+                onClick={limparCupom}
+                className="text-xs text-muted-foreground underline hover:text-foreground"
+              >
+                remover
+              </button>
+            </div>
+          ) : (
+            <div className="mb-3 space-y-1.5">
+              <Label htmlFor="codigoCupom" className="text-xs">
+                Cupom de desconto
+              </Label>
+              <div className="flex gap-2">
+                <Input
+                  id="codigoCupom"
+                  value={codigoCupom}
+                  onChange={(e) => setCodigoCupom(e.target.value.toUpperCase())}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      conferirCupom();
+                    }
+                  }}
+                  placeholder="CODIGO"
+                  className="h-9 font-mono uppercase"
+                />
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={conferirCupom}
+                  loading={conferindo}
+                  disabled={conferindo || codigoCupom.trim().length === 0}
+                  className="h-9 shrink-0"
+                >
+                  Aplicar
+                </Button>
+              </div>
+              {cupom && !cupom.ok ? <p className="text-xs text-destructive">{cupom.mensagem}</p> : null}
+            </div>
+          )}
+
           <dl className="space-y-1.5 text-sm">
             <div className="flex justify-between">
               <dt className="text-muted-foreground">Subtotal</dt>
               <dd className="tabular-nums text-foreground">{formatarCentavos(subtotal)}</dd>
             </div>
+            {desconto > 0 ? (
+              <div className="flex justify-between text-success">
+                <dt>Desconto ({cupomValido?.codigo})</dt>
+                <dd className="tabular-nums">− {formatarCentavos(desconto)}</dd>
+              </div>
+            ) : null}
             <div className="flex justify-between">
               <dt className="text-muted-foreground">Entrega{zonaEscolhida ? ` (${zonaEscolhida.zonaNome})` : ""}</dt>
               <dd className="tabular-nums text-foreground">
-                {bairro ? formatarCentavos(frete) : "—"}
+                {!bairro ? (
+                  "—"
+                ) : cupomValido?.freteGratis ? (
+                  <>
+                    <span className="mr-1 text-muted-foreground line-through">{formatarCentavos(freteBase)}</span>
+                    <span className="text-success">grátis</span>
+                  </>
+                ) : (
+                  formatarCentavos(frete)
+                )}
               </dd>
             </div>
             <div className="flex justify-between border-t border-border pt-2 text-base">

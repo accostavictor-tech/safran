@@ -1,11 +1,12 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { and, eq, gte, inArray, sql } from "drizzle-orm";
+import { and, eq, gte, inArray, isNull, lt, or, sql } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "@/db";
 import {
   clientes,
+  cupons,
   enderecos,
   pedidoEventos,
   pedidoItens,
@@ -14,6 +15,13 @@ import {
   zonasEntrega,
 } from "@/db/schema";
 import { listarPratosComPrecificacao } from "@/db/queries/pratos";
+import {
+  buscarCupomPorCodigo,
+  contarUsosDoTelefone,
+  paraRegra,
+  telefoneJaComprou,
+} from "@/db/queries/cupons";
+import { aplicarCupom, normalizarCodigoCupom, type CupomAplicado } from "@/lib/cupom";
 import { reaisParaCentavos } from "@/lib/calculations";
 import {
   calcularSubtotal,
@@ -38,6 +46,7 @@ const checkoutSchema = z.object({
   complemento: z.string().trim().nullable(),
   referencia: z.string().trim().nullable(),
   observacoes: z.string().trim().nullable(),
+  cupom: z.string().trim().nullable(),
   itens: z.string().transform((s, ctx) => {
     try {
       return z.array(itemSchema).min(1, "Seu carrinho está vazio.").parse(JSON.parse(s));
@@ -66,6 +75,7 @@ function parseFormData(formData: FormData) {
     complemento: texto("complemento"),
     referencia: texto("referencia"),
     observacoes: texto("observacoes"),
+    cupom: texto("cupom"),
     itens: formData.get("itens") ?? "[]",
   };
 }
@@ -127,8 +137,33 @@ export async function criarPedidoAction(
     return { erro: "Ainda não entregamos nesse bairro. Fale com a gente no WhatsApp." };
   }
 
-  const freteCentavos = resolverFrete(zona, subtotalCentavos);
-  const totalCentavos = calcularTotal(subtotalCentavos, freteCentavos);
+  // Cupom: aqui é onde a decisão vale. A prévia no checkout não checa as regras
+  // por cliente (exigiriam identidade antes de o pedido existir), então todas
+  // as regras são reavaliadas neste ponto.
+  let cupomAplicado: CupomAplicado | null = null;
+  if (dados.cupom) {
+    const codigo = normalizarCodigoCupom(dados.cupom);
+    const cupom = await buscarCupomPorCodigo(codigo);
+    if (!cupom) return { erro: "Cupom não encontrado." };
+
+    const [usosDoCliente, jaComprou] = await Promise.all([
+      contarUsosDoTelefone(codigo, telefone),
+      telefoneJaComprou(telefone),
+    ]);
+
+    const resultado = aplicarCupom(paraRegra(cupom), {
+      subtotalCentavos,
+      usosDoCliente,
+      clienteJaComprou: jaComprou,
+    });
+    if (!resultado.ok) return { erro: resultado.mensagem };
+    cupomAplicado = resultado;
+  }
+
+  const freteBase = resolverFrete(zona, subtotalCentavos);
+  const freteCentavos = cupomAplicado?.freteGratis ? 0 : freteBase;
+  const descontoCentavos = cupomAplicado?.descontoCentavos ?? 0;
+  const totalCentavos = calcularTotal(subtotalCentavos, freteCentavos, descontoCentavos);
 
   // Custo no momento da venda, para margem histórica que não depende do custo atual.
   const precificacoes = await listarPratosComPrecificacao();
@@ -173,8 +208,10 @@ export async function criarPedidoAction(
           telefoneCliente: telefone,
           enderecoSnapshot,
           subtotalCentavos,
+          descontoCentavos,
           freteCentavos,
           totalCentavos,
+          cupomCodigo: cupomAplicado?.codigo ?? null,
           observacoes: dados.observacoes,
         })
         .returning({ id: pedidos.id });
@@ -198,6 +235,23 @@ export async function criarPedidoAction(
         autor: "loja",
       });
 
+      if (cupomAplicado) {
+        // O limite total entra na condição do UPDATE: se o último uso foi levado
+        // entre a validação e aqui, nenhuma linha muda e o pedido cai.
+        const usados = await tx
+          .update(cupons)
+          .set({ usos: sql`${cupons.usos} + 1` })
+          .where(
+            and(
+              eq(cupons.codigo, cupomAplicado.codigo),
+              eq(cupons.ativo, true),
+              or(isNull(cupons.limiteTotal), lt(cupons.usos, cupons.limiteTotal))
+            )
+          )
+          .returning({ id: cupons.id });
+        if (usados.length === 0) throw new Error("CUPOM_ESGOTADO");
+      }
+
       // Baixa de estoque com a checagem na própria condição: se alguém levou a
       // última unidade no meio do caminho, nenhuma linha é afetada e o pedido cai.
       for (const l of linhas) {
@@ -218,6 +272,9 @@ export async function criarPedidoAction(
     const msg = err instanceof Error ? err.message : "";
     if (msg.startsWith("ESTOQUE_INSUFICIENTE:")) {
       return { erro: `"${msg.split(":")[1]}" acabou de esgotar. Revise o carrinho.` };
+    }
+    if (msg === "CUPOM_ESGOTADO") {
+      return { erro: "Esse cupom acabou de esgotar." };
     }
     throw err;
   }

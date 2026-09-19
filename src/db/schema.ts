@@ -330,6 +330,36 @@ export const webhookEventos = pgTable(
   (t) => [unique("webhook_eventos_provedor_evento_unq").on(t.provedor, t.providerEventId)]
 );
 
+/**
+ * Cashback como livro-caixa em centavos, não como saldo mutável numa coluna: o
+ * saldo é a soma dos movimentos. Assim dá para auditar de onde veio cada
+ * centavo, e duas escritas concorrentes não perdem crédito como aconteceria
+ * com um `saldo = saldo + x` lido antes e escrito depois.
+ *
+ * É dinheiro do cliente para gastar na loja, então nada aqui é apagado:
+ * gasto entra como movimento negativo.
+ */
+export const creditoMovimentos = pgTable(
+  "credito_movimentos",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    clienteId: uuid("cliente_id")
+      .notNull()
+      .references(() => clientes.id, { onDelete: "cascade" }),
+    pedidoId: uuid("pedido_id").references(() => pedidos.id, { onDelete: "set null" }),
+    /** Positivo credita (cashback ganho), negativo debita (crédito gasto). */
+    centavos: integer("centavos").notNull(),
+    motivo: text("motivo").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    index("credito_cliente_idx").on(t.clienteId),
+    // Trava de idempotência: se a transição para "entregue" rodar duas vezes,
+    // o segundo crédito do mesmo pedido é recusado pelo banco.
+    unique("credito_pedido_motivo_unq").on(t.pedidoId, t.motivo),
+  ]
+);
+
 export const cupons = pgTable("cupons", {
   id: uuid("id").primaryKey().defaultRandom(),
   codigo: text("codigo").notNull().unique(),

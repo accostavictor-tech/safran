@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { CircleCheck } from "lucide-react";
+import { CircleCheck, Sparkles, TicketPercent } from "lucide-react";
 import { buscarPedidoPorId, lerEndereco } from "@/db/queries/pedidos";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { LimparCarrinho } from "@/components/limpar-carrinho";
 import { formatarCentavos, formatarCodigo } from "@/lib/calculations";
 import { WHATSAPP_SAFRAN } from "@/lib/loja";
+import { cashbackDoPedido, CASHBACK_PCT } from "@/lib/cashback";
 
 export const metadata: Metadata = {
   title: "Pedido confirmado — Safran Congelados",
@@ -22,6 +23,7 @@ export default async function PedidoPage({ params }: PageProps<"/pedido/[id]">) 
   const { pedido, itens } = resultado;
   const endereco = lerEndereco(pedido);
   const codigo = formatarCodigo("PED", pedido.codigo);
+  const cashback = cashbackDoPedido(pedido.subtotalCentavos);
 
   const resumoWhatsapp = [
     `Olá! Acabei de fazer o pedido ${codigo} no site.`,
@@ -66,6 +68,15 @@ export default async function PedidoPage({ params }: PageProps<"/pedido/[id]">) 
               <dt className="text-muted-foreground">Subtotal</dt>
               <dd className="tabular-nums text-foreground">{formatarCentavos(pedido.subtotalCentavos)}</dd>
             </div>
+            {pedido.descontoCentavos > 0 ? (
+              <div className="flex justify-between text-success">
+                <dt className="flex items-center gap-1.5">
+                  <TicketPercent className="size-3.5" />
+                  Desconto{pedido.cupomCodigo ? ` (${pedido.cupomCodigo})` : ""}
+                </dt>
+                <dd className="tabular-nums">− {formatarCentavos(pedido.descontoCentavos)}</dd>
+              </div>
+            ) : null}
             <div className="flex justify-between">
               <dt className="text-muted-foreground">Entrega</dt>
               <dd className="tabular-nums text-foreground">{formatarCentavos(pedido.freteCentavos)}</dd>
@@ -90,6 +101,16 @@ export default async function PedidoPage({ params }: PageProps<"/pedido/[id]">) 
           ) : null}
         </CardContent>
       </Card>
+
+      {cashback > 0 ? (
+        <p className="mt-4 flex items-center justify-center gap-1.5 text-center text-sm text-muted-foreground">
+          <Sparkles className="size-4 shrink-0 text-primary" />
+          <span>
+            Você recebe <strong className="text-foreground">{formatarCentavos(cashback)}</strong> de volta em crédito
+            ({CASHBACK_PCT}%) quando este pedido for entregue.
+          </span>
+        </p>
+      ) : null}
 
       <div className="mt-6 rounded-xl bg-primary/5 p-5 text-center">
         <p className="text-sm text-foreground">

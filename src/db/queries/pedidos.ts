@@ -1,6 +1,6 @@
-import { asc, desc, eq, inArray } from "drizzle-orm";
+import { asc, desc, eq, inArray, sql } from "drizzle-orm";
 import { db } from "@/db";
-import { pedidoEventos, pedidoItens, pedidos } from "@/db/schema";
+import { creditoMovimentos, pedidoEventos, pedidoItens, pedidos } from "@/db/schema";
 
 export type Pedido = typeof pedidos.$inferSelect;
 export type PedidoItem = typeof pedidoItens.$inferSelect;
@@ -37,17 +37,30 @@ export async function buscarPedidoPorId(id: string) {
   return { pedido, itens };
 }
 
-/** Pedidos para o painel interno, com os itens já agrupados. */
+/**
+ * Pedidos para o painel interno, com itens e saldo de cashback do cliente já
+ * resolvidos em 3 consultas fixas, independente de quantos pedidos venham.
+ */
 export async function listarPedidosPainel(limite = 60) {
   const lista = await db.select().from(pedidos).orderBy(desc(pedidos.createdAt)).limit(limite);
   if (lista.length === 0) return [];
 
   const ids = lista.map((p) => p.id);
-  const itens = await db
-    .select()
-    .from(pedidoItens)
-    .where(inArray(pedidoItens.pedidoId, ids))
-    .orderBy(asc(pedidoItens.ordem));
+  const clienteIds = [...new Set(lista.map((p) => p.clienteId).filter((id): id is string => id !== null))];
+
+  const [itens, saldos] = await Promise.all([
+    db.select().from(pedidoItens).where(inArray(pedidoItens.pedidoId, ids)).orderBy(asc(pedidoItens.ordem)),
+    clienteIds.length > 0
+      ? db
+          .select({
+            clienteId: creditoMovimentos.clienteId,
+            saldo: sql<number>`coalesce(sum(${creditoMovimentos.centavos}), 0)::int`,
+          })
+          .from(creditoMovimentos)
+          .where(inArray(creditoMovimentos.clienteId, clienteIds))
+          .groupBy(creditoMovimentos.clienteId)
+      : Promise.resolve([]),
+  ]);
 
   const porPedido = new Map<string, PedidoItem[]>();
   for (const item of itens) {
@@ -55,8 +68,13 @@ export async function listarPedidosPainel(limite = 60) {
     if (atual) atual.push(item);
     else porPedido.set(item.pedidoId, [item]);
   }
+  const saldoPorCliente = new Map(saldos.map((s) => [s.clienteId, Number(s.saldo)]));
 
-  return lista.map((pedido) => ({ pedido, itens: porPedido.get(pedido.id) ?? [] }));
+  return lista.map((pedido) => ({
+    pedido,
+    itens: porPedido.get(pedido.id) ?? [],
+    saldoCreditoCentavos: pedido.clienteId ? (saldoPorCliente.get(pedido.clienteId) ?? 0) : 0,
+  }));
 }
 
 export async function listarEventosPedido(pedidoId: string) {

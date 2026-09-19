@@ -1,4 +1,4 @@
-import { ClipboardList, CircleDollarSign, ChefHat, Bike, MapPin, Phone } from "lucide-react";
+import { ClipboardList, CircleDollarSign, ChefHat, Bike, MapPin, Phone, Wallet } from "lucide-react";
 import { listarPedidosPainel, lerEndereco } from "@/db/queries/pedidos";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -63,7 +63,7 @@ export default async function PedidosPage() {
         />
       ) : (
         <div className="space-y-3">
-          {linhas.map(({ pedido, itens }) => {
+          {linhas.map(({ pedido, itens, saldoCreditoCentavos }) => {
             const endereco = lerEndereco(pedido);
             return (
               <Card key={pedido.id} className={ehFinal(pedido.status) ? "opacity-70" : undefined}>
@@ -117,6 +117,13 @@ export default async function PedidosPage() {
                     ))}
                   </ul>
 
+                  {pedido.descontoCentavos > 0 ? (
+                    <p className="mt-2 text-sm text-success">
+                      Desconto de {formatarCentavos(pedido.descontoCentavos)}
+                      {pedido.cupomCodigo ? ` (cupom ${pedido.cupomCodigo})` : ""}
+                    </p>
+                  ) : null}
+
                   {endereco ? (
                     <p className="mt-3 flex items-start gap-1.5 text-sm text-muted-foreground">
                       <MapPin className="size-3.5 shrink-0 translate-y-0.5" />
@@ -126,6 +133,13 @@ export default async function PedidosPage() {
                         {endereco.zona}, frete {formatarCentavos(pedido.freteCentavos)})
                         {endereco.referencia ? ` · ${endereco.referencia}` : ""}
                       </span>
+                    </p>
+                  ) : null}
+
+                  {saldoCreditoCentavos > 0 ? (
+                    <p className="mt-2 flex items-center gap-1.5 text-sm text-muted-foreground">
+                      <Wallet className="size-3.5" />
+                      Cliente tem {formatarCentavos(saldoCreditoCentavos)} de cashback acumulado
                     </p>
                   ) : null}
 
