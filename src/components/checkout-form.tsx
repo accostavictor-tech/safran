@@ -306,7 +306,7 @@ export function CheckoutForm({
           </dl>
 
           {falta > 0 ? (
-            <p className="mt-4 rounded-md bg-warning/10 p-2 text-xs text-warning-foreground">
+            <p className="mt-4 rounded-md bg-warning-soft p-2 text-xs text-on-warning-soft">
               Faltam {formatarCentavos(falta)} para o mínimo de {formatarCentavos(PEDIDO_MINIMO_CENTAVOS)}.
             </p>
           ) : null}

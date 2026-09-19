@@ -75,7 +75,7 @@ export function EntrarForm() {
         </span>
       </p>
 
-      {aviso ? <p className="rounded-md bg-warning/10 p-3 text-xs text-warning-foreground">{aviso}</p> : null}
+      {aviso ? <p className="rounded-md bg-warning-soft p-3 text-xs text-on-warning-soft">{aviso}</p> : null}
 
       <div className="space-y-1.5">
         <Label htmlFor="codigo">Código de 6 dígitos</Label>

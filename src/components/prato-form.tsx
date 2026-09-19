@@ -222,7 +222,7 @@ export function PratoForm({
                 {realizada ? (
                   <p className="text-xs text-muted-foreground">
                     Margem real{" "}
-                    <span className={abaixoDoPiso(realizada.margemLiquidaPct) ? "font-semibold text-warning-foreground" : "font-semibold text-success"}>
+                    <span className={abaixoDoPiso(realizada.margemLiquidaPct) ? "font-semibold text-on-warning-soft" : "font-semibold text-success"}>
                       {formatarPercentual(realizada.margemLiquidaPct)}
                     </span>{" "}
                     · sugerido {formatarMoeda(precificacao.precoVenda)}
@@ -529,7 +529,7 @@ export function PratoForm({
             </dl>
 
             {efetivaEhReal && abaixoDoPiso(efetiva.margemLiquidaPct) && precoNoPiso > 0 ? (
-              <p className="mt-3 flex items-start gap-1.5 rounded-md bg-warning/10 p-2 text-xs text-warning-foreground">
+              <p className="mt-3 flex items-start gap-1.5 rounded-md bg-warning-soft p-2 text-xs text-on-warning-soft">
                 <TriangleAlert className="size-3.5 shrink-0 translate-y-px" />
                 <span>
                   Abaixo do piso de {PISO_MARGEM_CONTRIBUICAO_PCT}%. Para atingir o piso, o preço precisa ser{" "}

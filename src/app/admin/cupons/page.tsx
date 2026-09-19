@@ -76,7 +76,7 @@ export default async function CuponsPage() {
                     </TableCell>
                     <TableCell className="text-muted-foreground">
                       {cupom.validadeFim ? (
-                        <span className={vencido ? "text-warning-foreground" : undefined}>
+                        <span className={vencido ? "text-on-warning-soft" : undefined}>
                           {new Date(cupom.validadeFim).toLocaleDateString("pt-BR")}
                         </span>
                       ) : (

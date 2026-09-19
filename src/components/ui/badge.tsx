@@ -3,18 +3,20 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const badgeVariants = cva(
-  "inline-flex items-center gap-1 rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap",
+  "inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-[11px] font-bold leading-[14px] w-fit whitespace-nowrap",
   {
     variants: {
       variant: {
-        default: "border-transparent bg-primary/10 text-primary",
-        secondary: "border-transparent bg-secondary text-secondary-foreground",
+        default: "border-transparent bg-primary-soft text-on-primary-soft",
+        secondary: "border-border bg-secondary text-secondary-foreground",
         outline: "border-border text-foreground",
-        success: "border-transparent bg-success/10 text-success",
-        warning: "border-transparent bg-warning/10 text-warning",
-        destructive: "border-transparent bg-destructive/10 text-destructive",
-        amber: "border-transparent bg-amber-100 text-amber-800",
-        sky: "border-transparent bg-sky-100 text-sky-800",
+        success: "border-transparent bg-success-soft text-on-success-soft",
+        warning: "border-transparent bg-warning-soft text-on-warning-soft",
+        destructive: "border-transparent bg-destructive-soft text-on-destructive-soft",
+        // Logística Maceió e campanha.
+        amber: "border-transparent bg-warning-soft text-on-warning-soft",
+        // Térmico: congelado, tempo de preparo.
+        sky: "border-transparent bg-thermal-soft text-on-thermal-soft",
       },
     },
     defaultVariants: { variant: "default" },

@@ -48,7 +48,7 @@ export function Carrinho({ pratos }: { pratos: PratoVitrine[] }) {
     <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
       <div className="space-y-3 lg:col-span-2">
         {indisponiveis > 0 ? (
-          <p className="rounded-lg bg-warning/10 p-3 text-sm text-warning-foreground">
+          <p className="rounded-lg bg-warning-soft p-3 text-sm text-on-warning-soft">
             {indisponiveis} {indisponiveis === 1 ? "item saiu" : "itens saíram"} do cardápio e{" "}
             {indisponiveis === 1 ? "foi removido" : "foram removidos"} do seu carrinho.
           </p>
@@ -121,7 +121,7 @@ export function Carrinho({ pratos }: { pratos: PratoVitrine[] }) {
 
           {falta > 0 ? (
             <>
-              <p className="text-sm text-warning-foreground">
+              <p className="text-sm text-on-warning-soft">
                 Faltam <strong>{formatarCentavos(falta)}</strong> para o pedido mínimo de{" "}
                 {formatarCentavos(PEDIDO_MINIMO_CENTAVOS)}.
               </p>

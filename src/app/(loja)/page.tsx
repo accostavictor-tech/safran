@@ -8,10 +8,10 @@ export default async function CardapioPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
       <div className="max-w-xl">
-        <h1 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+        <h1 className="font-display text-[30px] font-bold leading-[38px] text-foreground sm:text-[40px] sm:leading-[48px]">
           Comida de verdade, pronta quando você precisar
         </h1>
-        <p className="mt-2 text-muted-foreground">
+        <p className="mt-2 text-base leading-6 text-muted-foreground">
           Refeições congeladas feitas à mão em Maceió. Escolha os seus pratos e receba em casa.
         </p>
       </div>
