@@ -2,7 +2,15 @@ import { asc, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { pratos, pratoReceitas, receitas } from "@/db/schema";
 import { mapaResumoReceitas, type ReceitaResumo } from "@/db/queries/receitas";
-import { calcularPrecificacao, escalarMacros, somarMacrosLista, MACRO_ZERO, type PrecificacaoInput } from "@/lib/calculations";
+import {
+  calcularPrecificacao,
+  calcularMargemRealizada,
+  escalarMacros,
+  somarMacrosLista,
+  MACRO_ZERO,
+  type PrecificacaoInput,
+} from "@/lib/calculations";
+import { statusPublicacao } from "@/lib/publicacao";
 
 export interface PratoItemComReceita {
   id: string;
@@ -87,7 +95,29 @@ export async function listarPratosComPrecificacao() {
       imposto: prato.imposto,
       comissao: prato.comissao,
     });
-    return { prato, itensCount: itens.length, ...totais };
+
+    // `totais.precificacao` é a SUGESTÃO da fórmula. Quando existe preço
+    // decidido, a margem que interessa é a dele — e as duas convivem na lista
+    // justamente para o sócio ver a diferença.
+    const precificacaoReal =
+      prato.precoVendaCentavos !== null
+        ? calcularMargemRealizada({
+            precoVenda: prato.precoVendaCentavos / 100,
+            custoProducao: totais.custoProducao,
+            custoEmbalagem: prato.custoEmbalagem,
+            taxaCartao: prato.taxaCartao,
+            imposto: prato.imposto,
+            comissao: prato.comissao,
+          })
+        : null;
+
+    return {
+      prato,
+      itensCount: itens.length,
+      ...totais,
+      precificacaoReal,
+      publicacao: statusPublicacao(prato),
+    };
   });
 }
 
