@@ -36,6 +36,13 @@
       "when": 1789772057222,
       "tag": "0004_backfill_slug_pratos",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1789776842092,
+      "tag": "0005_zonas_entrega_iniciais",
+      "breakpoints": true
     }
   ]
 }

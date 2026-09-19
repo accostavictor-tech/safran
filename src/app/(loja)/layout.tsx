@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MapPin } from "lucide-react";
+import { BotaoCarrinho } from "@/components/botao-carrinho";
 
 export default function LojaLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -15,10 +16,13 @@ export default function LojaLayout({ children }: { children: React.ReactNode }) 
               <span className="block text-xs text-muted-foreground">Congelados</span>
             </span>
           </Link>
-          <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <MapPin className="size-3.5" />
-            Maceió / AL
-          </span>
+          <div className="flex items-center gap-4">
+            <span className="hidden items-center gap-1.5 text-xs text-muted-foreground sm:flex">
+              <MapPin className="size-3.5" />
+              Maceió / AL
+            </span>
+            <BotaoCarrinho />
+          </div>
         </div>
       </header>
 

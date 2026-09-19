@@ -1,7 +1,7 @@
 import { unstable_cache } from "next/cache";
 import { and, asc, eq, gt, isNotNull, ne, or } from "drizzle-orm";
 import { db } from "@/db";
-import { pratos, pratoReceitas, receitas } from "@/db/schema";
+import { pratos, pratoReceitas, receitas, zonasEntrega } from "@/db/schema";
 import { mapaResumoReceitas } from "@/db/queries/receitas";
 import { escalarMacros, somarMacrosLista, MACRO_ZERO } from "@/lib/calculations";
 import type { PratoVitrine } from "@/lib/vitrine";
@@ -116,6 +116,38 @@ async function consultarPratoPorSlug(slug: string): Promise<PratoVitrine | null>
 }
 
 export const buscarPratoVitrinePorSlug = unstable_cache(consultarPratoPorSlug, ["vitrine-prato"], {
+  revalidate: REVALIDAR_SEGUNDOS,
+  tags: [TAG_VITRINE],
+});
+
+export interface BairroAtendido {
+  bairro: string;
+  zonaNome: string;
+  freteCentavos: number;
+  freteGratisAcimaCentavos: number | null;
+}
+
+/** Bairros atendidos, achatados a partir das zonas ativas, para o checkout. */
+async function consultarBairrosAtendidos(): Promise<BairroAtendido[]> {
+  const zonas = await db
+    .select()
+    .from(zonasEntrega)
+    .where(eq(zonasEntrega.ativa, true))
+    .orderBy(asc(zonasEntrega.ordem));
+
+  return zonas
+    .flatMap((z) =>
+      z.bairros.map((bairro) => ({
+        bairro,
+        zonaNome: z.nome,
+        freteCentavos: z.freteCentavos,
+        freteGratisAcimaCentavos: z.freteGratisAcimaCentavos,
+      }))
+    )
+    .sort((a, b) => a.bairro.localeCompare(b.bairro, "pt-BR"));
+}
+
+export const listarBairrosAtendidos = unstable_cache(consultarBairrosAtendidos, ["bairros-atendidos"], {
   revalidate: REVALIDAR_SEGUNDOS,
   tags: [TAG_VITRINE],
 });

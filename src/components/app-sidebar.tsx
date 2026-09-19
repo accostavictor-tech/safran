@@ -3,12 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Package, NotebookText, UtensilsCrossed, LogOut, Menu, X } from "lucide-react";
+import { Package, NotebookText, UtensilsCrossed, ClipboardList, Store, LogOut, Menu, X } from "lucide-react";
 import { logoutAction } from "@/actions/auth";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const LINKS = [
+  { href: "/admin/pedidos", label: "Pedidos", icon: ClipboardList },
   { href: "/admin/insumos", label: "Insumos", icon: Package },
   { href: "/admin/receitas", label: "Receitas", icon: NotebookText },
   { href: "/admin/pratos", label: "Pratos", icon: UtensilsCrossed },
@@ -22,7 +23,7 @@ function Brand() {
       </div>
       <div>
         <p className="text-sm font-semibold leading-tight text-foreground">Safran</p>
-        <p className="text-[11px] leading-tight text-muted-foreground">Precificação</p>
+        <p className="text-[11px] leading-tight text-muted-foreground">Gestão</p>
       </div>
     </div>
   );
@@ -52,6 +53,15 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
           </Link>
         );
       })}
+
+      <Link
+        href="/"
+        onClick={onNavigate}
+        className="mt-2 flex items-center gap-2.5 rounded-md px-3 py-2 text-sm font-medium text-sidebar-foreground/60 transition-colors hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground"
+      >
+        <Store className="size-4.5 shrink-0" />
+        Ver a loja
+      </Link>
     </nav>
   );
 }

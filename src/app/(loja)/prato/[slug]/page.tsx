@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { formatarCentavos } from "@/lib/calculations";
+import { BotaoAdicionar } from "@/components/botao-adicionar";
 
 export async function generateMetadata({ params }: PageProps<"/prato/[slug]">): Promise<Metadata> {
   const { slug } = await params;
@@ -83,13 +84,9 @@ export default async function PratoPage({ params }: PageProps<"/prato/[slug]">) 
             </p>
           ) : null}
 
-          {/* O carrinho entra na próxima fase; por ora o pedido segue pelo WhatsApp. */}
-          <a
-            href={`https://wa.me/5582999550922?text=${encodeURIComponent(`Olá! Quero pedir: ${prato.nome}`)}`}
-            className="mt-6 inline-flex h-11 w-full items-center justify-center rounded-lg bg-primary px-5 font-medium text-primary-foreground transition hover:bg-primary/90"
-          >
-            Pedir pelo WhatsApp
-          </a>
+          <div className="mt-6">
+            <BotaoAdicionar pratoId={prato.id} nome={prato.nome} />
+          </div>
         </div>
       </div>
 
