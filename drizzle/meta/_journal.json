@@ -50,6 +50,13 @@
       "when": 1789778247830,
       "tag": "0006_cooing_gauntlet",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1789778620080,
+      "tag": "0007_spicy_killraven",
+      "breakpoints": true
     }
   ]
 }

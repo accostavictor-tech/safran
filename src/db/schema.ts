@@ -360,6 +360,28 @@ export const creditoMovimentos = pgTable(
   ]
 );
 
+/**
+ * Códigos de acesso do cliente (OTP).
+ *
+ * Guarda o hash, nunca o código: vazamento do banco não pode virar login na
+ * conta de ninguém. Cada linha vale uma vez, tem prazo curto e conta as
+ * tentativas erradas, para o código de 6 dígitos não ser adivinhável por força
+ * bruta.
+ */
+export const codigosAcesso = pgTable(
+  "codigos_acesso",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    telefone: text("telefone").notNull(),
+    codigoHash: text("codigo_hash").notNull(),
+    expiraEm: timestamp("expira_em", { withTimezone: true }).notNull(),
+    tentativas: integer("tentativas").notNull().default(0),
+    usadoEm: timestamp("usado_em", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("codigos_telefone_idx").on(t.telefone, t.createdAt)]
+);
+
 export const cupons = pgTable("cupons", {
   id: uuid("id").primaryKey().defaultRandom(),
   codigo: text("codigo").notNull().unique(),

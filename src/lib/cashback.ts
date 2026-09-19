@@ -31,3 +31,6 @@ export function creditoAplicavel(saldoCentavos: number, subtotalCentavos: number
   if (!podeUsar(saldoCentavos)) return 0;
   return Math.min(saldoCentavos, subtotalCentavos);
 }
+
+/** Estorno do crédito de um pedido cancelado. */
+export const MOTIVO_ESTORNO = "estorno_cancelamento";

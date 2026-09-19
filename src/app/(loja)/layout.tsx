@@ -1,8 +1,11 @@
 import Link from "next/link";
-import { MapPin } from "lucide-react";
+import { MapPin, UserRound } from "lucide-react";
 import { BotaoCarrinho } from "@/components/botao-carrinho";
+import { obterSessaoCliente } from "@/lib/auth";
 
-export default function LojaLayout({ children }: { children: React.ReactNode }) {
+export default async function LojaLayout({ children }: { children: React.ReactNode }) {
+  const sessao = await obterSessaoCliente();
+
   return (
     <div className="flex min-h-screen flex-col">
       <header className="sticky top-0 z-20 border-b border-border bg-background/90 backdrop-blur">
@@ -16,11 +19,18 @@ export default function LojaLayout({ children }: { children: React.ReactNode }) 
               <span className="block text-xs text-muted-foreground">Congelados</span>
             </span>
           </Link>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-3">
             <span className="hidden items-center gap-1.5 text-xs text-muted-foreground sm:flex">
               <MapPin className="size-3.5" />
               Maceió / AL
             </span>
+            <Link
+              href={sessao ? "/minha-conta" : "/entrar"}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-2 text-sm font-medium text-foreground transition hover:border-primary/40"
+            >
+              <UserRound className="size-4" />
+              <span className="hidden sm:inline">{sessao ? "Minha conta" : "Entrar"}</span>
+            </Link>
             <BotaoCarrinho />
           </div>
         </div>

@@ -7,7 +7,7 @@ import { creditoMovimentos, pedidoEventos, pedidoItens, pedidos, pratos } from "
 import { TAG_VITRINE } from "@/db/queries/loja";
 import { obterSessao } from "@/lib/auth";
 import { podeTransicionar } from "@/lib/pedido-status";
-import { MOTIVO_COMPRA, cashbackDoPedido } from "@/lib/cashback";
+import { MOTIVO_COMPRA, MOTIVO_ESTORNO, MOTIVO_USO, cashbackDoPedido } from "@/lib/cashback";
 import type { PedidoStatus } from "@/db/queries/pedidos";
 
 export interface TransicaoState {
@@ -63,6 +63,26 @@ export async function mudarStatusPedidoAction(
     }
 
     if (novoStatus === "cancelado") {
+      // Devolve o crédito que o pedido consumiu, como movimento de estorno — o
+      // débito original fica no histórico, nada é apagado.
+      const gastos = await tx
+        .select({ centavos: creditoMovimentos.centavos })
+        .from(creditoMovimentos)
+        .where(and(eq(creditoMovimentos.pedidoId, pedidoId), eq(creditoMovimentos.motivo, MOTIVO_USO)));
+
+      const totalGasto = gastos.reduce((acc, g) => acc + g.centavos, 0);
+      if (totalGasto < 0 && pedido.clienteId) {
+        await tx
+          .insert(creditoMovimentos)
+          .values({
+            clienteId: pedido.clienteId,
+            pedidoId,
+            centavos: -totalGasto,
+            motivo: MOTIVO_ESTORNO,
+          })
+          .onConflictDoNothing();
+      }
+
       const itens = await tx
         .select({ pratoId: pedidoItens.pratoId, quantidade: pedidoItens.quantidade })
         .from(pedidoItens)

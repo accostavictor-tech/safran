@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useActionState, useMemo, useState, useTransition, startTransition } from "react";
-import { ShoppingBag, TicketPercent } from "lucide-react";
+import { ShoppingBag, TicketPercent, Wallet } from "lucide-react";
 import { criarPedidoAction, type CheckoutState } from "@/actions/pedidos";
 import { conferirCupomAction, type PreviaCupom } from "@/actions/cupons";
 import { useCarrinho } from "@/lib/carrinho-store";
@@ -14,7 +14,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { formatarCentavos } from "@/lib/calculations";
+import { formatarTelefone } from "@/lib/loja";
 import { calcularSubtotal, calcularTotal, faltaParaMinimo, resolverFrete, PEDIDO_MINIMO_CENTAVOS } from "@/lib/loja";
+import { creditoAplicavel, podeUsar } from "@/lib/cashback";
 import type { PratoVitrine } from "@/lib/vitrine";
 
 const initialState: CheckoutState = {};
@@ -26,11 +28,21 @@ export interface BairroOpcao {
   freteGratisAcimaCentavos: number | null;
 }
 
-export function CheckoutForm({ pratos, bairros }: { pratos: PratoVitrine[]; bairros: BairroOpcao[] }) {
+export function CheckoutForm({
+  pratos,
+  bairros,
+  conta,
+}: {
+  pratos: PratoVitrine[];
+  bairros: BairroOpcao[];
+  /** Cliente logado e saldo de cashback, quando houver sessão. */
+  conta: { nome: string; telefone: string; saldoCentavos: number } | null;
+}) {
   const [state, formAction, pending] = useActionState(criarPedidoAction, initialState);
   const { itens, carregado } = useCarrinho();
   const [bairro, setBairro] = useState("");
   const [codigoCupom, setCodigoCupom] = useState("");
+  const [usarCredito, setUsarCredito] = useState(false);
   const [cupom, setCupom] = useState<PreviaCupom | null>(null);
   const [conferindo, iniciarConferencia] = useTransition();
 
@@ -62,7 +74,10 @@ export function CheckoutForm({ pratos, bairros }: { pratos: PratoVitrine[]; bair
   const freteBase = resolverFrete(zonaEscolhida, subtotal);
   const cupomValido = cupom?.ok ? cupom : null;
   const frete = cupomValido?.freteGratis ? 0 : freteBase;
-  const desconto = cupomValido?.descontoCentavos ?? 0;
+  const descontoCupom = cupomValido?.descontoCentavos ?? 0;
+  const creditoDisponivel = conta?.saldoCentavos ?? 0;
+  const creditoUsado = usarCredito ? creditoAplicavel(creditoDisponivel, Math.max(0, subtotal - descontoCupom)) : 0;
+  const desconto = descontoCupom + creditoUsado;
   const total = calcularTotal(subtotal, frete, desconto);
   const falta = faltaParaMinimo(subtotal);
 
@@ -92,6 +107,7 @@ export function CheckoutForm({ pratos, bairros }: { pratos: PratoVitrine[]; bair
     <form onSubmit={enviar} className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
       <input type="hidden" name="itens" value={itensJson} />
       {cupomValido ? <input type="hidden" name="cupom" value={cupomValido.codigo} /> : null}
+      {creditoUsado > 0 ? <input type="hidden" name="usarCredito" value="on" /> : null}
 
       <div className="space-y-5 lg:col-span-2">
         <Card>
@@ -101,11 +117,11 @@ export function CheckoutForm({ pratos, bairros }: { pratos: PratoVitrine[]; bair
           <CardContent className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-1.5 sm:col-span-2">
               <Label htmlFor="nome">Nome completo</Label>
-              <Input id="nome" name="nome" required autoComplete="name" />
+              <Input id="nome" name="nome" required autoComplete="name" defaultValue={conta?.nome || undefined} />
             </div>
             <div className="space-y-1.5 sm:col-span-2">
               <Label htmlFor="telefone">WhatsApp</Label>
-              <Input id="telefone" name="telefone" required inputMode="tel" autoComplete="tel" placeholder="(82) 99999-9999" />
+              <Input id="telefone" name="telefone" required inputMode="tel" autoComplete="tel" placeholder="(82) 99999-9999" defaultValue={conta ? formatarTelefone(conta.telefone) : undefined} />
               <p className="text-xs text-muted-foreground">É por aqui que avisamos o andamento do pedido.</p>
             </div>
           </CardContent>
@@ -231,15 +247,41 @@ export function CheckoutForm({ pratos, bairros }: { pratos: PratoVitrine[]; bair
             </div>
           )}
 
+          {conta && podeUsar(creditoDisponivel) ? (
+            <label className="mb-3 flex items-start gap-2 rounded-md bg-primary/5 p-2.5 text-sm">
+              <input
+                type="checkbox"
+                checked={usarCredito}
+                onChange={(e) => setUsarCredito(e.target.checked)}
+                className="mt-0.5 size-4 accent-primary"
+              />
+              <span>
+                <span className="flex items-center gap-1.5 font-medium text-foreground">
+                  <Wallet className="size-3.5" />
+                  Usar meu cashback
+                </span>
+                <span className="block text-xs text-muted-foreground">
+                  Você tem {formatarCentavos(creditoDisponivel)} de crédito.
+                </span>
+              </span>
+            </label>
+          ) : null}
+
           <dl className="space-y-1.5 text-sm">
             <div className="flex justify-between">
               <dt className="text-muted-foreground">Subtotal</dt>
               <dd className="tabular-nums text-foreground">{formatarCentavos(subtotal)}</dd>
             </div>
-            {desconto > 0 ? (
+            {descontoCupom > 0 ? (
               <div className="flex justify-between text-success">
                 <dt>Desconto ({cupomValido?.codigo})</dt>
-                <dd className="tabular-nums">− {formatarCentavos(desconto)}</dd>
+                <dd className="tabular-nums">− {formatarCentavos(descontoCupom)}</dd>
+              </div>
+            ) : null}
+            {creditoUsado > 0 ? (
+              <div className="flex justify-between text-success">
+                <dt>Cashback usado</dt>
+                <dd className="tabular-nums">− {formatarCentavos(creditoUsado)}</dd>
               </div>
             ) : null}
             <div className="flex justify-between">
