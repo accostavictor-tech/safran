@@ -77,7 +77,12 @@ async function aplicarMigration(sql, entrada) {
 async function main() {
   const url = process.env.DATABASE_URL;
   if (!url) {
-    // Build sem banco (checagem de tipos num CI, por exemplo) não deve quebrar.
+    // Num deploy de produção, banco ausente é falha: sair em silêncio aqui
+    // publicaria de novo código sem o schema, que é o problema que este script
+    // existe para impedir. Fora dele (checagem de tipos num CI), só ignora.
+    if (process.env.VERCEL_ENV === "production") {
+      throw new Error("DATABASE_URL não está disponível no build de produção — migrations não foram aplicadas.");
+    }
     log("DATABASE_URL ausente — nada a fazer.");
     return;
   }
