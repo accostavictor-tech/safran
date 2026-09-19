@@ -1,11 +1,16 @@
 // Cashback: parte do que o cliente gasta volta como crédito para usar na
 // própria loja.
 //
-// A taxa abaixo é a economia do programa e é decisão dos sócios, não um padrão
-// meu. Em 5%, um pedido de R$ 100 devolve R$ 5,00 de crédito.
+// A taxa abaixo é a economia do programa e foi decidida pelos sócios: 1%. Um
+// pedido de R$ 100 devolve R$ 1,00 de crédito.
+//
+// Ela entra na precificação como dedução variável, junto com cartão e imposto:
+// o crédito é gasto na própria loja, então sai da margem do pedido seguinte.
+// Mexer aqui sem refazer a tabela de preços derruba a margem de contribuição
+// no mesmo tanto (ver scripts/simular-precos.mts).
 
 /** Percentual do subtotal que volta como crédito. */
-export const CASHBACK_PCT = 5;
+export const CASHBACK_PCT = 1;
 
 /** Crédito mínimo acumulado para poder usar, para não virar centavo solto. */
 export const MINIMO_USO_CENTAVOS = 500;

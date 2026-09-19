@@ -17,6 +17,7 @@ for (const linha of readFileSync(new URL("../.env.local", import.meta.url), "utf
 
 const { listarPratosComPrecificacao } = await import("../src/db/queries/pratos");
 const { calcularPrecoParaMargem, analisarPreco, PISO_MARGEM_CONTRIBUICAO_PCT } = await import("../src/lib/calculations");
+const { CASHBACK_PCT } = await import("../src/lib/cashback");
 
 const args = process.argv.slice(2);
 const margemAlvo = Number(args[args.indexOf("--margem") + 1]) || PISO_MARGEM_CONTRIBUICAO_PCT;
@@ -35,7 +36,14 @@ function arredondarParaNoventa(valor: number): number {
 
 const linhas = await listarPratosComPrecificacao();
 
-/** Um cenário = um conjunto de deduções variáveis sobre o preço. */
+/**
+ * Um cenário = um conjunto de deduções variáveis sobre o preço.
+ *
+ * O cashback entra aqui, e não no rodapé: o crédito é gasto na própria loja,
+ * então é desconto sobre a receita como cartão e imposto são. Deixá-lo de fora
+ * da precificação é o que faria a margem real ficar abaixo do piso sem
+ * ninguém ver.
+ */
 const CENARIOS = [
   {
     chave: "atual",
@@ -44,8 +52,13 @@ const CENARIOS = [
   },
   {
     chave: "proprio",
-    titulo: "B — canal próprio, sem comissão de marketplace",
+    titulo: "B — canal próprio, sem comissão de marketplace e sem cashback",
     comissao: () => 0,
+  },
+  {
+    chave: "com_cashback",
+    titulo: `C — canal próprio com cashback de ${CASHBACK_PCT}% (é este que vale)`,
+    comissao: () => CASHBACK_PCT,
   },
 ];
 
@@ -85,9 +98,9 @@ const resultado = CENARIOS.map((cenario) => {
  * faixa que cobre o preço mínimo dele — se nenhuma cobrir, sai destacado.
  */
 const FAIXAS = [
-  { nome: "Cardápio", preco: 28.9 },
-  { nome: "Especial", preco: 38.9 },
-  { nome: "Premium", preco: 46.9 },
+  { nome: "Cardápio", preco: 29.9 },
+  { nome: "Especial", preco: 39.9 },
+  { nome: "Premium", preco: 47.9 },
 ];
 
 function faixaDe(precoMinimo: number) {
@@ -119,9 +132,9 @@ if (comoJson) {
     console.log(`preço médio sugerido: ${brl(medio)}`);
   }
 
-  // As faixas só fazem sentido no cenário do canal próprio: é o que a loja é.
-  const canalProprio = resultado.find((c) => c.chave === "proprio")!;
-  console.log(`\nFaixas de preço no canal próprio (alvo ${margemAlvo}%)\n`);
+  // As faixas saem do cenário que a loja de fato é: canal próprio com cashback.
+  const canalProprio = resultado.find((c) => c.chave === "com_cashback")!;
+  console.log(`\nFaixas de preço no canal próprio, cashback de ${CASHBACK_PCT}% (alvo ${margemAlvo}%)\n`);
   console.table(
     canalProprio.pratos
       .slice()
