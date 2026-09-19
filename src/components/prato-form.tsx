@@ -441,7 +441,7 @@ export function PratoForm({
                 />
               </div>
               <div className="space-y-1.5">
-                <Label htmlFor="comissao">Comissão (%)</Label>
+                <Label htmlFor="comissao">Comissão / cashback (%)</Label>
                 <Input
                   id="comissao"
                   name="comissao"
@@ -451,7 +451,9 @@ export function PratoForm({
                   value={comissao}
                   onChange={(e) => setComissao(Number(e.target.value) || 0)}
                 />
-                <p className="text-xs text-muted-foreground">Marketplace, entregador, etc.</p>
+                <p className="text-xs text-muted-foreground">
+                  Cashback, marketplace, entregador — tudo que sai do preço e varia com a venda.
+                </p>
               </div>
             </div>
           </CardContent>
@@ -509,7 +511,7 @@ export function PratoForm({
                 <dd>− {formatarMoeda(efetiva.valorImposto)}</dd>
               </div>
               <div className="flex justify-between text-xs text-muted-foreground">
-                <dt>Comissão</dt>
+                <dt>Comissão / cashback</dt>
                 <dd>− {formatarMoeda(efetiva.valorComissao)}</dd>
               </div>
               <div className="flex justify-between border-t border-border pt-2">
