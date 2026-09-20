@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { useActionState, useMemo, useState, useTransition, startTransition } from "react";
-import { ShoppingBag, TicketPercent, Wallet } from "lucide-react";
+import { Handshake, ShoppingBag, TicketPercent, Wallet } from "lucide-react";
 import { criarPedidoAction, type CheckoutState } from "@/actions/pedidos";
 import { conferirCupomAction, type PreviaCupom } from "@/actions/cupons";
+import { conferirParceiroAction, type PreviaParceiro } from "@/actions/parceiros";
 import { useCarrinho } from "@/lib/carrinho-store";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -47,6 +48,8 @@ export function CheckoutForm({
   const [codigoCupom, setCodigoCupom] = useState("");
   const [usarCredito, setUsarCredito] = useState(false);
   const [cupom, setCupom] = useState<PreviaCupom | null>(null);
+  const [codigoParceiro, setCodigoParceiro] = useState("");
+  const [parceiro, setParceiro] = useState<PreviaParceiro | null>(null);
   const [conferindo, iniciarConferencia] = useTransition();
 
   function conferirCupom() {
@@ -60,6 +63,19 @@ export function CheckoutForm({
   function limparCupom() {
     setCupom(null);
     setCodigoCupom("");
+  }
+
+  function conferirParceiro() {
+    const codigo = codigoParceiro.trim();
+    if (!codigo) return;
+    iniciarConferencia(async () => {
+      setParceiro(await conferirParceiroAction(codigo, subtotal));
+    });
+  }
+
+  function limparParceiro() {
+    setParceiro(null);
+    setCodigoParceiro("");
   }
 
   const porId = useMemo(() => new Map(pratos.map((p) => [p.id, p])), [pratos]);
@@ -96,9 +112,13 @@ export function CheckoutForm({
   const cupomValido = cupom?.ok ? cupom : null;
   const frete = cupomValido?.freteGratis ? 0 : freteBase;
   const descontoCupom = cupomValido?.descontoCentavos ?? 0;
+  const parceiroValido = parceiro?.ok ? parceiro : null;
+  const descontoParceiro = parceiroValido?.descontoCentavos ?? 0;
   const creditoDisponivel = conta?.saldoCentavos ?? 0;
-  const creditoUsado = usarCredito ? creditoAplicavel(creditoDisponivel, Math.max(0, subtotal - descontoCupom)) : 0;
-  const desconto = descontoCupom + creditoUsado;
+  const creditoUsado = usarCredito
+    ? creditoAplicavel(creditoDisponivel, Math.max(0, subtotal - descontoCupom - descontoParceiro))
+    : 0;
+  const desconto = descontoCupom + descontoParceiro + creditoUsado;
   const total = calcularTotal(subtotal, frete, desconto);
   const falta = faltaParaMinimo(subtotal);
 
@@ -136,6 +156,7 @@ export function CheckoutForm({
       <input type="hidden" name="itens" value={itensJson} />
       <input type="hidden" name="kits" value={kitsJson} />
       {cupomValido ? <input type="hidden" name="cupom" value={cupomValido.codigo} /> : null}
+      {parceiroValido ? <input type="hidden" name="parceiro" value={parceiroValido.codigo} /> : null}
       {creditoUsado > 0 ? <input type="hidden" name="usarCredito" value="on" /> : null}
 
       <div className="space-y-5 lg:col-span-2">
@@ -276,6 +297,54 @@ export function CheckoutForm({
             </div>
           )}
 
+          {parceiroValido ? (
+            <div className="mb-3 flex items-center justify-between gap-2 rounded-md bg-primary-soft p-2.5">
+              <span className="flex min-w-0 items-center gap-1.5 text-sm text-on-primary-soft">
+                <Handshake className="size-4 shrink-0" />
+                <span className="truncate">{parceiroValido.nome}</span>
+              </span>
+              <button
+                type="button"
+                onClick={limparParceiro}
+                className="shrink-0 text-xs text-muted-foreground underline hover:text-foreground"
+              >
+                remover
+              </button>
+            </div>
+          ) : (
+            <div className="mb-3 space-y-1.5">
+              <Label htmlFor="codigoParceiro" className="text-xs">
+                Código de parceiro ou indicação
+              </Label>
+              <div className="flex gap-2">
+                <Input
+                  id="codigoParceiro"
+                  value={codigoParceiro}
+                  onChange={(e) => setCodigoParceiro(e.target.value.toUpperCase())}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      conferirParceiro();
+                    }
+                  }}
+                  placeholder="EMPRESA-XYZ"
+                  className="h-9 font-mono uppercase"
+                />
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={conferirParceiro}
+                  loading={conferindo}
+                  disabled={conferindo || codigoParceiro.trim().length === 0}
+                  className="h-9 shrink-0"
+                >
+                  Aplicar
+                </Button>
+              </div>
+              {parceiro && !parceiro.ok ? <p className="text-xs text-destructive">{parceiro.mensagem}</p> : null}
+            </div>
+          )}
+
           {conta && podeUsar(creditoDisponivel) ? (
             <label className="mb-3 flex items-start gap-2 rounded-md bg-primary/5 p-2.5 text-sm">
               <input
@@ -305,6 +374,12 @@ export function CheckoutForm({
               <div className="flex justify-between text-success">
                 <dt>Desconto ({cupomValido?.codigo})</dt>
                 <dd className="tabular-nums">− {formatarCentavos(descontoCupom)}</dd>
+              </div>
+            ) : null}
+            {descontoParceiro > 0 ? (
+              <div className="flex justify-between text-success">
+                <dt>Desconto {parceiroValido?.nome}</dt>
+                <dd className="tabular-nums">− {formatarCentavos(descontoParceiro)}</dd>
               </div>
             ) : null}
             {creditoUsado > 0 ? (

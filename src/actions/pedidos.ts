@@ -27,6 +27,8 @@ import { aplicarCupom, normalizarCodigoCupom, type CupomAplicado } from "@/lib/c
 import { obterSessaoCliente } from "@/lib/auth";
 import { chaveEndereco, resolverZonaPorBairro } from "@/lib/enderecos";
 import { resumirKit } from "@/lib/kits";
+import { aplicarParceiro } from "@/lib/parceiros";
+import { buscarParceiroPorCodigo, paraRegra as paraRegraParceiro } from "@/db/queries/parceiros";
 import type { ComposicaoKitSnapshot } from "@/db/schema";
 import { saldoCreditoCentavos } from "@/db/queries/cupons";
 import { creditoAplicavel, MOTIVO_USO } from "@/lib/cashback";
@@ -60,6 +62,7 @@ const checkoutSchema = z.object({
   referencia: z.string().trim().nullable(),
   observacoes: z.string().trim().nullable(),
   cupom: z.string().trim().nullable(),
+  parceiro: z.string().trim().nullable(),
   usarCredito: z.coerce.boolean().default(false),
   itens: z.string().transform((s, ctx) => {
     try {
@@ -111,6 +114,7 @@ function parseFormData(formData: FormData) {
     referencia: texto("referencia"),
     observacoes: texto("observacoes"),
     cupom: texto("cupom"),
+    parceiro: texto("parceiro"),
     usarCredito: formData.get("usarCredito") === "on",
     itens: formData.get("itens") ?? "[]",
     kits: formData.get("kits") ?? "[]",
@@ -252,6 +256,19 @@ export async function criarPedidoAction(
   const descontoCupomCentavos = cupomAplicado?.descontoCentavos ?? 0;
 
   /**
+   * Parceria. O código é validado aqui, não no navegador: desconto de empresa e
+   * comissão de afiliado são dinheiro, e o cliente não pode escolher o próprio
+   * percentual.
+   */
+  let parceiro: Awaited<ReturnType<typeof buscarParceiroPorCodigo>> = null;
+  let efeitoParceiro = { descontoCentavos: 0, comissaoCentavos: 0 };
+  if (dados.parceiro) {
+    parceiro = await buscarParceiroPorCodigo(dados.parceiro);
+    if (!parceiro) return { erro: "Código de parceiro inválido ou inativo." };
+    efeitoParceiro = aplicarParceiro(paraRegraParceiro(parceiro), subtotalCentavos);
+  }
+
+  /**
    * Crédito só entra com cliente logado, e o saldo é lido do banco — nunca do
    * que o navegador mandou. Sem sessão, saber um telefone permitiria gastar o
    * dinheiro de outra pessoa.
@@ -264,12 +281,16 @@ export async function criarPedidoAction(
       return { erro: "O WhatsApp do pedido é diferente do da conta em que você está logado." };
     }
     const saldo = await saldoCreditoCentavos(sessaoCliente.clienteId);
-    // O crédito desconta do que sobrou depois do cupom, e nunca passa disso.
-    creditoUsadoCentavos = creditoAplicavel(saldo, Math.max(0, subtotalCentavos - descontoCupomCentavos));
+    // O crédito desconta do que sobrou depois do cupom e do parceiro, e nunca
+    // passa disso — senão o pedido fecharia negativo.
+    creditoUsadoCentavos = creditoAplicavel(
+      saldo,
+      Math.max(0, subtotalCentavos - descontoCupomCentavos - efeitoParceiro.descontoCentavos)
+    );
     if (creditoUsadoCentavos === 0) return { erro: "Você ainda não tem cashback suficiente para usar." };
   }
 
-  const descontoCentavos = descontoCupomCentavos + creditoUsadoCentavos;
+  const descontoCentavos = descontoCupomCentavos + efeitoParceiro.descontoCentavos + creditoUsadoCentavos;
   const totalCentavos = calcularTotal(subtotalCentavos, freteCentavos, descontoCentavos);
 
   // Custo no momento da venda, para margem histórica que não depende do custo atual.
@@ -332,6 +353,9 @@ export async function criarPedidoAction(
           freteCentavos,
           totalCentavos,
           cupomCodigo: cupomAplicado?.codigo ?? null,
+          parceiroId: parceiro?.id ?? null,
+          parceiroCodigoSnapshot: parceiro?.codigoIndicacao ?? null,
+          comissaoCentavos: efeitoParceiro.comissaoCentavos,
           observacoes: dados.observacoes,
         })
         .returning({ id: pedidos.id });

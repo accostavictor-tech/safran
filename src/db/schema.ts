@@ -28,6 +28,8 @@ export const assinaturaFrequenciaEnum = pgEnum("assinatura_frequencia", ["semana
 export const assinaturaStatusEnum = pgEnum("assinatura_status", ["ativa", "pausada", "cancelada"]);
 export const cicloStatusEnum = pgEnum("ciclo_status", ["gerado", "pulado"]);
 
+export const parceiroTipoEnum = pgEnum("parceiro_tipo", ["empresa", "afiliado", "nutricionista"]);
+
 export const pedidoStatusEnum = pgEnum("pedido_status", [
   "rascunho",
   "aguardando_pagamento",
@@ -264,6 +266,42 @@ export const enderecos = pgTable("enderecos", {
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
+/**
+ * Parceiro: quem traz venda para a Safran, em três formatos.
+ *
+ * - empresa: compra ou revende (academia, clínica, escritório). Tem desconto
+ *   sobre a tabela, porque o preço dela é outro.
+ * - afiliado: divulga com código próprio e recebe comissão sobre o que vender.
+ * - nutricionista: prescreve para pacientes; o pedido fica rastreável, com ou
+ *   sem comissão.
+ *
+ * Os três moram na mesma tabela porque a mecânica é a mesma — um código que o
+ * cliente informa no checkout — e o que muda é só desconto contra comissão.
+ * Separar em três tabelas significaria três telas e três relatórios para
+ * responder à mesma pergunta: quanto cada parceiro trouxe.
+ */
+export const parceiros = pgTable("parceiros", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  codigo: integer("codigo").generatedAlwaysAsIdentity().notNull().unique(),
+  tipo: parceiroTipoEnum("tipo").notNull(),
+  nome: text("nome").notNull(),
+  contatoNome: text("contato_nome"),
+  telefone: text("telefone"),
+  email: text("email"),
+  /** CNPJ ou CPF, só dígitos. */
+  documento: text("documento"),
+  /** Código que o cliente informa no checkout. Normalizado em maiúsculas. */
+  codigoIndicacao: text("codigo_indicacao").notNull().unique(),
+  /** Desconto concedido ao cliente, em %. É a tabela própria da empresa. */
+  descontoPct: numeric("desconto_pct", { precision: 5, scale: 2, mode: "number" }).notNull().default(0),
+  /** Comissão devida ao parceiro, em % do subtotal. Não é desconto: é despesa. */
+  comissaoPct: numeric("comissao_pct", { precision: 5, scale: 2, mode: "number" }).notNull().default(0),
+  observacoes: text("observacoes"),
+  ativo: boolean("ativo").notNull().default(true),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
 export const pedidos = pgTable(
   "pedidos",
   {
@@ -285,6 +323,14 @@ export const pedidos = pgTable(
     freteCentavos: integer("frete_centavos").notNull().default(0),
     totalCentavos: integer("total_centavos").notNull().default(0),
     cupomCodigo: text("cupom_codigo"),
+
+    // --- Parceria ---
+    // Referência solta e snapshots: o percentual do parceiro muda com o tempo e
+    // o histórico precisa continuar valendo o que valia no dia da venda.
+    parceiroId: uuid("parceiro_id").references(() => parceiros.id, { onDelete: "set null" }),
+    parceiroCodigoSnapshot: text("parceiro_codigo_snapshot"),
+    /** Comissão devida ao parceiro por este pedido, congelada na venda. */
+    comissaoCentavos: integer("comissao_centavos").notNull().default(0),
 
     janelaEntregaInicio: timestamp("janela_entrega_inicio", { withTimezone: true }),
     janelaEntregaFim: timestamp("janela_entrega_fim", { withTimezone: true }),

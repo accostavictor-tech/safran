@@ -11,6 +11,7 @@ import {
   CalendarClock,
   ClipboardList,
   TicketPercent,
+  Handshake,
   Store,
   LogOut,
   Menu,
@@ -28,6 +29,7 @@ const LINKS = [
   { href: "/admin/kits", label: "Kits", icon: PackagePlus },
   { href: "/admin/assinaturas", label: "Assinaturas", icon: CalendarClock },
   { href: "/admin/cupons", label: "Cupons", icon: TicketPercent },
+  { href: "/admin/parceiros", label: "Parceiros", icon: Handshake },
 ];
 
 function Brand() {
