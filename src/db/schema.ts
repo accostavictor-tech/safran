@@ -192,7 +192,15 @@ export const pratoReceitas = pgTable("prato_receitas", {
 
 export const clientes = pgTable("clientes", {
   id: uuid("id").primaryKey().defaultRandom(),
-  // Telefone é a identidade do cliente (login por OTP no WhatsApp). E.164, ex: +5582999550922
+  /**
+   * Identidade do cliente (login por OTP no WhatsApp).
+   *
+   * Formato gravado: só dígitos com o 55 na frente, SEM o "+" — é o que
+   * `normalizarTelefone` produz. O detalhe importa: a unicidade é sobre a
+   * string, então "+5582..." e "5582..." conviveriam como duas contas, cada uma
+   * com sua carteira de cashback. Qualquer importação passa por
+   * `normalizarTelefone` antes de gravar.
+   */
   telefone: text("telefone").notNull().unique(),
   nome: text("nome").notNull(),
   email: text("email"),

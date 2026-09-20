@@ -2,11 +2,13 @@
 
 import { randomInt } from "node:crypto";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import { and, desc, eq, gte, isNull, sql } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 import { db } from "@/db";
-import { clientes, codigosAcesso } from "@/db/schema";
-import { criarSessaoCliente, encerrarSessaoCliente } from "@/lib/auth";
+import { clientes, codigosAcesso, enderecos, zonasEntrega } from "@/db/schema";
+import { criarSessaoCliente, encerrarSessaoCliente, obterSessaoCliente } from "@/lib/auth";
+import { chaveEndereco, resolverZonaPorBairro } from "@/lib/enderecos";
 import { normalizarTelefone } from "@/lib/loja";
 import { enviarWhatsapp } from "@/lib/notificacoes";
 
@@ -124,4 +126,117 @@ export async function confirmarCodigoAction(
 export async function sairDaContaAction() {
   await encerrarSessaoCliente();
   redirect("/");
+}
+
+// --- Perfil e agenda de endereços ---
+
+export interface PerfilState {
+  erro?: string;
+  ok?: boolean;
+}
+
+export async function salvarPerfilAction(_prev: PerfilState, formData: FormData): Promise<PerfilState> {
+  const sessao = await obterSessaoCliente();
+  if (!sessao) return { erro: "Sessão expirada. Entre de novo." };
+
+  const nome = String(formData.get("nome") ?? "").trim();
+  const emailBruto = String(formData.get("email") ?? "").trim();
+  if (nome.length < 2) return { erro: "Informe seu nome." };
+  // Validação de e-mail aqui é só para pegar erro de digitação; quem confirma
+  // que o endereço existe é o envio, não uma expressão regular.
+  if (emailBruto && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailBruto)) {
+    return { erro: "E-mail inválido." };
+  }
+
+  await db
+    .update(clientes)
+    .set({ nome, email: emailBruto || null, updatedAt: new Date() })
+    .where(eq(clientes.id, sessao.clienteId));
+
+  // O nome vive também no cookie de sessão, para o cabeçalho não precisar de
+  // uma consulta por página; sem isto ele ficaria exibindo o nome antigo.
+  await criarSessaoCliente({ clienteId: sessao.clienteId, telefone: sessao.telefone, nome });
+
+  revalidatePath("/minha-conta");
+  return { ok: true };
+}
+
+export interface EnderecoState {
+  erro?: string;
+  ok?: boolean;
+}
+
+export async function salvarEnderecoAction(
+  _prev: EnderecoState,
+  formData: FormData
+): Promise<EnderecoState> {
+  const sessao = await obterSessaoCliente();
+  if (!sessao) return { erro: "Sessão expirada. Entre de novo." };
+
+  const dados = {
+    logradouro: String(formData.get("logradouro") ?? "").trim(),
+    numero: String(formData.get("numero") ?? "").trim(),
+    complemento: String(formData.get("complemento") ?? "").trim() || null,
+    bairro: String(formData.get("bairro") ?? "").trim(),
+    referencia: String(formData.get("referencia") ?? "").trim() || null,
+    cep: String(formData.get("cep") ?? "").replace(/\D/g, "") || null,
+  };
+  if (!dados.logradouro || !dados.numero || !dados.bairro) {
+    return { erro: "Preencha rua, número e bairro." };
+  }
+
+  const zonas = await db.select().from(zonasEntrega).where(eq(zonasEntrega.ativa, true));
+  const zona = resolverZonaPorBairro(zonas, dados.bairro);
+  if (!zona) return { erro: "Ainda não entregamos nesse bairro. Fale com a gente no WhatsApp." };
+
+  const jaSalvos = await db.select().from(enderecos).where(eq(enderecos.clienteId, sessao.clienteId));
+  const chaveNova = chaveEndereco(dados);
+  const existente = jaSalvos.find((e) => chaveEndereco(e) === chaveNova);
+  if (existente) {
+    await db
+      .update(enderecos)
+      .set({ referencia: dados.referencia, cep: dados.cep, zonaId: zona.id })
+      .where(eq(enderecos.id, existente.id));
+  } else {
+    await db.insert(enderecos).values({
+      clienteId: sessao.clienteId,
+      ...dados,
+      zonaId: zona.id,
+      // O primeiro endereço da conta já entra como padrão: obrigar um segundo
+      // clique para marcar o único endereço que existe não faz sentido.
+      padrao: jaSalvos.length === 0,
+    });
+  }
+
+  revalidatePath("/minha-conta");
+  return { ok: true };
+}
+
+export async function definirEnderecoPadraoAction(formData: FormData) {
+  const sessao = await obterSessaoCliente();
+  if (!sessao) redirect("/entrar");
+  const id = String(formData.get("id") ?? "");
+
+  // Um padrão por cliente: limpa todos e marca o escolhido, na mesma transação.
+  await db.transaction(async (tx) => {
+    await tx.update(enderecos).set({ padrao: false }).where(eq(enderecos.clienteId, sessao.clienteId));
+    await tx
+      .update(enderecos)
+      .set({ padrao: true })
+      .where(and(eq(enderecos.id, id), eq(enderecos.clienteId, sessao.clienteId)));
+  });
+
+  revalidatePath("/minha-conta");
+}
+
+export async function excluirEnderecoAction(formData: FormData) {
+  const sessao = await obterSessaoCliente();
+  if (!sessao) redirect("/entrar");
+  const id = String(formData.get("id") ?? "");
+
+  // O filtro por clienteId não é redundante: sem ele, um id adivinhado apagaria
+  // o endereço de outra pessoa.
+  await db.delete(enderecos).where(and(eq(enderecos.id, id), eq(enderecos.clienteId, sessao.clienteId)));
+
+  revalidatePath("/minha-conta");
 }

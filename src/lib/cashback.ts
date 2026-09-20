@@ -39,3 +39,20 @@ export function creditoAplicavel(saldoCentavos: number, subtotalCentavos: number
 
 /** Estorno do crédito de um pedido cancelado. */
 export const MOTIVO_ESTORNO = "estorno_cancelamento";
+
+/**
+ * Como cada lançamento aparece no extrato do cliente.
+ *
+ * O motivo é gravado como texto livre no banco; esta tabela é a tradução para
+ * quem lê. Motivo desconhecido cai num rótulo genérico em vez de vazar o
+ * identificador interno na tela.
+ */
+export const MOTIVO_LABEL: Record<string, string> = {
+  [MOTIVO_COMPRA]: "Cashback da compra",
+  [MOTIVO_USO]: "Usado no pedido",
+  [MOTIVO_ESTORNO]: "Estorno de cancelamento",
+};
+
+export function rotuloMotivo(motivo: string): string {
+  return MOTIVO_LABEL[motivo] ?? "Ajuste de crédito";
+}

@@ -24,13 +24,13 @@ import {
 } from "@/db/queries/cupons";
 import { aplicarCupom, normalizarCodigoCupom, type CupomAplicado } from "@/lib/cupom";
 import { obterSessaoCliente } from "@/lib/auth";
+import { chaveEndereco, resolverZonaPorBairro } from "@/lib/enderecos";
 import { saldoCreditoCentavos } from "@/db/queries/cupons";
 import { creditoAplicavel, MOTIVO_USO } from "@/lib/cashback";
 import { reaisParaCentavos } from "@/lib/calculations";
 import {
   calcularSubtotal,
   calcularTotal,
-  normalizarBairro,
   normalizarTelefone,
   PEDIDO_MINIMO_CENTAVOS,
   resolverFrete,
@@ -137,8 +137,7 @@ export async function criarPedidoAction(
 
   // Zona pelo bairro, comparando sem acento e sem caixa.
   const zonas = await db.select().from(zonasEntrega).where(eq(zonasEntrega.ativa, true));
-  const bairroAlvo = normalizarBairro(dados.bairro);
-  const zona = zonas.find((z) => z.bairros.some((b) => normalizarBairro(b) === bairroAlvo));
+  const zona = resolverZonaPorBairro(zonas, dados.bairro);
   if (!zona) {
     return { erro: "Ainda não entregamos nesse bairro. Fale com a gente no WhatsApp." };
   }
@@ -215,15 +214,28 @@ export async function criarPedidoAction(
         .onConflictDoUpdate({ target: clientes.telefone, set: { nome: dados.nome, updatedAt: new Date() } })
         .returning({ id: clientes.id });
 
-      await tx.insert(enderecos).values({
-        clienteId: cliente.id,
-        logradouro: dados.logradouro,
-        numero: dados.numero,
-        complemento: dados.complemento,
-        bairro: dados.bairro,
-        referencia: dados.referencia,
-        zonaId: zona.id,
-      });
+      // Guarda na agenda do cliente, sem duplicar: antes disto cada pedido
+      // criava uma linha nova e a agenda virava o mesmo apartamento repetido.
+      const jaSalvos = await tx.select().from(enderecos).where(eq(enderecos.clienteId, cliente.id));
+      const chave = chaveEndereco(dados);
+      const existente = jaSalvos.find((e) => chaveEndereco(e) === chave);
+      if (existente) {
+        await tx
+          .update(enderecos)
+          .set({ referencia: dados.referencia, zonaId: zona.id })
+          .where(eq(enderecos.id, existente.id));
+      } else {
+        await tx.insert(enderecos).values({
+          clienteId: cliente.id,
+          logradouro: dados.logradouro,
+          numero: dados.numero,
+          complemento: dados.complemento,
+          bairro: dados.bairro,
+          referencia: dados.referencia,
+          zonaId: zona.id,
+          padrao: jaSalvos.length === 0,
+        });
+      }
 
       const [pedido] = await tx
         .insert(pedidos)
