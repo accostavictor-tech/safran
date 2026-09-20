@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MapPin, UserRound } from "lucide-react";
+import { MapPin, Salad, UserRound } from "lucide-react";
 import { BotaoCarrinho } from "@/components/botao-carrinho";
 import { obterSessaoCliente } from "@/lib/auth";
 
@@ -20,7 +20,14 @@ export default async function LojaLayout({ children }: { children: React.ReactNo
             </span>
           </Link>
           <div className="flex items-center gap-2 sm:gap-3">
-            <span className="hidden items-center gap-1.5 text-xs text-muted-foreground sm:flex">
+            <Link
+              href="/dieta"
+              className="inline-flex items-center gap-1.5 rounded-lg px-2 py-2 text-sm font-medium text-foreground transition hover:text-primary"
+            >
+              <Salad className="size-4" />
+              <span className="hidden sm:inline">Monte sua dieta</span>
+            </Link>
+            <span className="hidden items-center gap-1.5 text-xs text-muted-foreground lg:flex">
               <MapPin className="size-3.5" />
               Maceió / AL
             </span>
