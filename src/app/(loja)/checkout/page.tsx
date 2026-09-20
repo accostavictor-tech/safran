@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { listarBairrosAtendidos, listarPratosVitrine } from "@/db/queries/loja";
+import { listarBairrosAtendidos, listarPratosVitrine, listarKitsVitrine } from "@/db/queries/loja";
 import { saldoCreditoCentavos } from "@/db/queries/cupons";
 import { obterSessaoCliente } from "@/lib/auth";
 import { CheckoutForm } from "@/components/checkout-form";
@@ -8,8 +8,9 @@ import { CheckoutForm } from "@/components/checkout-form";
 export const metadata: Metadata = { title: "Fechar pedido — Safran Congelados" };
 
 export default async function CheckoutPage() {
-  const [pratos, bairros, sessao] = await Promise.all([
+  const [pratos, kits, bairros, sessao] = await Promise.all([
     listarPratosVitrine(),
+    listarKitsVitrine(),
     listarBairrosAtendidos(),
     obterSessaoCliente(),
   ]);
@@ -37,7 +38,7 @@ export default async function CheckoutPage() {
           para usar seu cashback.
         </p>
       ) : null}
-      <CheckoutForm pratos={pratos} bairros={bairros} conta={conta} />
+      <CheckoutForm pratos={pratos} kits={kits} bairros={bairros} conta={conta} />
     </div>
   );
 }

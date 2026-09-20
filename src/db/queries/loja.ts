@@ -1,10 +1,10 @@
 import { unstable_cache } from "next/cache";
 import { and, asc, eq, gt, isNotNull, ne, or } from "drizzle-orm";
 import { db } from "@/db";
-import { pratos, pratoReceitas, receitas, zonasEntrega } from "@/db/schema";
+import { kits, pratos, pratoReceitas, receitas, zonasEntrega } from "@/db/schema";
 import { mapaResumoReceitas } from "@/db/queries/receitas";
 import { escalarMacros, somarMacrosLista, MACRO_ZERO } from "@/lib/calculations";
-import type { PratoVitrine } from "@/lib/vitrine";
+import type { KitVitrine, PratoVitrine } from "@/lib/vitrine";
 
 /** Um prato só aparece na loja se está publicado, tem preço e tem o que entregar. */
 const FILTRO_VITRINE = and(
@@ -148,6 +148,38 @@ async function consultarBairrosAtendidos(): Promise<BairroAtendido[]> {
 }
 
 export const listarBairrosAtendidos = unstable_cache(consultarBairrosAtendidos, ["bairros-atendidos"], {
+  revalidate: REVALIDAR_SEGUNDOS,
+  tags: [TAG_VITRINE],
+});
+
+/** Kits publicados, na ordem definida pelo admin. */
+async function consultarKitsVitrine(): Promise<KitVitrine[]> {
+  return db
+    .select({
+      id: kits.id,
+      codigo: kits.codigo,
+      nome: kits.nome,
+      slug: kits.slug,
+      descricao: kits.descricao,
+      quantidadePratos: kits.quantidadePratos,
+      precoCentavos: kits.precoCentavos,
+    })
+    .from(kits)
+    .where(and(eq(kits.publicado, true), eq(kits.ativo, true)))
+    .orderBy(asc(kits.ordem), asc(kits.precoCentavos));
+}
+
+export const listarKitsVitrine = unstable_cache(consultarKitsVitrine, ["vitrine-kits"], {
+  revalidate: REVALIDAR_SEGUNDOS,
+  tags: [TAG_VITRINE],
+});
+
+async function consultarKitPorSlug(slug: string): Promise<KitVitrine | null> {
+  const lista = await consultarKitsVitrine();
+  return lista.find((k) => k.slug === slug) ?? null;
+}
+
+export const buscarKitVitrinePorSlug = unstable_cache(consultarKitPorSlug, ["vitrine-kit"], {
   revalidate: REVALIDAR_SEGUNDOS,
   tags: [TAG_VITRINE],
 });

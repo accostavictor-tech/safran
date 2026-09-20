@@ -109,8 +109,16 @@ export default async function PedidosPage() {
                       <li key={item.id} className="flex justify-between gap-3">
                         <span className="text-foreground">
                           <span className="font-medium tabular-nums">{item.quantidade}×</span> {item.nomeSnapshot}
+                          {/* A cozinha produz o que está DENTRO do kit, não o kit. */}
+                          {item.composicaoSnapshot ? (
+                            <span className="mt-0.5 block text-xs text-muted-foreground">
+                              {item.composicaoSnapshot
+                                .map((c) => (c.quantidade > 1 ? `${c.quantidade}× ${c.nome}` : c.nome))
+                                .join(" · ")}
+                            </span>
+                          ) : null}
                         </span>
-                        <span className="tabular-nums text-muted-foreground">
+                        <span className="shrink-0 tabular-nums text-muted-foreground">
                           {formatarCentavos(item.precoUnitarioCentavos * item.quantidade)}
                         </span>
                       </li>

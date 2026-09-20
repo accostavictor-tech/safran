@@ -2,17 +2,19 @@
 
 import Link from "next/link";
 import { useMemo } from "react";
-import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
-import { useCarrinho, definirQuantidade, remover } from "@/lib/carrinho-store";
+import { Minus, Plus, Trash2, ShoppingBag, PackagePlus } from "lucide-react";
+import { useCarrinho, definirQuantidade, definirQuantidadeKit, remover, removerKit } from "@/lib/carrinho-store";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { formatarCentavos } from "@/lib/calculations";
 import { calcularSubtotal, faltaParaMinimo, PEDIDO_MINIMO_CENTAVOS } from "@/lib/loja";
-import type { PratoVitrine } from "@/lib/vitrine";
+import { resumirKit } from "@/lib/kits";
+import type { KitVitrine, PratoVitrine } from "@/lib/vitrine";
 
-export function Carrinho({ pratos }: { pratos: PratoVitrine[] }) {
-  const { itens, carregado } = useCarrinho();
+export function Carrinho({ pratos, kits }: { pratos: PratoVitrine[]; kits: KitVitrine[] }) {
+  const { itens, kits: kitsNoCarrinho, carregado } = useCarrinho();
   const porId = useMemo(() => new Map(pratos.map((p) => [p.id, p])), [pratos]);
+  const kitPorId = useMemo(() => new Map(kits.map((k) => [k.id, k])), [kits]);
 
   // Preço sempre vem do catálogo do servidor, nunca do que está salvo no navegador.
   const linhas = itens
@@ -22,17 +24,31 @@ export function Carrinho({ pratos }: { pratos: PratoVitrine[] }) {
     })
     .filter((l): l is { prato: PratoVitrine; quantidade: number } => l !== null);
 
-  const indisponiveis = itens.length - linhas.length;
-  const subtotal = calcularSubtotal(
-    linhas.map((l) => ({ precoUnitarioCentavos: l.prato.precoVendaCentavos, quantidade: l.quantidade }))
-  );
+  // Um kit do carrinho só continua valendo se o kit ainda está publicado E toda
+  // a composição ainda está no cardápio: meio kit não é um produto.
+  const linhasKit = kitsNoCarrinho
+    .map((noCarrinho) => {
+      const kit = kitPorId.get(noCarrinho.kitId);
+      if (!kit) return null;
+      const escolhidos = noCarrinho.pratoIds.map((id) => porId.get(id));
+      if (escolhidos.some((p) => p === undefined)) return null;
+      const validos = escolhidos as PratoVitrine[];
+      return { noCarrinho, kit, escolhidos: validos, resumo: resumirKit(kit, validos) };
+    })
+    .filter((l): l is NonNullable<typeof l> => l !== null);
+
+  const indisponiveis = itens.length - linhas.length + (kitsNoCarrinho.length - linhasKit.length);
+  const subtotal = calcularSubtotal([
+    ...linhas.map((l) => ({ precoUnitarioCentavos: l.prato.precoVendaCentavos, quantidade: l.quantidade })),
+    ...linhasKit.map((l) => ({ precoUnitarioCentavos: l.resumo.totalCentavos, quantidade: l.noCarrinho.quantidade })),
+  ]);
   const falta = faltaParaMinimo(subtotal);
 
   if (!carregado) {
     return <div className="mt-8 h-40 animate-pulse rounded-xl bg-muted" />;
   }
 
-  if (linhas.length === 0) {
+  if (linhas.length === 0 && linhasKit.length === 0) {
     return (
       <div className="mt-10 rounded-xl border border-dashed border-border py-16 text-center">
         <ShoppingBag className="mx-auto size-8 text-muted-foreground/40" />
@@ -53,6 +69,67 @@ export function Carrinho({ pratos }: { pratos: PratoVitrine[] }) {
             {indisponiveis === 1 ? "foi removido" : "foram removidos"} do seu carrinho.
           </p>
         ) : null}
+
+        {linhasKit.map(({ noCarrinho, kit, escolhidos, resumo }) => (
+          <Card key={noCarrinho.uid}>
+            <CardContent className="py-4">
+              <div className="flex items-start gap-4">
+                <div className="min-w-0 flex-1">
+                  <p className="flex items-center gap-1.5 font-medium text-foreground">
+                    <PackagePlus className="size-4 text-primary" />
+                    {kit.nome}
+                  </p>
+                  <ul className="mt-1.5 space-y-0.5 text-sm text-muted-foreground">
+                    {contarPratos(escolhidos).map(({ nome, vezes }) => (
+                      <li key={nome}>
+                        {vezes > 1 ? `${vezes}× ` : ""}
+                        {nome}
+                      </li>
+                    ))}
+                  </ul>
+                  {resumo.adicionaisCentavos > 0 ? (
+                    <p className="mt-1.5 text-xs text-muted-foreground">
+                      Inclui {formatarCentavos(resumo.adicionaisCentavos)} de adicional por pratos acima da faixa.
+                    </p>
+                  ) : null}
+                </div>
+
+                <div className="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => definirQuantidadeKit(noCarrinho.uid, noCarrinho.quantidade - 1)}
+                    className="flex size-8 items-center justify-center rounded-md border border-border text-muted-foreground transition hover:border-primary/40 hover:text-foreground"
+                    aria-label="Diminuir quantidade do kit"
+                  >
+                    <Minus className="size-3.5" />
+                  </button>
+                  <span className="w-8 text-center text-sm font-medium tabular-nums">{noCarrinho.quantidade}</span>
+                  <button
+                    type="button"
+                    onClick={() => definirQuantidadeKit(noCarrinho.uid, noCarrinho.quantidade + 1)}
+                    className="flex size-8 items-center justify-center rounded-md border border-border text-muted-foreground transition hover:border-primary/40 hover:text-foreground"
+                    aria-label="Aumentar quantidade do kit"
+                  >
+                    <Plus className="size-3.5" />
+                  </button>
+                </div>
+
+                <span className="w-24 text-right font-medium tabular-nums text-foreground">
+                  {formatarCentavos(resumo.totalCentavos * noCarrinho.quantidade)}
+                </span>
+
+                <button
+                  type="button"
+                  onClick={() => removerKit(noCarrinho.uid)}
+                  className="text-muted-foreground transition hover:text-destructive"
+                  aria-label={`Remover ${kit.nome}`}
+                >
+                  <Trash2 className="size-4" />
+                </button>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
 
         {linhas.map(({ prato, quantidade }) => (
           <Card key={prato.id}>
@@ -144,4 +221,11 @@ export function Carrinho({ pratos }: { pratos: PratoVitrine[] }) {
       </Card>
     </div>
   );
+}
+
+/** Agrupa a composição do kit para exibir "3× Frango acebolado" em vez de três linhas iguais. */
+function contarPratos(escolhidos: PratoVitrine[]): { nome: string; vezes: number }[] {
+  const mapa = new Map<string, number>();
+  for (const p of escolhidos) mapa.set(p.nome, (mapa.get(p.nome) ?? 0) + 1);
+  return [...mapa.entries()].map(([nome, vezes]) => ({ nome, vezes }));
 }

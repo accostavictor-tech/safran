@@ -28,7 +28,14 @@ export default async function PedidoPage({ params }: PageProps<"/pedido/[id]">) 
   const resumoWhatsapp = [
     `Olá! Acabei de fazer o pedido ${codigo} no site.`,
     "",
-    ...itens.map((i) => `${i.quantidade}x ${i.nomeSnapshot}`),
+    ...itens.map((i) => {
+      const base = `${i.quantidade}x ${i.nomeSnapshot}`;
+      if (!i.composicaoSnapshot) return base;
+      const dentro = i.composicaoSnapshot
+        .map((c) => (c.quantidade > 1 ? `${c.quantidade}x ${c.nome}` : c.nome))
+        .join(", ");
+      return `${base} (${dentro})`;
+    }),
     "",
     `Total: ${formatarCentavos(pedido.totalCentavos)}`,
     `Nome: ${pedido.nomeCliente}`,
@@ -53,8 +60,15 @@ export default async function PedidoPage({ params }: PageProps<"/pedido/[id]">) 
               <li key={item.id} className="flex justify-between gap-3">
                 <span className="text-muted-foreground">
                   {item.quantidade}× {item.nomeSnapshot}
+                  {item.composicaoSnapshot ? (
+                    <span className="mt-0.5 block text-xs text-faint">
+                      {item.composicaoSnapshot
+                        .map((c) => (c.quantidade > 1 ? `${c.quantidade}× ${c.nome}` : c.nome))
+                        .join(" · ")}
+                    </span>
+                  ) : null}
                 </span>
-                <span className="tabular-nums text-foreground">
+                <span className="shrink-0 tabular-nums text-foreground">
                   {formatarCentavos(item.precoUnitarioCentavos * item.quantidade)}
                 </span>
               </li>

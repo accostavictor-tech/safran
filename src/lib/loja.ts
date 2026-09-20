@@ -12,6 +12,21 @@ export interface ItemCarrinho {
   quantidade: number;
 }
 
+/**
+ * Um kit montado no carrinho.
+ *
+ * `uid` existe porque duas montagens do MESMO kit são itens diferentes: um kit
+ * de 5 com frango e outro de 5 com peixe não podem colapsar em "2 kits".
+ * `pratoIds` guarda a ordem e aceita repetição — pedir o mesmo prato três vezes
+ * é legítimo.
+ */
+export interface KitCarrinho {
+  uid: string;
+  kitId: string;
+  pratoIds: string[];
+  quantidade: number;
+}
+
 export interface LinhaPedido {
   precoUnitarioCentavos: number;
   quantidade: number;

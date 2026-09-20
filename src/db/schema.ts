@@ -190,6 +190,30 @@ export const pratoReceitas = pgTable("prato_receitas", {
 // pagamento, onde diferença de centavo é bug.
 // ---------------------------------------------------------------------------
 
+/**
+ * Kit: o cliente escolhe N pratos por um preço fechado.
+ *
+ * O preço é do kit, não a soma dos pratos. Para o mix não afundar a margem,
+ * prato cujo preço de venda passa do preço por prato do kit entra com a
+ * diferença como adicional (ver `lib/kits`): sem isso, cinco camarões dentro
+ * de um kit de R$ 139,90 sairiam abaixo do custo.
+ */
+export const kits = pgTable("kits", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  codigo: integer("codigo").generatedAlwaysAsIdentity().notNull().unique(),
+  nome: text("nome").notNull(),
+  slug: text("slug").notNull().unique(),
+  descricao: text("descricao"),
+  /** Quantos pratos o cliente escolhe. */
+  quantidadePratos: integer("quantidade_pratos").notNull(),
+  precoCentavos: integer("preco_centavos").notNull(),
+  publicado: boolean("publicado").notNull().default(false),
+  ativo: boolean("ativo").notNull().default(true),
+  ordem: integer("ordem").notNull().default(0),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
 export const clientes = pgTable("clientes", {
   id: uuid("id").primaryKey().defaultRandom(),
   /**
@@ -287,7 +311,23 @@ export const pedidoItens = pgTable("pedido_itens", {
   custoUnitarioSnapshotCentavos: integer("custo_unitario_snapshot_centavos").notNull().default(0),
   quantidade: integer("quantidade").notNull().default(1),
   ordem: integer("ordem").notNull().default(0),
+
+  /**
+   * Quando a linha é um kit montado pelo cliente.
+   *
+   * O kit é UMA linha do pedido, com o preço do kit — não N linhas de prato —
+   * porque é assim que ele é cobrado. A composição vai junto, em snapshot, para
+   * a cozinha saber o que produzir mesmo que o kit seja reconfigurado depois.
+   */
+  kitId: uuid("kit_id").references(() => kits.id, { onDelete: "set null" }),
+  composicaoSnapshot: jsonb("composicao_snapshot").$type<ComposicaoKitSnapshot[] | null>(),
 });
+
+export interface ComposicaoKitSnapshot {
+  pratoId: string | null;
+  nome: string;
+  quantidade: number;
+}
 
 /** Log de toda transição de status — base da notificação e de qualquer disputa. */
 export const pedidoEventos = pgTable("pedido_eventos", {

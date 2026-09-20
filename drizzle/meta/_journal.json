@@ -64,6 +64,13 @@
       "when": 1789848236978,
       "tag": "0008_precos_iniciais_vitrine",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1789893097311,
+      "tag": "0009_kits",
+      "breakpoints": true
     }
   ]
 }

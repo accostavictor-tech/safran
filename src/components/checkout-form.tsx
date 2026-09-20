@@ -17,7 +17,8 @@ import { formatarCentavos } from "@/lib/calculations";
 import { formatarTelefone } from "@/lib/loja";
 import { calcularSubtotal, calcularTotal, faltaParaMinimo, resolverFrete, PEDIDO_MINIMO_CENTAVOS } from "@/lib/loja";
 import { creditoAplicavel, podeUsar } from "@/lib/cashback";
-import type { PratoVitrine } from "@/lib/vitrine";
+import { resumirKit } from "@/lib/kits";
+import type { KitVitrine, PratoVitrine } from "@/lib/vitrine";
 
 const initialState: CheckoutState = {};
 
@@ -30,16 +31,18 @@ export interface BairroOpcao {
 
 export function CheckoutForm({
   pratos,
+  kits,
   bairros,
   conta,
 }: {
   pratos: PratoVitrine[];
+  kits: KitVitrine[];
   bairros: BairroOpcao[];
   /** Cliente logado e saldo de cashback, quando houver sessão. */
   conta: { nome: string; telefone: string; saldoCentavos: number } | null;
 }) {
   const [state, formAction, pending] = useActionState(criarPedidoAction, initialState);
-  const { itens, carregado } = useCarrinho();
+  const { itens, kits: kitsNoCarrinho, carregado } = useCarrinho();
   const [bairro, setBairro] = useState("");
   const [codigoCupom, setCodigoCupom] = useState("");
   const [usarCredito, setUsarCredito] = useState(false);
@@ -67,9 +70,27 @@ export function CheckoutForm({
     })
     .filter((l): l is { prato: PratoVitrine; quantidade: number } => l !== null);
 
-  const subtotal = calcularSubtotal(
-    linhas.map((l) => ({ precoUnitarioCentavos: l.prato.precoVendaCentavos, quantidade: l.quantidade }))
-  );
+  const kitPorId = useMemo(() => new Map(kits.map((k) => [k.id, k])), [kits]);
+  // Mesma regra do carrinho: kit só vale com o kit publicado e a composição
+  // inteira ainda no cardápio.
+  const linhasKit = kitsNoCarrinho
+    .map((noCarrinho) => {
+      const kit = kitPorId.get(noCarrinho.kitId);
+      if (!kit) return null;
+      const escolhidos = noCarrinho.pratoIds.map((id) => porId.get(id));
+      if (escolhidos.some((p) => p === undefined)) return null;
+      const validos = escolhidos as PratoVitrine[];
+      return { noCarrinho, kit, resumo: resumirKit(kit, validos) };
+    })
+    .filter((l): l is NonNullable<typeof l> => l !== null);
+
+  const subtotal = calcularSubtotal([
+    ...linhas.map((l) => ({ precoUnitarioCentavos: l.prato.precoVendaCentavos, quantidade: l.quantidade })),
+    ...linhasKit.map((l) => ({
+      precoUnitarioCentavos: l.resumo.totalCentavos,
+      quantidade: l.noCarrinho.quantidade,
+    })),
+  ]);
   const zonaEscolhida = bairros.find((b) => b.bairro === bairro) ?? null;
   const freteBase = resolverFrete(zonaEscolhida, subtotal);
   const cupomValido = cupom?.ok ? cupom : null;
@@ -82,6 +103,13 @@ export function CheckoutForm({
   const falta = faltaParaMinimo(subtotal);
 
   const itensJson = JSON.stringify(itens);
+  const kitsJson = JSON.stringify(
+    linhasKit.map((l) => ({
+      kitId: l.kit.id,
+      pratoIds: l.noCarrinho.pratoIds,
+      quantidade: l.noCarrinho.quantidade,
+    }))
+  );
 
   function enviar(evento: React.FormEvent<HTMLFormElement>) {
     evento.preventDefault();
@@ -91,7 +119,7 @@ export function CheckoutForm({
 
   if (!carregado) return <div className="mt-8 h-64 animate-pulse rounded-xl bg-muted" />;
 
-  if (linhas.length === 0) {
+  if (linhas.length === 0 && linhasKit.length === 0) {
     return (
       <div className="mt-10 rounded-xl border border-dashed border-border py-16 text-center">
         <ShoppingBag className="mx-auto size-8 text-muted-foreground/40" />
@@ -106,6 +134,7 @@ export function CheckoutForm({
   return (
     <form onSubmit={enviar} className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
       <input type="hidden" name="itens" value={itensJson} />
+      <input type="hidden" name="kits" value={kitsJson} />
       {cupomValido ? <input type="hidden" name="cupom" value={cupomValido.codigo} /> : null}
       {creditoUsado > 0 ? <input type="hidden" name="usarCredito" value="on" /> : null}
 

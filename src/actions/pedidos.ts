@@ -10,6 +10,7 @@ import {
   cupons,
   enderecos,
   pedidoEventos,
+  kits,
   pedidoItens,
   pedidos,
   pratos,
@@ -25,6 +26,8 @@ import {
 import { aplicarCupom, normalizarCodigoCupom, type CupomAplicado } from "@/lib/cupom";
 import { obterSessaoCliente } from "@/lib/auth";
 import { chaveEndereco, resolverZonaPorBairro } from "@/lib/enderecos";
+import { resumirKit } from "@/lib/kits";
+import type { ComposicaoKitSnapshot } from "@/db/schema";
 import { saldoCreditoCentavos } from "@/db/queries/cupons";
 import { creditoAplicavel, MOTIVO_USO } from "@/lib/cashback";
 import { reaisParaCentavos } from "@/lib/calculations";
@@ -41,6 +44,12 @@ const itemSchema = z.object({
   quantidade: z.coerce.number().int().min(1).max(50),
 });
 
+const kitItemSchema = z.object({
+  kitId: z.string().uuid(),
+  pratoIds: z.array(z.string().uuid()).min(1).max(30),
+  quantidade: z.coerce.number().int().min(1).max(20),
+});
+
 const checkoutSchema = z.object({
   nome: z.string().trim().min(2, "Informe seu nome completo."),
   telefone: z.string().trim().min(10, "Informe um telefone com DDD."),
@@ -54,9 +63,17 @@ const checkoutSchema = z.object({
   usarCredito: z.coerce.boolean().default(false),
   itens: z.string().transform((s, ctx) => {
     try {
-      return z.array(itemSchema).min(1, "Seu carrinho está vazio.").parse(JSON.parse(s));
+      return z.array(itemSchema).parse(JSON.parse(s));
     } catch {
       ctx.addIssue({ code: "custom", message: "Carrinho inválido." });
+      return z.NEVER;
+    }
+  }),
+  kits: z.string().transform((s, ctx) => {
+    try {
+      return z.array(kitItemSchema).parse(JSON.parse(s));
+    } catch {
+      ctx.addIssue({ code: "custom", message: "Kit inválido no carrinho." });
       return z.NEVER;
     }
   }),
@@ -64,6 +81,19 @@ const checkoutSchema = z.object({
 
 export interface CheckoutState {
   erro?: string;
+}
+
+/** Composição do kit em snapshot, já agrupada: a cozinha lê "3× Frango", não três linhas. */
+function agruparComposicao(
+  escolhidos: { id: string; nome: string }[]
+): ComposicaoKitSnapshot[] {
+  const mapa = new Map<string, ComposicaoKitSnapshot>();
+  for (const p of escolhidos) {
+    const atual = mapa.get(p.id);
+    if (atual) atual.quantidade += 1;
+    else mapa.set(p.id, { pratoId: p.id, nome: p.nome, quantidade: 1 });
+  }
+  return [...mapa.values()];
 }
 
 function parseFormData(formData: FormData) {
@@ -83,6 +113,7 @@ function parseFormData(formData: FormData) {
     cupom: texto("cupom"),
     usarCredito: formData.get("usarCredito") === "on",
     itens: formData.get("itens") ?? "[]",
+    kits: formData.get("kits") ?? "[]",
   };
 }
 
@@ -99,8 +130,12 @@ export async function criarPedidoAction(
   const telefone = normalizarTelefone(dados.telefone);
   if (!telefone) return { erro: "Telefone inválido. Use DDD + número." };
 
-  // O cliente manda prato e quantidade. Preço, frete e total saem daqui.
-  const ids = [...new Set(dados.itens.map((i) => i.pratoId))];
+  if (dados.itens.length === 0 && dados.kits.length === 0) {
+    return { erro: "Seu carrinho está vazio." };
+  }
+
+  // O cliente manda prato, kit e quantidade. Preço, frete e total saem daqui.
+  const ids = [...new Set([...dados.itens.map((i) => i.pratoId), ...dados.kits.flatMap((k) => k.pratoIds)])];
   const disponiveis = await db
     .select({
       id: pratos.id,
@@ -115,12 +150,25 @@ export async function criarPedidoAction(
     .where(inArray(pratos.id, ids));
 
   const porId = new Map(disponiveis.map((p) => [p.id, p]));
-  for (const item of dados.itens) {
-    const prato = porId.get(item.pratoId);
+
+  /**
+   * Quantas unidades de cada prato o pedido consome, somando avulsos e os que
+   * estão dentro de kits. Sem essa soma, três unidades soltas mais um kit com
+   * o mesmo prato passariam por duas checagens separadas contra o mesmo
+   * estoque e venderiam mais do que existe.
+   */
+  const demandaPorPrato = new Map<string, number>();
+  const somar = (pratoId: string, quantidade: number) =>
+    demandaPorPrato.set(pratoId, (demandaPorPrato.get(pratoId) ?? 0) + quantidade);
+  for (const item of dados.itens) somar(item.pratoId, item.quantidade);
+  for (const kit of dados.kits) for (const pratoId of kit.pratoIds) somar(pratoId, kit.quantidade);
+
+  for (const [pratoId, quantidade] of demandaPorPrato) {
+    const prato = porId.get(pratoId);
     if (!prato || !prato.publicado || prato.precoVendaCentavos === null || prato.disponibilidade === "indisponivel") {
       return { erro: `"${prato?.nome ?? "Um item"}" saiu do cardápio. Revise o carrinho.` };
     }
-    if (prato.disponibilidade === "estoque" && prato.estoqueUnidades < item.quantidade) {
+    if (prato.disponibilidade === "estoque" && prato.estoqueUnidades < quantidade) {
       return { erro: `"${prato.nome}" tem só ${prato.estoqueUnidades} em estoque.` };
     }
   }
@@ -130,7 +178,41 @@ export async function criarPedidoAction(
     return { prato, quantidade: item.quantidade, precoUnitarioCentavos: prato.precoVendaCentavos! };
   });
 
-  const subtotalCentavos = calcularSubtotal(linhas);
+  // Kits: o preço é o do kit mais os adicionais dos pratos acima da faixa,
+  // recalculado aqui. O navegador manda só a composição.
+  const kitsDisponiveis = dados.kits.length
+    ? await db
+        .select()
+        .from(kits)
+        .where(and(inArray(kits.id, [...new Set(dados.kits.map((k) => k.kitId))]), eq(kits.publicado, true), eq(kits.ativo, true)))
+    : [];
+  const kitPorId = new Map(kitsDisponiveis.map((k) => [k.id, k]));
+
+  const linhasKit: {
+    kit: (typeof kitsDisponiveis)[number];
+    escolhidos: { id: string; nome: string; precoVendaCentavos: number }[];
+    quantidade: number;
+    precoUnitarioCentavos: number;
+  }[] = [];
+  for (const escolha of dados.kits) {
+    const kit = kitPorId.get(escolha.kitId);
+    if (!kit) return { erro: "Um kit do seu carrinho saiu do ar. Revise o carrinho." };
+    if (escolha.pratoIds.length !== kit.quantidadePratos) {
+      return { erro: `O kit ${kit.nome} precisa de ${kit.quantidadePratos} pratos.` };
+    }
+    const escolhidos = escolha.pratoIds.map((id) => {
+      const prato = porId.get(id)!;
+      return { id: prato.id, nome: prato.nome, precoVendaCentavos: prato.precoVendaCentavos! };
+    });
+    linhasKit.push({
+      kit,
+      escolhidos,
+      quantidade: escolha.quantidade,
+      precoUnitarioCentavos: resumirKit(kit, escolhidos).totalCentavos,
+    });
+  }
+
+  const subtotalCentavos = calcularSubtotal([...linhas, ...linhasKit]);
   if (subtotalCentavos < PEDIDO_MINIMO_CENTAVOS) {
     return { erro: "Pedido abaixo do mínimo para entrega." };
   }
@@ -254,18 +336,42 @@ export async function criarPedidoAction(
         })
         .returning({ id: pedidos.id });
 
-      await tx.insert(pedidoItens).values(
-        linhas.map((l, idx) => ({
-          pedidoId: pedido.id,
-          pratoId: l.prato.id,
-          nomeSnapshot: l.prato.nome,
-          codigoSnapshot: l.prato.codigo,
-          precoUnitarioCentavos: l.precoUnitarioCentavos,
-          custoUnitarioSnapshotCentavos: custoPorPrato.get(l.prato.id) ?? 0,
-          quantidade: l.quantidade,
-          ordem: idx,
-        }))
-      );
+      // Só insere se houver avulsos: um pedido pode ser só de kits, e o Drizzle
+      // rejeita values() com lista vazia.
+      if (linhas.length > 0) {
+        await tx.insert(pedidoItens).values(
+          linhas.map((l, idx) => ({
+            pedidoId: pedido.id,
+            pratoId: l.prato.id,
+            nomeSnapshot: l.prato.nome,
+            codigoSnapshot: l.prato.codigo,
+            precoUnitarioCentavos: l.precoUnitarioCentavos,
+            custoUnitarioSnapshotCentavos: custoPorPrato.get(l.prato.id) ?? 0,
+            quantidade: l.quantidade,
+            ordem: idx,
+          }))
+        );
+      }
+
+      if (linhasKit.length > 0) {
+        await tx.insert(pedidoItens).values(
+          linhasKit.map((l, idx) => ({
+            pedidoId: pedido.id,
+            pratoId: null,
+            kitId: l.kit.id,
+            nomeSnapshot: l.kit.nome,
+            codigoSnapshot: l.kit.codigo,
+            precoUnitarioCentavos: l.precoUnitarioCentavos,
+            custoUnitarioSnapshotCentavos: l.escolhidos.reduce(
+              (acc, p) => acc + (custoPorPrato.get(p.id) ?? 0),
+              0
+            ),
+            quantidade: l.quantidade,
+            ordem: linhas.length + idx,
+            composicaoSnapshot: agruparComposicao(l.escolhidos),
+          }))
+        );
+      }
 
       await tx.insert(pedidoEventos).values({
         pedidoId: pedido.id,
@@ -309,15 +415,16 @@ export async function criarPedidoAction(
 
       // Baixa de estoque com a checagem na própria condição: se alguém levou a
       // última unidade no meio do caminho, nenhuma linha é afetada e o pedido cai.
-      for (const l of linhas) {
-        if (l.prato.disponibilidade !== "estoque") continue;
+      for (const [pratoId, quantidade] of demandaPorPrato) {
+        const prato = porId.get(pratoId)!;
+        if (prato.disponibilidade !== "estoque") continue;
         const baixados = await tx
           .update(pratos)
-          .set({ estoqueUnidades: sql`${pratos.estoqueUnidades} - ${l.quantidade}` })
-          .where(and(eq(pratos.id, l.prato.id), gte(pratos.estoqueUnidades, l.quantidade)))
+          .set({ estoqueUnidades: sql`${pratos.estoqueUnidades} - ${quantidade}` })
+          .where(and(eq(pratos.id, pratoId), gte(pratos.estoqueUnidades, quantidade)))
           .returning({ id: pratos.id });
         if (baixados.length === 0) {
-          throw new Error(`ESTOQUE_INSUFICIENTE:${l.prato.nome}`);
+          throw new Error(`ESTOQUE_INSUFICIENTE:${prato.nome}`);
         }
       }
 

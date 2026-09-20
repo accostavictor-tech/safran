@@ -37,3 +37,17 @@ export function agruparPorCategoria(lista: PratoVitrine[]): { categoria: string;
   }
   return [...mapa.entries()].map(([categoria, pratos]) => ({ categoria, pratos }));
 }
+
+/**
+ * O que a loja mostra de um kit. Como em `PratoVitrine`, nada de custo ou
+ * margem: este objeto atravessa a fronteira servidor -> cliente.
+ */
+export interface KitVitrine {
+  id: string;
+  codigo: number;
+  nome: string;
+  slug: string;
+  descricao: string | null;
+  quantidadePratos: number;
+  precoCentavos: number;
+}
