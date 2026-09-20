@@ -2,12 +2,14 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { desc, eq } from "drizzle-orm";
-import { ArrowDownLeft, ArrowUpRight, MapPin, PackageOpen, Star, Trash2, Wallet } from "lucide-react";
+import { ArrowDownLeft, ArrowUpRight, CalendarClock, MapPin, PackageOpen, Star, Trash2, Wallet } from "lucide-react";
 import { db } from "@/db";
 import { pedidos } from "@/db/schema";
 import { saldoCreditoCentavos } from "@/db/queries/cupons";
 import { buscarCliente, extratoCredito, listarEnderecos, totalAcumuladoCentavos } from "@/db/queries/conta";
 import { listarBairrosAtendidos } from "@/db/queries/loja";
+import { listarAssinaturasDoCliente } from "@/db/queries/assinaturas";
+import { diasAte, FREQUENCIA_LABEL } from "@/lib/assinaturas";
 import { obterSessaoCliente } from "@/lib/auth";
 import { definirEnderecoPadraoAction, excluirEnderecoAction, sairDaContaAction } from "@/actions/conta";
 import { Card, CardContent } from "@/components/ui/card";
@@ -30,15 +32,22 @@ export default async function MinhaContaPage() {
   const sessao = await obterSessaoCliente();
   if (!sessao) redirect("/entrar");
 
-  const [cliente, saldo, acumulado, movimentos, enderecosDoCliente, bairros, meusPedidos] = await Promise.all([
-    buscarCliente(sessao.clienteId),
-    saldoCreditoCentavos(sessao.clienteId),
-    totalAcumuladoCentavos(sessao.clienteId),
-    extratoCredito(sessao.clienteId),
-    listarEnderecos(sessao.clienteId),
-    listarBairrosAtendidos(),
-    db.select().from(pedidos).where(eq(pedidos.clienteId, sessao.clienteId)).orderBy(desc(pedidos.createdAt)).limit(20),
-  ]);
+  const [cliente, saldo, acumulado, movimentos, enderecosDoCliente, bairros, minhasAssinaturas, meusPedidos] =
+    await Promise.all([
+      buscarCliente(sessao.clienteId),
+      saldoCreditoCentavos(sessao.clienteId),
+      totalAcumuladoCentavos(sessao.clienteId),
+      extratoCredito(sessao.clienteId),
+      listarEnderecos(sessao.clienteId),
+      listarBairrosAtendidos(),
+      listarAssinaturasDoCliente(sessao.clienteId),
+      db
+        .select()
+        .from(pedidos)
+        .where(eq(pedidos.clienteId, sessao.clienteId))
+        .orderBy(desc(pedidos.createdAt))
+        .limit(20),
+    ]);
 
   const nomesBairros = [...new Set(bairros.map((b) => b.bairro))];
 
@@ -130,6 +139,49 @@ export default async function MinhaContaPage() {
           ) : null}
         </CardContent>
       </Card>
+
+      {/* --- Assinaturas --- */}
+      {minhasAssinaturas.length > 0 ? (
+        <>
+          <h2 className="mt-8 font-display text-[22px] font-semibold leading-7 text-foreground">
+            Minhas assinaturas
+          </h2>
+          <div className="mt-3 space-y-2">
+            {minhasAssinaturas.map(({ assinatura, kit }) => {
+              const dias = diasAte(assinatura.proximaEntrega);
+              const ativa = assinatura.status === "ativa";
+              return (
+                <Link
+                  key={assinatura.id}
+                  href={`/assinatura/${assinatura.id}`}
+                  className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-card px-4 py-3 transition hover:border-primary/40"
+                >
+                  <div>
+                    <p className="flex items-center gap-1.5 font-medium text-foreground">
+                      <CalendarClock className="size-4 text-primary" />
+                      {kit.nome}
+                    </p>
+                    <p className="mt-0.5 text-xs text-muted-foreground">
+                      {FREQUENCIA_LABEL[assinatura.frequencia]} ·{" "}
+                      {ativa
+                        ? dias <= 0
+                          ? "entrega a caminho"
+                          : `próxima em ${dias} ${dias === 1 ? "dia" : "dias"}`
+                        : "pausada"}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Badge variant={ativa ? "success" : "warning"}>{ativa ? "Ativa" : "Pausada"}</Badge>
+                    <span className="font-medium tabular-nums text-foreground">
+                      {formatarCentavos(kit.precoCentavos)}
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </>
+      ) : null}
 
       {/* --- Perfil --- */}
       <h2 className="mt-8 font-display text-[22px] font-semibold leading-7 text-foreground">Meus dados</h2>

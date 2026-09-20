@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, CalendarClock } from "lucide-react";
 import { buscarKitVitrinePorSlug, listarPratosVitrine } from "@/db/queries/loja";
 import { formatarCentavos } from "@/lib/calculations";
 import { MontarKit } from "@/components/montar-kit";
@@ -39,6 +39,20 @@ export default async function KitPage({ params }: PageProps<"/kit/[slug]">) {
           {kit.descricao ??
             `Escolha ${kit.quantidadePratos} pratos do cardápio por ${formatarCentavos(kit.precoCentavos)}.`}
         </p>
+
+        <div className="mt-4 flex flex-wrap items-center gap-3 rounded-lg border border-border bg-card px-4 py-3">
+          <CalendarClock className="size-5 shrink-0 text-primary" />
+          <p className="min-w-0 flex-1 text-sm text-muted-foreground">
+            Quer receber sempre? Na assinatura você escolhe os pratos de cada entrega — e se não mexer, repetimos a
+            última.
+          </p>
+          <Link
+            href={`/assinar/${kit.slug}`}
+            className="shrink-0 text-sm font-semibold text-primary hover:underline"
+          >
+            Assinar este kit
+          </Link>
+        </div>
       </div>
 
       {pratos.length === 0 ? (

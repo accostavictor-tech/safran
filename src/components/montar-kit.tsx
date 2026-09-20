@@ -18,8 +18,27 @@ import { agruparPorCategoria, type KitVitrine, type PratoVitrine } from "@/lib/v
  * vezes é comum em compra de congelado e proibir isso seria hostil. O contador
  * do topo é o que evita a frustração de montar 4 de 5 e só descobrir no fim.
  */
-export function MontarKit({ kit, pratos }: { kit: KitVitrine; pratos: PratoVitrine[] }) {
-  const [quantidades, setQuantidades] = useState<Record<string, number>>({});
+export function MontarKit({
+  kit,
+  pratos,
+  inicial,
+  acao,
+}: {
+  kit: KitVitrine;
+  pratos: PratoVitrine[];
+  /** Composição já escolhida, para editar em vez de montar do zero. */
+  inicial?: string[];
+  /**
+   * Substitui o botão "Adicionar ao carrinho". É o que deixa a mesma montagem
+   * servir para compra avulsa e para assinatura sem duplicar a tela inteira.
+   */
+  acao?: (info: { pratoIds: string[]; completo: boolean; totalCentavos: number }) => React.ReactNode;
+}) {
+  const [quantidades, setQuantidades] = useState<Record<string, number>>(() => {
+    const mapa: Record<string, number> = {};
+    for (const id of inicial ?? []) mapa[id] = (mapa[id] ?? 0) + 1;
+    return mapa;
+  });
   const router = useRouter();
 
   const porId = useMemo(() => new Map(pratos.map((p) => [p.id, p])), [pratos]);
@@ -83,10 +102,14 @@ export function MontarKit({ kit, pratos }: { kit: KitVitrine; pratos: PratoVitri
                 </p>
               ) : null}
             </div>
-            <Button type="button" onClick={adicionarAoCarrinho} disabled={!resumo.completo}>
-              <ShoppingBag className="size-4" />
-              Adicionar
-            </Button>
+            {acao ? (
+              acao({ pratoIds: escolhidosIds, completo: resumo.completo, totalCentavos: resumo.totalCentavos })
+            ) : (
+              <Button type="button" onClick={adicionarAoCarrinho} disabled={!resumo.completo}>
+                <ShoppingBag className="size-4" />
+                Adicionar
+              </Button>
+            )}
           </div>
         </div>
 
@@ -162,7 +185,7 @@ export function MontarKit({ kit, pratos }: { kit: KitVitrine; pratos: PratoVitri
         adicional, mostrada no card.
       </p>
 
-      {resumo.completo ? (
+      {resumo.completo && !acao ? (
         <div className="sticky bottom-4 mt-6 sm:hidden">
           <Button type="button" onClick={adicionarAoCarrinho} className="w-full shadow-elevation-2">
             <Check className="size-4" />

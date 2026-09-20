@@ -24,6 +24,10 @@ export const macroFonteEnum = pgEnum("macro_fonte", ["taco", "tbca", "fabricante
  */
 export const disponibilidadeEnum = pgEnum("disponibilidade", ["sempre", "estoque", "indisponivel"]);
 
+export const assinaturaFrequenciaEnum = pgEnum("assinatura_frequencia", ["semanal", "quinzenal", "mensal"]);
+export const assinaturaStatusEnum = pgEnum("assinatura_status", ["ativa", "pausada", "cancelada"]);
+export const cicloStatusEnum = pgEnum("ciclo_status", ["gerado", "pulado"]);
+
 export const pedidoStatusEnum = pgEnum("pedido_status", [
   "rascunho",
   "aguardando_pagamento",
@@ -447,3 +451,65 @@ export const cupons = pgTable("cupons", {
   ativo: boolean("ativo").notNull().default(true),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
+
+/**
+ * Assinatura: um kit que se repete numa frequência.
+ *
+ * O cliente escolhe a composição a cada ciclo; se não escolher, repete a
+ * última — é a regra que faz a assinatura funcionar para quem não quer pensar
+ * toda semana sem tirar a escolha de quem quer.
+ *
+ * Não há cobrança automática: o pagamento ainda é combinado no WhatsApp, então
+ * cada ciclo gera um pedido normal, com o mesmo fluxo de status.
+ */
+export const assinaturas = pgTable(
+  "assinaturas",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    codigo: integer("codigo").generatedAlwaysAsIdentity().notNull().unique(),
+    clienteId: uuid("cliente_id")
+      .notNull()
+      .references(() => clientes.id, { onDelete: "cascade" }),
+    kitId: uuid("kit_id")
+      .notNull()
+      .references(() => kits.id, { onDelete: "restrict" }),
+    enderecoId: uuid("endereco_id").references(() => enderecos.id, { onDelete: "set null" }),
+    frequencia: assinaturaFrequenciaEnum("frequencia").notNull(),
+    status: assinaturaStatusEnum("status").notNull().default("ativa"),
+    /** Data da próxima entrega. Só a data importa; a janela do dia é combinada à parte. */
+    proximaEntrega: timestamp("proxima_entrega", { withTimezone: true }).notNull(),
+    /** Composição que se repete quando o cliente não mexe. */
+    composicaoPadrao: jsonb("composicao_padrao").$type<string[]>().notNull(),
+    /** Escolha só do próximo ciclo. Nulo = usa a padrão. */
+    composicaoProxima: jsonb("composicao_proxima").$type<string[] | null>(),
+    observacoes: text("observacoes"),
+    pausadaEm: timestamp("pausada_em", { withTimezone: true }),
+    canceladaEm: timestamp("cancelada_em", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("assinatura_cliente_idx").on(t.clienteId), index("assinatura_proxima_idx").on(t.proximaEntrega)]
+);
+
+/**
+ * Um ciclo já processado da assinatura.
+ *
+ * Existe para o histórico e, principalmente, como trava de idempotência: a
+ * geração de pedidos da semana pode ser disparada duas vezes sem cobrar o
+ * cliente em dobro.
+ */
+export const assinaturaCiclos = pgTable(
+  "assinatura_ciclos",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    assinaturaId: uuid("assinatura_id")
+      .notNull()
+      .references(() => assinaturas.id, { onDelete: "cascade" }),
+    dataEntrega: timestamp("data_entrega", { withTimezone: true }).notNull(),
+    status: cicloStatusEnum("status").notNull().default("gerado"),
+    composicao: jsonb("composicao").$type<ComposicaoKitSnapshot[]>().notNull(),
+    pedidoId: uuid("pedido_id").references(() => pedidos.id, { onDelete: "set null" }),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [unique("ciclo_assinatura_data_unq").on(t.assinaturaId, t.dataEntrega)]
+);

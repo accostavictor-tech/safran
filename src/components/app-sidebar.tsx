@@ -8,6 +8,7 @@ import {
   NotebookText,
   UtensilsCrossed,
   PackagePlus,
+  CalendarClock,
   ClipboardList,
   TicketPercent,
   Store,
@@ -25,6 +26,7 @@ const LINKS = [
   { href: "/admin/receitas", label: "Receitas", icon: NotebookText },
   { href: "/admin/pratos", label: "Pratos", icon: UtensilsCrossed },
   { href: "/admin/kits", label: "Kits", icon: PackagePlus },
+  { href: "/admin/assinaturas", label: "Assinaturas", icon: CalendarClock },
   { href: "/admin/cupons", label: "Cupons", icon: TicketPercent },
 ];
 
