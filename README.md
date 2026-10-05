@@ -73,10 +73,27 @@ da lógica já validada no protótipo anterior (ver `calcularCustoItem`,
 | `npm run db:import-lovable -- <pasta> [--reset]` | Importa o export CSV do Lovable/Supabase (ver seção abaixo) |
 | `npm run pluggy:sync [-- <itemId>]` | Sincroniza o extrato bancário da Pluggy (ver seção abaixo) |
 
+## Ambientes
+
+A Safran roda em contas próprias, separadas de qualquer projeto pessoal dos
+sócios — criadas com o e-mail da empresa:
+
+| Serviço | Uso |
+|---|---|
+| Vercel (conta Safran) | hospedagem, cron diário |
+| Supabase (conta Safran) | Postgres de produção (`DATABASE_URL`) |
+| Pluggy (conta Safran) + Meu Pluggy (cadastro do CNPJ) | extrato bancário |
+
+Nenhuma credencial é compartilhada: o código só lê variáveis de ambiente,
+então trocar de conta é trocar as variáveis no Vercel.
+
 ## Deploy no Vercel
 
 1. Crie um banco Postgres gerenciado (Supabase ou Neon têm plano gratuito
-   suficiente para esse uso).
+   suficiente para esse uso). No Supabase, use a string do **Session
+   pooler** como `DATABASE_URL`: a conexão direta é só IPv6, que a Vercel não
+   alcança, e o Transaction pooler exigiria `prepare: false` no
+   `src/db/index.ts`.
 2. No Vercel, importe este repositório e configure as variáveis de ambiente
    `DATABASE_URL` e `SESSION_SECRET` (produção).
 3. Antes do primeiro deploy (ou via `npm run db:push`/`db:migrate` apontando
@@ -87,14 +104,15 @@ da lógica já validada no protótipo anterior (ver `calcularCustoItem`,
 ## Extrato bancário (Pluggy)
 
 `/admin/extrato` mostra as movimentações dos bancos da Safran, puxadas da
-[Pluggy](https://pluggy.ai) via Open Finance. Mesmo caminho do projeto
-pessoal: os bancos são conectados no **Meu Pluggy**, e o sistema só lê o que
-já está autorizado lá — não há widget de conexão no site.
+[Pluggy](https://pluggy.ai) via Open Finance, na conta da Pluggy **da
+Safran** (ver *Ambientes*). Os bancos são conectados no **Meu Pluggy**, e o
+sistema só lê o que já está autorizado lá — não há widget de conexão no site.
 
 ### Configurar
 
 1. **Credenciais.** Em [dashboard.pluggy.ai](https://dashboard.pluggy.ai),
-   pegue o `Client ID` e o `Client Secret` da aplicação.
+   logado na conta da Safran, crie a aplicação e pegue o `Client ID` e o
+   `Client Secret`.
 2. **Conectar o banco.** Em [meu.pluggy.ai](https://meu.pluggy.ai), com o
    cadastro do **CNPJ da Safran**, conecte cada banco (Mercado Pago, conta PJ,
    cartão) pelo Open Finance e copie o **ID do item** de cada conexão.
