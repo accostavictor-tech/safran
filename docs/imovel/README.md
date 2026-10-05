@@ -9,7 +9,7 @@ Pinto, 05 — Barro Duro, Maceió/AL.
 | `planta-baixa.pdf` / `.png` / `.svg` | Planta redesenhada, A3 retrato, escala 1:50 |
 | `planta-baixa.dxf` | Mesma planta em metros, para AutoCAD/LibreCAD (camadas `A-*`) |
 | `planta_baixa.py` | Gerador: todas as cotas do croqui ficam no dicionário `MEDIDAS` |
-| `fluxos.png` / `.svg` / `fluxos.py` | Diagrama de fluxos atual × proposta — **feito sobre a R00, desatualizado** (premissas de porta Amb. 01/02 e vão Amb. 02/03 não se confirmaram); refazer quando o acesso ao Amb. 01 estiver definido |
+| `fluxos.pdf` / `.png` / `.svg` / `fluxos.py` | Antes × depois sobre a R01: fluxos, layout de equipamentos (medidas típicas) e intervenções. Premissa: o acesso externo da cozinha é pelo nicho |
 
 Revisão **R01 — preliminar** (R01: janela, e não porta, entre Amb. 01 e
 02; Amb. 02 e Amb. 03 com portas próprias para a circulação, junto à do WC). A planta usa só o que foi medido; o que foi
