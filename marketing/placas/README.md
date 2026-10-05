@@ -26,9 +26,8 @@ chromium --headless --no-sandbox --no-pdf-header-footer \
 5. Estoque
 6. Copa
 7. Banheiro
-8. Manter a porta fechada (banheiro)
-9. Não fume
-10. Saída de emergência (fundo verde, convenção de sinalização)
+8. Não fume
+9. Saída de emergência (fundo verde, convenção de sinalização)
 
 
 Violeta (#993399) e açafrão (#e0aa0f) sampleados do logo oficial; neutros e
