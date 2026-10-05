@@ -1,13 +1,14 @@
 /**
- * Cliente HTTP da Pluggy, no fluxo do Meu Pluggy: os bancos são conectados lá,
- * pelos sócios, e aqui só se lê o que já está conectado — sem widget de
- * conexão no site.
+ * Cliente HTTP da Pluggy, na aplicação da própria Safran.
+ *
+ * Os bancos são conectados pelo widget do Pluggy Connect (que pede um token
+ * gerado aqui) ou, como alternativa, pelo Meu Pluggy; daqui em diante é tudo
+ * leitura.
  *
  * Só roda no servidor: usa PLUGGY_CLIENT_SECRET.
  *
- * Os formatos abaixo seguem o que foi confirmado contra a API real no projeto
- * pessoal (melocosta-financeiro). Campos que nem todo banco manda estão
- * opcionais de propósito.
+ * Formatos conferidos contra os tipos do pluggy-sdk oficial. Campos que nem
+ * todo banco manda estão opcionais de propósito.
  */
 
 const PLUGGY_BASE_URL = "https://api.pluggy.ai";
@@ -108,15 +109,46 @@ async function obterApiKey(): Promise<string> {
   return apiKey;
 }
 
-async function pluggyGet<T>(caminho: string): Promise<T> {
+async function pluggyRequest<T>(metodo: "GET" | "POST", caminho: string, corpo?: unknown): Promise<T> {
   const res = await fetch(`${PLUGGY_BASE_URL}${caminho}`, {
-    headers: { "X-API-KEY": await obterApiKey() },
+    method: metodo,
+    headers: {
+      "X-API-KEY": await obterApiKey(),
+      ...(corpo === undefined ? {} : { "Content-Type": "application/json" }),
+    },
+    body: corpo === undefined ? undefined : JSON.stringify(corpo),
     cache: "no-store",
   });
   if (!res.ok) {
-    throw new PluggyErro(`Pluggy GET ${caminho} falhou (${res.status}): ${await res.text()}`, res.status);
+    throw new PluggyErro(`Pluggy ${metodo} ${caminho} falhou (${res.status}): ${await res.text()}`, res.status);
   }
   return res.json() as Promise<T>;
+}
+
+function pluggyGet<T>(caminho: string): Promise<T> {
+  return pluggyRequest<T>("GET", caminho);
+}
+
+/**
+ * Token de curta duração que o navegador usa para abrir o Pluggy Connect.
+ * Com `itemId`, o widget abre em modo de atualização daquela conexão
+ * (renovar consentimento); sem, abre para conectar um banco novo.
+ *
+ * O corpo é `{ itemId, options }` — é o que o pluggy-sdk envia. O exemplo do
+ * painel da Pluggy, que passa as opções como primeiro argumento, não bate com
+ * a assinatura real.
+ */
+export async function criarConnectToken(opcoes: { itemId?: string; webhookUrl?: string } = {}): Promise<string> {
+  const { accessToken } = await pluggyRequest<{ accessToken: string }>("POST", "/connect_token", {
+    itemId: opcoes.itemId,
+    options: {
+      clientUserId: "safran",
+      // Mesmo banco conectado duas vezes viraria extrato em dobro.
+      avoidDuplicates: true,
+      webhookUrl: opcoes.webhookUrl,
+    },
+  });
+  return accessToken;
 }
 
 export async function buscarItem(itemId: string): Promise<PluggyItem> {

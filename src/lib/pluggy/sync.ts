@@ -4,7 +4,7 @@
  * Idempotente — tudo é upsert pelo ID da Pluggy, então rodar duas vezes (cron
  * e botão ao mesmo tempo, por exemplo) não duplica nada.
  */
-import { eq, sql } from "drizzle-orm";
+import { eq, inArray, sql } from "drizzle-orm";
 import { db } from "@/db";
 import { conexoesBancarias, contasBancarias, movimentacoesBancarias } from "@/db/schema";
 import { reaisParaCentavos } from "@/lib/calculations";
@@ -146,4 +146,29 @@ export async function sincronizarTodas() {
   return Promise.all(
     conexoes.map(async (c) => ({ ...c, resultado: await sincronizarConexao(c.itemId) }))
   );
+}
+
+/**
+ * O banco apagou ou estornou lançamentos (evento transactions/deleted). O
+ * upsert nunca apaga nada, então sem isto o extrato guardaria para sempre uma
+ * linha que o banco já não tem.
+ */
+export async function removerMovimentacoes(transactionIds: string[]): Promise<number> {
+  if (transactionIds.length === 0) return 0;
+  const removidas = await db
+    .delete(movimentacoesBancarias)
+    .where(inArray(movimentacoesBancarias.providerTransactionId, transactionIds))
+    .returning({ id: movimentacoesBancarias.id });
+  return removidas.length;
+}
+
+/**
+ * Conexão apagada na Pluggy (evento item/deleted). O histórico fica: é
+ * registro do caixa da empresa, e a DRE dos meses passados depende dele.
+ */
+export async function marcarConexaoRemovida(itemId: string): Promise<void> {
+  await db
+    .update(conexoesBancarias)
+    .set({ status: "DELETED", updatedAt: new Date() })
+    .where(eq(conexoesBancarias.providerItemId, itemId));
 }

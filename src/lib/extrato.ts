@@ -45,24 +45,39 @@ type Tom = "success" | "warning" | "destructive" | "sky" | "secondary";
  * sync: um sync pode dar certo e ainda assim trazer dado velho, se o
  * consentimento expirou.
  */
-export function statusConexao(status: string | null): { label: string; tom: Tom; acao?: string } {
+export function statusConexao(status: string | null): {
+  label: string;
+  tom: Tom;
+  acao?: string;
+  reconectar?: boolean;
+} {
   switch (status) {
     case "UPDATED":
       return { label: "Conectado", tom: "success" };
     case "UPDATING":
+    case "MERGING":
       return { label: "Atualizando", tom: "sky" };
     case "OUTDATED":
       return {
         label: "Desatualizado",
         tom: "warning",
-        acao: "O banco não respondeu na última atualização. Se persistir, renove a conexão no Meu Pluggy.",
+        acao: "O banco não respondeu na última atualização. Se persistir, reconecte.",
+        reconectar: true,
       };
     case "LOGIN_ERROR":
     case "WAITING_USER_INPUT":
+    case "WAITING_USER_ACTION":
       return {
         label: "Reconectar",
         tom: "destructive",
-        acao: "O consentimento expirou ou foi revogado. Renove a conexão deste banco no Meu Pluggy.",
+        acao: "O consentimento expirou ou foi revogado. Reconecte para o extrato voltar a atualizar.",
+        reconectar: true,
+      };
+    case "DELETED":
+      return {
+        label: "Removida",
+        tom: "secondary",
+        acao: "Conexão apagada na Pluggy. O histórico continua aqui; para voltar a atualizar, conecte de novo.",
       };
     default:
       return { label: status ?? "Sem status", tom: "secondary" };

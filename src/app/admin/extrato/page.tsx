@@ -21,6 +21,7 @@ import { StatTile } from "@/components/stat-tile";
 import { cn } from "@/lib/utils";
 import { SincronizarButton } from "./sincronizar-button";
 import { ConectarBancoForm } from "./conectar-form";
+import { ConectarBancoButton } from "./conectar-banco";
 
 export const dynamic = "force-dynamic";
 // As actions desta página rodam o sync, que chama a Pluggy conta por conta.
@@ -38,19 +39,17 @@ const DATA_HORA = new Intl.DateTimeFormat("pt-BR", {
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-function ComoConectar() {
+/** Alternativa ao widget: banco já autorizado pelo Meu Pluggy. */
+function ViaMeuPluggy() {
   return (
-    <ol className="list-decimal space-y-1 pl-5 text-sm text-muted-foreground">
-      <li>
-        Entre no{" "}
-        <a href="https://meu.pluggy.ai" target="_blank" rel="noreferrer" className="text-primary underline">
-          Meu Pluggy
-        </a>{" "}
-        com o cadastro do CNPJ da Safran e conecte o banco pelo Open Finance.
-      </li>
-      <li>Copie o ID do item que aparece na conexão.</li>
-      <li>Cole abaixo. As contas e o extrato são puxados na hora, e depois todo dia pelo sync automático.</li>
-    </ol>
+    <details>
+      <summary className="cursor-pointer text-sm text-muted-foreground">
+        Já conectou pelo Meu Pluggy? Cole o ID do item
+      </summary>
+      <div className="mt-3">
+        <ConectarBancoForm />
+      </div>
+    </details>
   );
 }
 
@@ -77,8 +76,12 @@ export default async function ExtratoPage({ searchParams }: PageProps<"/admin/ex
             <CardTitle>Conectar o primeiro banco</CardTitle>
           </CardHeader>
           <CardContent className="space-y-5">
-            <ComoConectar />
-            <ConectarBancoForm />
+            <p className="text-sm text-muted-foreground">
+              Escolha o banco e autorize pelo Open Finance, com o login de quem acessa a conta da empresa. As contas e
+              o extrato são puxados na hora, e depois todo dia pelo sync automático.
+            </p>
+            <ConectarBancoButton />
+            <ViaMeuPluggy />
           </CardContent>
         </Card>
       </div>
@@ -124,7 +127,12 @@ export default async function ExtratoPage({ searchParams }: PageProps<"/admin/ex
                 </p>
               </div>
 
-              {st.acao ? <p className="text-sm text-on-warning-soft">{st.acao}</p> : null}
+              {st.acao ? (
+                <div className="flex flex-wrap items-center gap-3">
+                  <p className="text-sm text-on-warning-soft">{st.acao}</p>
+                  {st.reconectar ? <ConectarBancoButton itemId={conexao.providerItemId} variant="secondary" /> : null}
+                </div>
+              ) : null}
               {conexao.ultimoSyncOk === false ? (
                 <p className="text-sm text-destructive">Último sync falhou: {conexao.ultimoSyncDetalhe}</p>
               ) : null}
@@ -147,13 +155,10 @@ export default async function ExtratoPage({ searchParams }: PageProps<"/admin/ex
             </div>
           );
         })}
-        <details className="px-5 py-3">
-          <summary className="cursor-pointer text-sm font-medium text-primary">Conectar outro banco</summary>
-          <div className="mt-3 space-y-4">
-            <ComoConectar />
-            <ConectarBancoForm />
-          </div>
-        </details>
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-3 px-5 py-3">
+          <ConectarBancoButton variant="secondary" />
+          <ViaMeuPluggy />
+        </div>
       </Card>
 
       <div className="mb-5 grid grid-cols-2 gap-3 lg:grid-cols-4">

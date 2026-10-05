@@ -104,29 +104,36 @@ então trocar de conta é trocar as variáveis no Vercel.
 ## Extrato bancário (Pluggy)
 
 `/admin/extrato` mostra as movimentações dos bancos da Safran, puxadas da
-[Pluggy](https://pluggy.ai) via Open Finance, na conta da Pluggy **da
-Safran** (ver *Ambientes*). Os bancos são conectados no **Meu Pluggy**, e o
-sistema só lê o que já está autorizado lá — não há widget de conexão no site.
+[Pluggy](https://pluggy.ai) via Open Finance, na aplicação da Pluggy **da
+Safran** (ver *Ambientes*). É a base do fluxo de caixa e da DRE.
 
 ### Configurar
 
 1. **Credenciais.** Em [dashboard.pluggy.ai](https://dashboard.pluggy.ai),
-   logado na conta da Safran, crie a aplicação e pegue o `Client ID` e o
-   `Client Secret`.
-2. **Conectar o banco.** Em [meu.pluggy.ai](https://meu.pluggy.ai), com o
-   cadastro do **CNPJ da Safran**, conecte cada banco (Mercado Pago, conta PJ,
-   cartão) pelo Open Finance e copie o **ID do item** de cada conexão.
-3. **Variáveis no Vercel** (Settings → Environment Variables, produção):
-   `PLUGGY_CLIENT_ID`, `PLUGGY_CLIENT_SECRET` e `CRON_SECRET` (qualquer
-   string longa e aleatória). Localmente, as mesmas no `.env.local`.
-4. **Deploy.** A migration `0012_extrato_bancario` entra sozinha no build.
-5. Em `/admin/extrato`, cole o ID do item e clique em **Conectar e puxar
-   extrato**. As contas são criadas automaticamente, sem vínculo manual.
+   logado na conta da Safran, pegue o `Client ID` e o `Client Secret` da
+   aplicação.
+2. **Variáveis no Vercel** (Settings → Environment Variables, produção):
+   `PLUGGY_CLIENT_ID`, `PLUGGY_CLIENT_SECRET`, `CRON_SECRET` e
+   `PLUGGY_WEBHOOK_SECRET` (as duas últimas: qualquer string longa e
+   aleatória). Localmente, as mesmas no `.env.local`.
+3. **Deploy.** A migration `0012_extrato_bancario` entra sozinha no build.
+4. Em `/admin/extrato`, **Conectar banco** abre o widget da Pluggy (o
+   Pluggy Connect, já com o CNPJ da Safran preenchido): escolha o banco e
+   autorize no app dele, com o login de quem acessa a conta da empresa. As
+   contas são criadas sozinhas e o extrato é puxado na hora.
+
+Alternativa: banco já autorizado pelo [Meu Pluggy](https://meu.pluggy.ai) —
+cole o ID do item em *Já conectou pelo Meu Pluggy?*.
 
 ### Como o sync roda
 
 - **Todo dia às 07:00 (Maceió)** pelo Vercel Cron (`vercel.json` →
   `/api/cron/pluggy`). A rota só aceita a chamada com o `CRON_SECRET`.
+- **A cada atualização do banco**, pelo webhook `/api/webhooks/pluggy`: a
+  URL (com o `PLUGGY_WEBHOOK_SECRET`) vai junto no token de cada conexão
+  feita pelo widget, sem cadastro no painel da Pluggy. Lançamento apagado
+  pelo banco (`transactions/deleted`) sai do extrato; conexão apagada
+  (`item/deleted`) fica marcada como removida, com o histórico preservado.
 - **Na hora**, pelo botão *Sincronizar agora* ou por
   `npm run pluggy:sync` (`-- <itemId>` conecta e sincroniza um banco novo).
 - É idempotente: tudo é upsert pelo ID da Pluggy.
@@ -143,8 +150,8 @@ sistema só lê o que já está autorizado lá — não há widget de conexão n
 - O payload original de cada transação fica em `payload_bruto`, para a
   conciliação com pedidos e a apuração da receita.
 - O consentimento do Open Finance expira. Quando o banco aparecer como
-  *Reconectar*, renove a conexão no Meu Pluggy. Se a renovação gerar um
-  item novo, conecte o novo ID na tela; o histórico já puxado continua.
+  *Reconectar*, o botão ao lado reabre o widget para renovar a mesma
+  conexão.
 
 ## Migração dos dados do Lovable
 
