@@ -103,7 +103,7 @@ Y_A06_B = Y_A06_T + m["a06_prof"]
 DOOR_WC = 0.60
 DOOR_STD = 0.80
 VAO_A04 = (X_ALA, X_ALA + 0.80)               # estimado
-VAO_A02_A03 = (1.00, 2.20)                    # estimado (traços na parede)
+JANELA_01_02 = (0.80, 1.80)                   # janela cozinha/montagem (posição estimada)
 
 # ---------------------------------------------------------------------------
 # Paredes: retângulos (x0, y0, x1, y1). Vãos são lacunas entre retângulos.
@@ -127,7 +127,8 @@ def split_v(x0, x1, y0, y1, gaps=()):
     return out
 
 
-D2 = (X_A03_L + 0.05, X_A03_L + 0.05 + DOOR_STD)        # porta Amb. 03
+D2 = (Y_A03_B - 0.05 - DOOR_STD, Y_A03_B - 0.05)        # porta Amb. 03 (para a circulação)
+D4 = (X_WC_R + T_INT + 0.06, X_WC_R + T_INT + 0.06 + DOOR_STD)  # porta Amb. 02
 D3 = (X_A06_R - 0.05 - DOOR_STD, X_A06_R - 0.05)        # porta externa Amb. 06
 D1 = (Y_WC_IN_T + 0.06, Y_WC_IN_T + 0.06 + DOOR_WC)     # porta do WC
 
@@ -145,11 +146,12 @@ WALLS = [
     (X_A06_R, Y_A05_B, X_A06_R + T_EXT, Y_EXT_B),                   # direita Amb. 06
     (X_A06_R, Y_A05_B, X_CIRC_R + T_EXT, Y_A05_B + T_EXT),          # degrau da fachada
     (X_CIRC_R, Y_A03_B, X_CIRC_R + T_EXT, Y_A05_B + T_EXT),         # direita circ./Amb. 05
-    *split_h(X_A02_R, X_EXT_R, Y_A03_B, Y_A03_B + T_EXT, [D2]),     # inferior Amb. 03
+    (X_A02_R, Y_A03_B, X_EXT_R, Y_A03_B + T_EXT),                   # inferior Amb. 03
     (X_A03_R, -T_EXT, X_EXT_R, Y_A03_B + T_EXT),                    # direita Amb. 03
     # internas
-    (X_A01_R, 0, X_A02_L, Y_WC_T),                                  # Amb. 01 / 02
-    *split_v(X_A02_R, X_A03_L, 0, Y_A03_B, [VAO_A02_A03]),          # Amb. 02 / 03
+    *split_v(X_A01_R, X_A02_L, 0, Y_WC_T, [JANELA_01_02]),          # Amb. 01 / 02
+    *split_v(X_A02_R, X_A03_L, 0, Y_A03_B, [D2]),                   # Amb. 02 / 03
+    *split_h(X_WC_R + T_INT, X_A02_R, Y_WC_T, Y_WC_IN_T, [D4]),     # Amb. 02 / circ.
     (X_ALA_FE, Y_WC_T, X_WC_R + T_INT, Y_WC_IN_T),                  # WC superior
     (X_ALA_FE, Y_WC_T, X_ALA, Y_NICHO_B),                           # WC/Amb. 04 esquerda
     *split_v(X_WC_R, X_WC_R + T_INT, Y_WC_T, Y_WC_B, [D1]),         # WC direita
@@ -190,9 +192,9 @@ ROOMS = [
     ("WC", "WC", rect(X_ALA, Y_WC_IN_T, X_WC_R, Y_WC_IN_B),
      (4.55, 3.12), "2,42 × 1,16"),
     ("C", "Circulação",
-     [(X_WC_R + T_INT, Y_WC_T), (X_A02_R, Y_WC_T), (X_A02_R, Y_CIRC_B),
+     [(X_WC_R + T_INT, Y_WC_IN_T), (X_A02_R, Y_WC_IN_T), (X_A02_R, Y_CIRC_B),
       (X_CIRC_L, Y_CIRC_B), (X_CIRC_L, Y_WC_B), (X_WC_R + T_INT, Y_WC_B)],
-     None, "0,92 / 0,83 × 3,58"),
+     None, "0,92 / 0,83 × 3,46"),
     ("04", "Amb. 04", rect(X_ALA, Y_WC_B, X_A04_R, Y_A04_B),
      (4.95, 5.05), "2,51 × 2,06"),
     ("05", "Amb. 05", rect(X_ALA, Y_A05_T, X_CIRC_R, Y_A05_B),
@@ -257,20 +259,21 @@ TAGS = [
     ("B", X_A03_R - 0.38, Y_A03_B - m["a03_marca"] - 0.32),
     ("C", X_A06_R, Y_A05_T + 0.40),
     ("?", X_ALA + 0.40, Y_CIRC_B + 0.30),
-    ("?", X_A02_R + 0.06, VAO_A02_A03[0] - 0.32),
+    ("?", X_A01_R - 0.42, JANELA_01_02[0] - 0.30),
 ]
 
 PENDENCIAS = [
-    ("1", "Acesso ao Amb. 01: o croqui não mostra porta para o Amb. 02 "
-          "nem para a rua. Onde ficam a entrada principal e as demais portas?"),
+    ("1", "Acesso ao Amb. 01: entre ele e o Amb. 02 há só uma janela. Por "
+          "onde se entra no Amb. 01? Onde fica a entrada principal do imóvel?"),
     ("A", "Parede esquerda do Amb. 01: trecho de 2,32 desenhado com linha "
           "tripla — é janela, porta ou vão? Largura e peitoril."),
     ("B", "Amb. 03: marca em \"T\" na parede direita, a 2,00 m do canto "
           "inferior — o que é (janela, ponto hidráulico, pilar)?"),
     ("C", "Amb. 05: linha paralela à parede direita, alinhada com a parede "
           "do Amb. 06 (≈0,52 m dela) — bancada, mureta ou parede?"),
-    ("?", "Vãos Amb. 02/03 (≈1,20) e Amb. 04/05 (≈0,80): posição e largura "
-          "estimadas pelos traços do croqui; WC e portas sem cota de posição."),
+    ("?", "Posição e largura estimadas: janela Amb. 01/02, portas do Amb. 02, "
+          "do Amb. 03 e do WC (as três se encontram no trecho de 0,92 da "
+          "circulação) e vão Amb. 04/05 (≈0,80)."),
     ("2", "Amb. 04: profundidade com leitura incerta (\"2,0\"); a geometria "
           "usa 2,06 para fechar com os 2,18 da circulação."),
     ("3", "Amb. 06: 1,79 + 1,15 = 2,94 no topo × 3,00 medido junto à "
@@ -369,6 +372,14 @@ def door(hinge, closed_dir, open_dir, width, color=INK):
         f'fill="none" stroke="{color}" stroke-width="0.18"/>')
 
 
+def draw_window(x0, x1, y0, y1):
+    """Janela em parede vertical: três linhas finas no vão."""
+    (a, b), (c, d) = P(x0, y0), P(x1, y1)
+    add(f'<rect x="{f(a)}" y="{f(b)}" width="{f(c - a)}" height="{f(d - b)}" '
+        f'fill="#ffffff" stroke="{INK}" stroke-width="0.2"/>')
+    line((a + c) / 2, b, (a + c) / 2, d, INK, 0.2)
+
+
 def tag(letter, x, y):
     px, py = P(x, y)
     add(f'<circle cx="{f(px)}" cy="{f(py)}" r="2.1" fill="#ffffff" '
@@ -416,7 +427,6 @@ def build_svg():
     # divisões virtuais entre espaços abertos
     for x1, y1, x2, y2 in [
         (X_NICHO, Y_A01_B, X_ALA_FE, Y_A01_B),
-        (X_WC_R + T_INT, Y_WC_T, X_A02_R, Y_WC_T),
         (X_CIRC_L, Y_CIRC_B, X_CIRC_R, Y_CIRC_B),
         (X_ALA, Y_A05_B + T_INT / 2, X_A06_STUB, Y_A05_B + T_INT / 2),
     ]:
@@ -439,13 +449,14 @@ def build_svg():
 
     # portas
     door((X_WC_R, D1[0]), (0, 1), (-1, 0), DOOR_WC)
-    door((D2[0], Y_A03_B), (1, 0), (0, -1), DOOR_STD)
+    door((X_A03_L, D2[1]), (0, -1), (1, 0), DOOR_STD)
+    door((D4[1], Y_WC_T), (-1, 0), (0, -1), DOOR_STD)
+    draw_window(X_A01_R, X_A02_L, *JANELA_01_02)
     door((D3[1], Y_EXT_B), (-1, 0), (0, 1), DOOR_STD)
 
     # vãos estimados: contorno tracejado laranja
     for (x0, y0, x1, y1) in [
         (VAO_A04[0], Y_A04_B, VAO_A04[1], Y_CIRC_B),
-        (X_A02_R, VAO_A02_A03[0], X_A03_L, VAO_A02_A03[1]),
     ]:
         (a, b), (c, d) = P(x0, y0), P(x1, y1)
         add(f'<rect x="{f(a)}" y="{f(b)}" width="{f(c - a)}" height="{f(d - b)}" '
@@ -539,7 +550,8 @@ def draw_areas_panel(x, y):
     yy += 6
     items = [
         ("wall", "Parede (espessura adotada)"),
-        ("door", "Porta desenhada no croqui (posição aprox.)"),
+        ("door", "Porta (posição aproximada)"),
+        ("window", "Janela"),
         ("virtual", "Divisa entre espaços sem parede"),
         ("vao", "Vão estimado — confirmar"),
         ("amber", "Elemento / cota a confirmar"),
@@ -552,6 +564,10 @@ def draw_areas_panel(x, y):
         elif kind == "door":
             add(f'<path d="M{f(sx)},{f(yy)} L{f(sx)},{f(yy - 3)} A3,3 0 0 1 {f(sx + 3)},{f(yy)}" '
                 f'fill="none" stroke="{INK}" stroke-width="0.25"/>')
+        elif kind == "window":
+            add(f'<rect x="{f(sx)}" y="{f(yy - 2)}" width="8" height="2" fill="#fff" '
+                f'stroke="{INK}" stroke-width="0.2"/>')
+            line(sx, yy - 1, sx + 8, yy - 1, INK, 0.2)
         elif kind == "virtual":
             line(sx, yy - 1, sx + 8, yy - 1, GRAY, 0.2, "1.2 0.9")
         elif kind == "vao":
@@ -623,7 +639,7 @@ def draw_title_block():
 
     cells = [
         ("ESCALA", "1:50"), ("FOLHA", "A3"),
-        ("UNIDADE", "metro"), ("REVISÃO", "R00"),
+        ("UNIDADE", "metro"), ("REVISÃO", "R01"),
         ("DATA", "05/10/2026"), ("STATUS", "PRELIMINAR"),
     ]
     cw, ch = (x1 - 205) / 2, (y1 - y0) / 3
@@ -650,7 +666,7 @@ def build_dxf(path):
     doc.header["$MEASUREMENT"] = 1
     for name, color in [("A-PAREDE", 7), ("A-PORTA", 3), ("A-COTA", 5),
                         ("A-TEXTO", 7), ("A-AMBIENTE", 8), ("A-CONFIRMAR", 30),
-                        ("A-DIVISA", 8)]:
+                        ("A-DIVISA", 8), ("A-JANELA", 4)]:
         doc.layers.add(name, color=color)
     ds = doc.dimstyles.new("SAFRAN_50")
     ds.dxf.dimtxt = 0.10
@@ -702,12 +718,15 @@ def build_dxf(path):
         msp.add_arc((hx, hy), width, start, end, dxfattribs={"layer": "A-PORTA"})
 
     dxf_door((X_WC_R, D1[0]), (0, 1), (-1, 0), DOOR_WC)
-    dxf_door((D2[0], Y_A03_B), (1, 0), (0, -1), DOOR_STD)
+    dxf_door((X_A03_L, D2[1]), (0, -1), (1, 0), DOOR_STD)
+    dxf_door((D4[1], Y_WC_T), (-1, 0), (0, -1), DOOR_STD)
+    for xv in (X_A01_R, (X_A01_R + X_A02_L) / 2, X_A02_L):
+        msp.add_line(q(xv, JANELA_01_02[0]), q(xv, JANELA_01_02[1]),
+                     dxfattribs={"layer": "A-JANELA"})
     dxf_door((D3[1], Y_EXT_B), (-1, 0), (0, 1), DOOR_STD)
 
     for x1, y1, x2, y2 in [
         (X_NICHO, Y_A01_B, X_ALA_FE, Y_A01_B),
-        (X_WC_R + T_INT, Y_WC_T, X_A02_R, Y_WC_T),
         (X_CIRC_L, Y_CIRC_B, X_CIRC_R, Y_CIRC_B),
         (X_ALA, Y_A05_B + T_INT / 2, X_A06_STUB, Y_A05_B + T_INT / 2),
     ]:
@@ -716,7 +735,6 @@ def build_dxf(path):
                  dxfattribs={"layer": "A-CONFIRMAR"})
     for (x0, y0, x1, y1) in [
         (VAO_A04[0], Y_A04_B, VAO_A04[1], Y_CIRC_B),
-        (X_A02_R, VAO_A02_A03[0], X_A03_L, VAO_A02_A03[1]),
     ]:
         msp.add_lwpolyline([q(x0, y0), q(x1, y0), q(x1, y1), q(x0, y1)], close=True,
                            dxfattribs={"layer": "A-CONFIRMAR"})
@@ -737,7 +755,7 @@ def build_dxf(path):
         )
         dim.render()
 
-    msp.add_text("PLANTA BAIXA — LEVANTAMENTO CADASTRAL — SAFRAN (R00, preliminar)",
+    msp.add_text("PLANTA BAIXA — LEVANTAMENTO CADASTRAL — SAFRAN (R01, preliminar)",
                  height=0.22, dxfattribs={"layer": "A-TEXTO"}) \
         .set_placement(q(-0.15, -1.2))
     doc.saveas(path)

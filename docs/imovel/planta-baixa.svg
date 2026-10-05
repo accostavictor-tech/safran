@@ -9,12 +9,11 @@
 <path d="M137.2,52 L191.4,52 L191.4,102 L137.2,102 Z" fill="#ffffff" stroke="none"/>
 <path d="M193.8,52 L246,52 L246,129.4 L193.8,129.4 Z" fill="#ffffff" stroke="none"/>
 <path d="M122.2,104.4 L170.6,104.4 L170.6,127.6 L122.2,127.6 Z" fill="url(#molhada)" stroke="none"/>
-<path d="M173,102 L191.4,102 L191.4,173.6 L174.8,173.6 L174.8,130 L173,130 Z" fill="#ffffff" stroke="none"/>
+<path d="M173,104.4 L191.4,104.4 L191.4,173.6 L174.8,173.6 L174.8,130 L173,130 Z" fill="#ffffff" stroke="none"/>
 <path d="M122.2,130 L172.4,130 L172.4,171.2 L122.2,171.2 Z" fill="#ffffff" stroke="none"/>
 <path d="M122.2,173.6 L191.4,173.6 L191.4,255 L122.2,255 Z" fill="#ffffff" stroke="none"/>
 <path d="M122.2,257.4 L181,257.4 L181,315.4 L122.2,315.4 Z" fill="#ffffff" stroke="none"/>
 <line x1="101.4" y1="135.8" x2="119.8" y2="135.8" stroke="#8a8a8a" stroke-width="0.2" stroke-linecap="butt" stroke-dasharray="1.2 0.9"/>
-<line x1="173" y1="102" x2="191.4" y2="102" stroke="#8a8a8a" stroke-width="0.2" stroke-linecap="butt" stroke-dasharray="1.2 0.9"/>
 <line x1="174.8" y1="173.6" x2="191.4" y2="173.6" stroke="#8a8a8a" stroke-width="0.2" stroke-linecap="butt" stroke-dasharray="1.2 0.9"/>
 <line x1="122.2" y1="256.2" x2="158" y2="256.2" stroke="#8a8a8a" stroke-width="0.2" stroke-linecap="butt" stroke-dasharray="1.2 0.9"/>
 <line x1="181" y1="173.6" x2="181" y2="255" stroke="#c2410c" stroke-width="0.3" stroke-linecap="butt" stroke-dasharray="1.6 1"/>
@@ -29,12 +28,14 @@
 <rect x="181" y="255" width="3" height="63.4" fill="#262626"/>
 <rect x="181" y="255" width="13.4" height="3" fill="#262626"/>
 <rect x="191.4" y="129.4" width="3" height="128.6" fill="#262626"/>
-<rect x="191.4" y="129.4" width="3.4" height="3" fill="#262626"/>
-<rect x="210.8" y="129.4" width="38.2" height="3" fill="#262626"/>
+<rect x="191.4" y="129.4" width="57.6" height="3" fill="#262626"/>
 <rect x="246" y="49" width="3" height="83.4" fill="#262626"/>
-<rect x="132.2" y="52" width="5" height="50" fill="#262626"/>
-<rect x="191.4" y="52" width="2.4" height="20" fill="#262626"/>
-<rect x="191.4" y="96" width="2.4" height="33.4" fill="#262626"/>
+<rect x="132.2" y="52" width="5" height="16" fill="#262626"/>
+<rect x="132.2" y="88" width="5" height="14" fill="#262626"/>
+<rect x="191.4" y="52" width="2.4" height="60.4" fill="#262626"/>
+<rect x="191.4" y="128.4" width="2.4" height="1" fill="#262626"/>
+<rect x="173" y="102" width="1.2" height="2.4" fill="#262626"/>
+<rect x="190.2" y="102" width="1.2" height="2.4" fill="#262626"/>
 <rect x="119.8" y="102" width="53.2" height="2.4" fill="#262626"/>
 <rect x="119.8" y="102" width="2.4" height="60.8" fill="#262626"/>
 <rect x="170.6" y="102" width="2.4" height="3.6" fill="#262626"/>
@@ -48,12 +49,15 @@
 <line x1="244.8" y1="89.4" x2="250.2" y2="89.4" stroke="#c2410c" stroke-width="0.45" stroke-linecap="butt"/>
 <line x1="170.6" y1="105.6" x2="158.6" y2="105.6" stroke="#1f1f1f" stroke-width="0.35" stroke-linecap="butt"/>
 <path d="M170.6,117.6 A12,12 0 0 1 158.6,105.6" fill="none" stroke="#1f1f1f" stroke-width="0.18"/>
-<line x1="194.8" y1="129.4" x2="194.8" y2="113.4" stroke="#1f1f1f" stroke-width="0.35" stroke-linecap="butt"/>
-<path d="M210.8,129.4 A16,16 0 0 0 194.8,113.4" fill="none" stroke="#1f1f1f" stroke-width="0.18"/>
+<line x1="193.8" y1="128.4" x2="209.8" y2="128.4" stroke="#1f1f1f" stroke-width="0.35" stroke-linecap="butt"/>
+<path d="M193.8,112.4 A16,16 0 0 1 209.8,128.4" fill="none" stroke="#1f1f1f" stroke-width="0.18"/>
+<line x1="190.2" y1="102" x2="190.2" y2="86" stroke="#1f1f1f" stroke-width="0.35" stroke-linecap="butt"/>
+<path d="M174.2,102 A16,16 0 0 1 190.2,86" fill="none" stroke="#1f1f1f" stroke-width="0.18"/>
+<rect x="132.2" y="68" width="5" height="20" fill="#ffffff" stroke="#1f1f1f" stroke-width="0.2"/>
+<line x1="134.7" y1="68" x2="134.7" y2="88" stroke="#1f1f1f" stroke-width="0.2" stroke-linecap="butt"/>
 <line x1="180" y1="318.4" x2="180" y2="334.4" stroke="#1f1f1f" stroke-width="0.35" stroke-linecap="butt"/>
 <path d="M164,318.4 A16,16 0 0 0 180,334.4" fill="none" stroke="#1f1f1f" stroke-width="0.18"/>
 <rect x="122.2" y="171.2" width="16" height="2.4" fill="none" stroke="#c2410c" stroke-width="0.25" stroke-dasharray="0.8 0.6"/>
-<rect x="191.4" y="72" width="2.4" height="24" fill="none" stroke="#c2410c" stroke-width="0.25" stroke-dasharray="0.8 0.6"/>
 <line x1="44.2" y1="77" x2="133" y2="77" stroke="#1f3a5f" stroke-width="0.18" stroke-linecap="butt"/>
 <line x1="44.35" y1="77.65" x2="45.65" y2="76.35" stroke="#1f3a5f" stroke-width="0.35" stroke-linecap="butt"/>
 <line x1="131.55" y1="77.65" x2="132.85" y2="76.35" stroke="#1f3a5f" stroke-width="0.35" stroke-linecap="butt"/>
@@ -196,8 +200,8 @@
 <text x="136" y="116.92" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.7999999999999998" font-weight="normal" font-style="normal" text-anchor="middle" fill="#444444">2,81 m²</text>
 <text x="180.8" y="146" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.4" font-weight="bold" font-style="normal" text-anchor="middle" transform="rotate(-90 180.8 146)" fill="none" stroke="#ffffff" stroke-width="0.84" stroke-linejoin="round">CIRCULAÇÃO</text>
 <text x="180.8" y="146" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.4" font-weight="bold" font-style="normal" text-anchor="middle" transform="rotate(-90 180.8 146)" fill="#1f1f1f">CIRCULAÇÃO</text>
-<text x="183.8" y="146" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 183.8 146)" fill="none" stroke="#ffffff" stroke-width="0.70" stroke-linejoin="round">3,10 m²</text>
-<text x="183.8" y="146" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 183.8 146)" fill="#444444">3,10 m²</text>
+<text x="183.8" y="146" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 183.8 146)" fill="none" stroke="#ffffff" stroke-width="0.70" stroke-linejoin="round">2,99 m²</text>
+<text x="183.8" y="146" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 183.8 146)" fill="#444444">2,99 m²</text>
 <text x="144" y="153" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="3.0" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="1.05" stroke-linejoin="round">AMB. 04</text>
 <text x="144" y="153" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="3.0" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">AMB. 04</text>
 <text x="144" y="156.15" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.25" font-weight="normal" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.79" stroke-linejoin="round">5,17 m²</text>
@@ -222,8 +226,8 @@
 <text x="181" y="182.45" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.4" font-weight="bold" font-style="normal" text-anchor="middle" fill="#c2410c">C</text>
 <circle cx="130.2" cy="179.6" r="2.1" fill="#ffffff" stroke="#c2410c" stroke-width="0.35"/>
 <text x="130.2" y="180.45" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.4" font-weight="bold" font-style="normal" text-anchor="middle" fill="#c2410c">?</text>
-<circle cx="192.6" cy="65.6" r="2.1" fill="#ffffff" stroke="#c2410c" stroke-width="0.35"/>
-<text x="192.6" y="66.45" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.4" font-weight="bold" font-style="normal" text-anchor="middle" fill="#c2410c">?</text>
+<circle cx="123.8" cy="62" r="2.1" fill="#ffffff" stroke="#c2410c" stroke-width="0.35"/>
+<text x="123.8" y="62.85" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.4" font-weight="bold" font-style="normal" text-anchor="middle" fill="#c2410c">?</text>
 <text x="25" y="349" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="start" fill="#1f1f1f">ESCALA 1:50</text>
 <rect x="25" y="352" width="20" height="1.6" fill="#1f1f1f" stroke="#1f1f1f" stroke-width="0.2"/>
 <text x="25" y="356.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="middle" fill="#1f1f1f">0</text>
@@ -258,8 +262,8 @@
 <text x="245" y="186.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="normal" font-style="normal" text-anchor="middle" fill="#444444">2,42 × 1,16</text>
 <text x="280" y="186.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">2,81</text>
 <text x="206" y="191.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Circulação</text>
-<text x="245" y="191.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="normal" font-style="normal" text-anchor="middle" fill="#444444">0,92 / 0,83 × 3,58</text>
-<text x="280" y="191.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">3,10</text>
+<text x="245" y="191.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="normal" font-style="normal" text-anchor="middle" fill="#444444">0,92 / 0,83 × 3,46</text>
+<text x="280" y="191.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">2,99</text>
 <text x="206" y="195.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Amb. 04</text>
 <text x="245" y="195.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="normal" font-style="normal" text-anchor="middle" fill="#444444">2,51 × 2,06</text>
 <text x="280" y="195.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">5,17</text>
@@ -271,7 +275,7 @@
 <text x="280" y="205" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">8,53</text>
 <line x1="205" y1="207" x2="281" y2="207" stroke="#1f1f1f" stroke-width="0.2" stroke-linecap="butt"/>
 <text x="206" y="210.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="start" fill="#1f1f1f">Total área útil</text>
-<text x="280" y="210.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="end" fill="#1f1f1f">69,03</text>
+<text x="280" y="210.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="end" fill="#1f1f1f">68,92</text>
 <text x="206" y="215.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Área construída (estimada*)</text>
 <text x="280" y="215.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">≈ 79,2</text>
 <text x="206" y="219.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#555555">Envolvente externa ≈ 10,35 × 13,47 m</text>
@@ -281,25 +285,28 @@
 <rect x="207" y="233.3" width="8" height="2" fill="#262626"/>
 <text x="218" y="235.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Parede (espessura adotada)</text>
 <path d="M207,239.9 L207,236.9 A3,3 0 0 1 210,239.9" fill="none" stroke="#1f1f1f" stroke-width="0.25"/>
-<text x="218" y="239.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Porta desenhada no croqui (posição aprox.)</text>
-<line x1="207" y1="243.5" x2="215" y2="243.5" stroke="#8a8a8a" stroke-width="0.2" stroke-linecap="butt" stroke-dasharray="1.2 0.9"/>
-<text x="218" y="244.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Divisa entre espaços sem parede</text>
-<rect x="207" y="246.9" width="8" height="2.2" fill="none" stroke="#c2410c" stroke-width="0.25" stroke-dasharray="0.8 0.6"/>
-<text x="218" y="249.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Vão estimado — confirmar</text>
-<circle cx="209" cy="252.7" r="1.8" fill="#fff" stroke="#c2410c" stroke-width="0.3"/>
-<text x="209" y="253.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="bold" font-style="normal" text-anchor="middle" fill="#c2410c">A</text>
-<text x="218" y="253.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Elemento / cota a confirmar</text>
-<rect x="207" y="255.9" width="8" height="2.6" fill="url(#molhada)" stroke="#8a8a8a" stroke-width="0.15"/>
-<text x="218" y="258.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Área molhada (WC)</text>
-<text x="207" y="262.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f3a5f">2,18*</text>
-<text x="218" y="262.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">cota medida ≠ geometria adotada</text>
-<rect x="24" y="178" width="86" height="115" fill="#ffffff" stroke="#c2410c" stroke-width="0.35"/>
+<text x="218" y="239.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Porta (posição aproximada)</text>
+<rect x="207" y="242.5" width="8" height="2" fill="#fff" stroke="#1f1f1f" stroke-width="0.2"/>
+<line x1="207" y1="243.5" x2="215" y2="243.5" stroke="#1f1f1f" stroke-width="0.2" stroke-linecap="butt"/>
+<text x="218" y="244.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Janela</text>
+<line x1="207" y1="248.1" x2="215" y2="248.1" stroke="#8a8a8a" stroke-width="0.2" stroke-linecap="butt" stroke-dasharray="1.2 0.9"/>
+<text x="218" y="249.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Divisa entre espaços sem parede</text>
+<rect x="207" y="251.5" width="8" height="2.2" fill="none" stroke="#c2410c" stroke-width="0.25" stroke-dasharray="0.8 0.6"/>
+<text x="218" y="253.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Vão estimado — confirmar</text>
+<circle cx="209" cy="257.3" r="1.8" fill="#fff" stroke="#c2410c" stroke-width="0.3"/>
+<text x="209" y="258.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="bold" font-style="normal" text-anchor="middle" fill="#c2410c">A</text>
+<text x="218" y="258.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Elemento / cota a confirmar</text>
+<rect x="207" y="260.5" width="8" height="2.6" fill="url(#molhada)" stroke="#8a8a8a" stroke-width="0.15"/>
+<text x="218" y="262.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Área molhada (WC)</text>
+<text x="207" y="267.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f3a5f">2,18*</text>
+<text x="218" y="267.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">cota medida ≠ geometria adotada</text>
+<rect x="24" y="178" width="86" height="117.9" fill="#ffffff" stroke="#c2410c" stroke-width="0.35"/>
 <text x="27" y="184" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.6" font-weight="bold" font-style="normal" text-anchor="start" fill="#c2410c">PONTOS A CONFIRMAR IN LOCO</text>
 <circle cx="29" cy="189.2" r="1.7" fill="#fff" stroke="#c2410c" stroke-width="0.3"/>
 <text x="29" y="189.95" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#c2410c">1</text>
-<text x="33" y="190" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Acesso ao Amb. 01: o croqui não mostra porta para</text>
-<text x="33" y="192.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">o Amb. 02 nem para a rua. Onde ficam a entrada</text>
-<text x="33" y="195.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">principal e as demais portas?</text>
+<text x="33" y="190" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Acesso ao Amb. 01: entre ele e o Amb. 02 há só uma</text>
+<text x="33" y="192.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">janela. Por onde se entra no Amb. 01? Onde fica a</text>
+<text x="33" y="195.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">entrada principal do imóvel?</text>
 <circle cx="29" cy="200.1" r="1.7" fill="#fff" stroke="#c2410c" stroke-width="0.3"/>
 <text x="29" y="200.85" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#c2410c">A</text>
 <text x="33" y="200.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Parede esquerda do Amb. 01: trecho de 2,32</text>
@@ -317,30 +324,31 @@
 <text x="33" y="228.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">mureta ou parede?</text>
 <circle cx="29" cy="232.8" r="1.7" fill="#fff" stroke="#c2410c" stroke-width="0.3"/>
 <text x="29" y="233.55" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#c2410c">?</text>
-<text x="33" y="233.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Vãos Amb. 02/03 (≈1,20) e Amb. 04/05 (≈0,80):</text>
-<text x="33" y="236.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">posição e largura estimadas pelos traços do</text>
-<text x="33" y="239.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">croqui; WC e portas sem cota de posição.</text>
-<circle cx="29" cy="243.7" r="1.7" fill="#fff" stroke="#c2410c" stroke-width="0.3"/>
-<text x="29" y="244.45" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#c2410c">2</text>
-<text x="33" y="244.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Amb. 04: profundidade com leitura incerta ("2,0");</text>
-<text x="33" y="247.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">a geometria usa 2,06 para fechar com os 2,18 da</text>
-<text x="33" y="250.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">circulação.</text>
-<circle cx="29" cy="254.6" r="1.7" fill="#fff" stroke="#c2410c" stroke-width="0.3"/>
-<text x="29" y="255.35" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#c2410c">3</text>
-<text x="33" y="255.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Amb. 06: 1,79 + 1,15 = 2,94 no topo × 3,00 medido</text>
-<text x="33" y="258.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">junto à parede inferior — conferir esquadro.</text>
-<circle cx="29" cy="262.6" r="1.7" fill="#fff" stroke="#c2410c" stroke-width="0.3"/>
-<text x="29" y="263.35" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#c2410c">4</text>
-<text x="33" y="263.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Paredes não medidas: adotado 0,15 (externas) e</text>
-<text x="33" y="266.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">0,12 (internas). A parede Amb. 01/02 ficou com</text>
-<text x="33" y="269.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">0,25 para fechar 4,36 + 2,71 com 0,62 + 2,51 +</text>
-<text x="33" y="272.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">0,83.</text>
-<circle cx="29" cy="276.4" r="1.7" fill="#fff" stroke="#c2410c" stroke-width="0.3"/>
-<text x="29" y="277.15" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#c2410c">5</text>
-<text x="33" y="277.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Não constam no croqui: pé-direito, janelas, norte,</text>
-<text x="33" y="280.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">pontos de água/esgoto/elétrica/gás e a área</text>
-<text x="33" y="283" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">externa a lápis (com um elemento de 1,207 ×</text>
-<text x="33" y="285.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">0,594).</text>
+<text x="33" y="233.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Posição e largura estimadas: janela Amb. 01/02,</text>
+<text x="33" y="236.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">portas do Amb. 02, do Amb. 03 e do WC (as três se</text>
+<text x="33" y="239.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">encontram no trecho de 0,92 da circulação) e vão</text>
+<text x="33" y="242.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Amb. 04/05 (≈0,80).</text>
+<circle cx="29" cy="246.6" r="1.7" fill="#fff" stroke="#c2410c" stroke-width="0.3"/>
+<text x="29" y="247.35" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#c2410c">2</text>
+<text x="33" y="247.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Amb. 04: profundidade com leitura incerta ("2,0");</text>
+<text x="33" y="250.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">a geometria usa 2,06 para fechar com os 2,18 da</text>
+<text x="33" y="253.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">circulação.</text>
+<circle cx="29" cy="257.5" r="1.7" fill="#fff" stroke="#c2410c" stroke-width="0.3"/>
+<text x="29" y="258.25" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#c2410c">3</text>
+<text x="33" y="258.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Amb. 06: 1,79 + 1,15 = 2,94 no topo × 3,00 medido</text>
+<text x="33" y="261.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">junto à parede inferior — conferir esquadro.</text>
+<circle cx="29" cy="265.5" r="1.7" fill="#fff" stroke="#c2410c" stroke-width="0.3"/>
+<text x="29" y="266.25" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#c2410c">4</text>
+<text x="33" y="266.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Paredes não medidas: adotado 0,15 (externas) e</text>
+<text x="33" y="269.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">0,12 (internas). A parede Amb. 01/02 ficou com</text>
+<text x="33" y="272.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">0,25 para fechar 4,36 + 2,71 com 0,62 + 2,51 +</text>
+<text x="33" y="275" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">0,83.</text>
+<circle cx="29" cy="279.3" r="1.7" fill="#fff" stroke="#c2410c" stroke-width="0.3"/>
+<text x="29" y="280.05" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#c2410c">5</text>
+<text x="33" y="280.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Não constam no croqui: pé-direito, janelas, norte,</text>
+<text x="33" y="283" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">pontos de água/esgoto/elétrica/gás e a área</text>
+<text x="33" y="285.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">externa a lápis (com um elemento de 1,207 ×</text>
+<text x="33" y="288.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">0,594).</text>
 <rect x="20" y="362" width="267" height="48" fill="#ffffff" stroke="#1f1f1f" stroke-width="0.5"/>
 <rect x="20" y="362" width="3" height="48" fill="#5b2a86"/>
 <rect x="23" y="362" width="1.2" height="48" fill="#e8a317"/>
@@ -368,7 +376,7 @@
 <text x="207.5" y="390" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="3.0" font-weight="bold" font-style="normal" text-anchor="start" fill="#1f1f1f">metro</text>
 <rect x="246" y="378" width="41" height="16" fill="none" stroke="#1f1f1f" stroke-width="0.2"/>
 <text x="248.5" y="382.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#666666">REVISÃO</text>
-<text x="248.5" y="390" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="3.0" font-weight="bold" font-style="normal" text-anchor="start" fill="#1f1f1f">R00</text>
+<text x="248.5" y="390" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="3.0" font-weight="bold" font-style="normal" text-anchor="start" fill="#1f1f1f">R01</text>
 <rect x="205" y="394" width="41" height="16" fill="none" stroke="#1f1f1f" stroke-width="0.2"/>
 <text x="207.5" y="398.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#666666">DATA</text>
 <text x="207.5" y="406" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="3.0" font-weight="bold" font-style="normal" text-anchor="start" fill="#1f1f1f">05/10/2026</text>

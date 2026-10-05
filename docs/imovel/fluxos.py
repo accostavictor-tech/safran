@@ -5,6 +5,10 @@ Usa a geometria de planta_baixa.py e gera fluxos.svg / fluxos.png (A3 paisagem).
 Fluxos desenhados: matéria-prima (MP), produto e lixo. A porta entre Amb. 01 e
 Amb. 02 não aparece no croqui e está desenhada como presumida.
 
+DESATUALIZADO: feito sobre a planta R00. Na R01 o Amb. 01 só tem janela para o
+Amb. 02 e não há ligação direta Amb. 02/03; os trajetos abaixo precisam ser
+refeitos antes de rodar este script de novo.
+
     python3 docs/imovel/fluxos.py
 """
 
