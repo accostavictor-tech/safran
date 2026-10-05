@@ -9,10 +9,11 @@ Pinto, 05 — Barro Duro, Maceió/AL.
 | `planta-baixa.pdf` / `.png` / `.svg` | Planta redesenhada, A3 retrato, escala 1:50 |
 | `planta-baixa.dxf` | Mesma planta em metros, para AutoCAD/LibreCAD (camadas `A-*`) |
 | `planta_baixa.py` | Gerador: todas as cotas do croqui ficam no dicionário `MEDIDAS` |
-| `fluxos.pdf` / `.png` / `.svg` / `fluxos.py` | Antes × depois sobre a R01: fluxos, layout de equipamentos (medidas típicas) e intervenções. Premissa: o acesso externo da cozinha é pelo nicho |
+| `fluxos.pdf` / `.png` / `.svg` / `fluxos.py` | Antes × depois (v2) sobre a R02: fluxos, layout de equipamentos (medidas típicas), intervenções e área por setor |
 
-Revisão **R01 — preliminar** (R01: janela, e não porta, entre Amb. 01 e
-02; Amb. 02 e Amb. 03 com portas próprias para a circulação, junto à do WC). A planta usa só o que foi medido; o que foi
+Revisão **R02 — preliminar** (R01: janela, e não porta, entre Amb. 01 e
+02; Amb. 02 e Amb. 03 com portas próprias para a circulação, junto à do WC.
+R02: portão de 2,32 do Amb. 01 para a rua principal; nicho fechado). A planta usa só o que foi medido; o que foi
 estimado ou ficou ambíguo no croqui aparece em laranja e está listado no
 quadro "Pontos a confirmar in loco" da folha. Cotas com `*` diferem mais de
 2 cm da geometria adotada (ex.: 3,00 medido × 2,94 resultante da soma

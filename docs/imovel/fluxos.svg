@@ -1,505 +1,543 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="420mm" height="297mm" viewBox="0 0 420 297">
 <rect width="420" height="297" fill="#ffffff"/>
 <rect x="8" y="6" width="404" height="285" fill="none" stroke="#1f1f1f" stroke-width="0.4"/>
-<text x="14" y="15.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="4.4" font-weight="bold" font-style="normal" text-anchor="start" fill="#1f1f1f">ANTES × DEPOIS — FLUXOS, LAYOUT E INTERVENÇÕES</text>
-<text x="14" y="21.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="normal" font-style="normal" text-anchor="start" fill="#555555">Safran Congelados · imóvel do Barro Duro · sobre a planta R01 · escala 1:75 · equipamentos com medidas típicas (conferir com as propostas) · acesso externo da cozinha presumido pelo nicho</text>
-<text x="14" y="30.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="3.3" font-weight="bold" font-style="normal" text-anchor="start" fill="#c0392b">ANTES (hoje)</text>
-<text x="160" y="30.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="3.3" font-weight="bold" font-style="normal" text-anchor="start" fill="#1e8449">DEPOIS (proposta)</text>
-<path d="M16,36 L74.13,36 L74.13,69.33 L65.87,69.33 L65.87,91.87 L16,91.87 Z" fill="#fde3bf" stroke="none"/>
-<path d="M53.6,91.87 L65.87,91.87 L65.87,109.87 L53.6,109.87 Z" fill="#fde3bf" stroke="none"/>
-<path d="M77.47,36 L113.6,36 L113.6,69.33 L77.47,69.33 Z" fill="#cfeccb" stroke="none"/>
-<path d="M115.2,36 L150,36 L150,87.6 L115.2,87.6 Z" fill="#d6def3" stroke="none"/>
-<path d="M67.47,70.93 L99.73,70.93 L99.73,86.4 L67.47,86.4 Z" fill="#ececec" stroke="none"/>
-<path d="M101.33,70.93 L113.6,70.93 L113.6,117.07 L102.53,117.07 L102.53,88 L101.33,88 Z" fill="#ececec" stroke="none"/>
-<path d="M67.47,88 L100.93,88 L100.93,115.47 L67.47,115.47 Z" fill="#e8dcf2" stroke="none"/>
-<path d="M67.47,117.07 L113.6,117.07 L113.6,171.33 L67.47,171.33 Z" fill="#f6d4d4" stroke="none"/>
-<path d="M67.47,172.93 L106.67,172.93 L106.67,211.6 L67.47,211.6 Z" fill="#f1ead2" stroke="none"/>
-<rect x="14" y="34" width="138" height="2" fill="#333333"/>
-<rect x="14" y="34" width="2" height="59.87" fill="#333333"/>
-<rect x="14" y="91.87" width="39.6" height="2" fill="#333333"/>
-<rect x="51.6" y="91.87" width="2" height="20" fill="#333333"/>
-<rect x="51.6" y="109.87" width="15.87" height="2" fill="#333333"/>
-<rect x="65.47" y="109.87" width="2" height="103.73" fill="#333333"/>
-<rect x="65.47" y="211.6" width="29.87" height="2" fill="#333333"/>
-<rect x="106" y="211.6" width="2.67" height="2" fill="#333333"/>
-<rect x="106.67" y="171.33" width="2" height="42.27" fill="#333333"/>
-<rect x="106.67" y="171.33" width="8.93" height="2" fill="#333333"/>
-<rect x="113.6" y="87.6" width="2" height="85.73" fill="#333333"/>
-<rect x="113.6" y="87.6" width="38.4" height="2" fill="#333333"/>
-<rect x="150" y="34" width="2" height="55.6" fill="#333333"/>
-<rect x="74.13" y="36" width="3.33" height="10.67" fill="#333333"/>
-<rect x="74.13" y="60" width="3.33" height="9.33" fill="#333333"/>
-<rect x="113.6" y="36" width="1.6" height="40.27" fill="#333333"/>
-<rect x="113.6" y="86.93" width="1.6" height="0.67" fill="#333333"/>
-<rect x="101.33" y="69.33" width="0.8" height="1.6" fill="#333333"/>
-<rect x="112.8" y="69.33" width="0.8" height="1.6" fill="#333333"/>
-<rect x="65.87" y="69.33" width="35.47" height="1.6" fill="#333333"/>
-<rect x="65.87" y="69.33" width="1.6" height="40.53" fill="#333333"/>
-<rect x="99.73" y="69.33" width="1.6" height="2.4" fill="#333333"/>
-<rect x="99.73" y="79.73" width="1.6" height="8.27" fill="#333333"/>
-<rect x="65.87" y="86.4" width="36.67" height="1.6" fill="#333333"/>
-<rect x="100.93" y="86.4" width="1.6" height="30.67" fill="#333333"/>
-<rect x="67.47" y="115.47" width="0" height="1.6" fill="#333333"/>
-<rect x="78.13" y="115.47" width="24.4" height="1.6" fill="#333333"/>
-<rect x="91.33" y="171.33" width="15.33" height="1.6" fill="#333333"/>
-<rect x="74.13" y="46.67" width="3.33" height="13.33" fill="#ffffff" stroke="#1f1f1f" stroke-width="0.15"/>
-<line x1="75.8" y1="46.67" x2="75.8" y2="60" stroke="#1f1f1f" stroke-width="0.15"/>
-<line x1="115.2" y1="86.93" x2="125.87" y2="86.93" stroke="#1f1f1f" stroke-width="0.35"/>
-<path d="M115.2,76.27 A10.67,10.67 0 0 1 125.87,86.93" fill="none" stroke="#1f1f1f" stroke-width="0.18"/>
-<line x1="112.8" y1="69.33" x2="112.8" y2="58.67" stroke="#1f1f1f" stroke-width="0.35"/>
-<path d="M102.13,69.33 A10.67,10.67 0 0 1 112.8,58.67" fill="none" stroke="#1f1f1f" stroke-width="0.18"/>
-<line x1="106" y1="213.6" x2="106" y2="224.27" stroke="#1f1f1f" stroke-width="0.35"/>
-<path d="M95.33,213.6 A10.67,10.67 0 0 0 106,224.27" fill="none" stroke="#1f1f1f" stroke-width="0.18"/>
-<rect x="54.4" y="109.87" width="10.67" height="2" fill="#ffffff" stroke="#c2410c" stroke-width="0.3" stroke-dasharray="0.8 0.5"/>
-<line x1="106.67" y1="117.07" x2="106.67" y2="171.33" stroke="#c2410c" stroke-width="0.25" stroke-dasharray="1.2 0.8"/>
-<line x1="99.73" y1="71.73" x2="91.73" y2="71.73" stroke="#1f1f1f" stroke-width="0.35"/>
-<path d="M99.73,79.73 A8,8 0 0 1 91.73,71.73" fill="none" stroke="#1f1f1f" stroke-width="0.18"/>
-<path d="M97.33,224.67 L97.33,206 L77.33,206 L77.33,132.67 L105.33,132.67 L105.33,82 L128,82" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" stroke-opacity="0.85"/>
-<path d="M97.33,224.67 L97.33,206 L77.33,206 L77.33,132.67 L105.33,132.67 L105.33,82 L128,82" fill="none" stroke="#c0392b" stroke-width="0.7" stroke-linejoin="round"/>
-<path d="M97.33,214.4 L96.29,216.48 L98.37,216.48 Z" fill="#c0392b"/>
-<path d="M86.33,206 L88.41,207.04 L88.41,204.96 Z" fill="#c0392b"/>
-<path d="M77.33,165.67 L76.29,167.75 L78.37,167.75 Z" fill="#c0392b"/>
-<path d="M92.73,132.67 L90.65,131.63 L90.65,133.71 Z" fill="#c0392b"/>
-<path d="M105.33,104.8 L104.29,106.88 L106.37,106.88 Z" fill="#c0392b"/>
-<path d="M128,82 L125.92,80.96 L125.92,83.04 Z" fill="#c0392b"/>
-<path d="M128,84.67 L108.27,84.67 L108.27,136.67 L82,136.67 L82,202 L100.67,202 L100.67,228.67 L59.33,228.67 L59.33,81.33 L42.67,81.33" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" stroke-opacity="0.85"/>
-<path d="M128,84.67 L108.27,84.67 L108.27,136.67 L82,136.67 L82,202 L100.67,202 L100.67,228.67 L59.33,228.67 L59.33,81.33 L42.67,81.33" fill="none" stroke="#c0392b" stroke-width="0.7" stroke-linejoin="round"/>
-<path d="M117.15,84.67 L119.23,85.71 L119.23,83.63 Z" fill="#c0392b"/>
-<path d="M108.27,113.27 L109.31,111.19 L107.23,111.19 Z" fill="#c0392b"/>
-<path d="M93.82,136.67 L95.9,137.71 L95.9,135.63 Z" fill="#c0392b"/>
-<path d="M82,172.6 L83.04,170.52 L80.96,170.52 Z" fill="#c0392b"/>
-<path d="M92.27,202 L90.19,200.96 L90.19,203.04 Z" fill="#c0392b"/>
-<path d="M100.67,216.67 L101.71,214.59 L99.63,214.59 Z" fill="#c0392b"/>
-<path d="M77.93,228.67 L80.01,229.71 L80.01,227.63 Z" fill="#c0392b"/>
-<path d="M59.33,147.63 L58.29,149.71 L60.37,149.71 Z" fill="#c0392b"/>
-<path d="M42.67,81.33 L44.75,82.37 L44.75,80.29 Z" fill="#c0392b"/>
-<path d="M32,53.33 L110.93,53.33 L110.93,140.67 L86,140.67 L86,198 L104,198 L104,224.67" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" stroke-opacity="0.85"/>
-<path d="M32,53.33 L110.93,53.33 L110.93,140.67 L86,140.67 L86,198 L104,198 L104,224.67" fill="none" stroke="#1e8449" stroke-width="0.7" stroke-linejoin="round"/>
-<path d="M75.41,53.33 L73.33,52.29 L73.33,54.37 Z" fill="#1e8449"/>
-<path d="M110.93,101.37 L111.97,99.29 L109.89,99.29 Z" fill="#1e8449"/>
-<path d="M97.22,140.67 L99.3,141.71 L99.3,139.63 Z" fill="#1e8449"/>
-<path d="M86,172.2 L87.04,170.12 L84.96,170.12 Z" fill="#1e8449"/>
-<path d="M95.9,198 L93.82,196.96 L93.82,199.04 Z" fill="#1e8449"/>
-<path d="M104,224.67 L105.04,222.59 L102.96,222.59 Z" fill="#1e8449"/>
-<path d="M37.33,90 L55.33,90 L55.33,120" fill="none" stroke="#ffffff" stroke-width="1.4" stroke-linejoin="round" stroke-opacity="0.85"/>
-<path d="M37.33,90 L55.33,90 L55.33,120" fill="none" stroke="#555555" stroke-width="0.6" stroke-linejoin="round" stroke-dasharray="2.2 1.4"/>
-<path d="M47.23,90 L45.15,88.96 L45.15,91.04 Z" fill="#555555"/>
-<path d="M55.33,120 L56.37,117.92 L54.29,117.92 Z" fill="#555555"/>
-<circle cx="110.93" cy="82" r="1.3" fill="none" stroke="#c0392b" stroke-width="0.5"/>
-<circle cx="110.93" cy="84.67" r="1.3" fill="none" stroke="#c0392b" stroke-width="0.5"/>
-<text x="40" y="67.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.88" stroke-linejoin="round">COZINHA</text>
-<text x="40" y="67.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">COZINHA</text>
-<text x="40" y="69.73" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.55" font-weight="normal" font-style="italic" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.62" stroke-linejoin="round">acesso só por fora</text>
-<text x="40" y="69.73" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.55" font-weight="normal" font-style="italic" text-anchor="middle" fill="#444444">acesso só por fora</text>
-<text x="59.73" y="102" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.6" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.64" stroke-linejoin="round">nicho</text>
-<text x="59.73" y="102" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.6" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">nicho</text>
-<text x="96.67" y="43.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.88" stroke-linejoin="round">MONTAGEM</text>
-<text x="96.67" y="43.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">MONTAGEM</text>
-<text x="132.67" y="52" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.88" stroke-linejoin="round">ESTOQUE</text>
-<text x="132.67" y="52" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">ESTOQUE</text>
-<text x="76.67" y="78" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.88" stroke-linejoin="round">WC</text>
-<text x="76.67" y="78" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">WC</text>
-<text x="84" y="102" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.88" stroke-linejoin="round">COPA</text>
-<text x="84" y="102" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">COPA</text>
-<text x="96.67" y="150" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.88" stroke-linejoin="round">FUNCIONÁRIOS</text>
-<text x="96.67" y="150" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">FUNCIONÁRIOS</text>
-<text x="96.67" y="152.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.55" font-weight="normal" font-style="italic" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.62" stroke-linejoin="round">freezer · descanso</text>
-<text x="96.67" y="152.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.55" font-weight="normal" font-style="italic" text-anchor="middle" fill="#444444">freezer · descanso</text>
-<text x="96.67" y="181.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.88" stroke-linejoin="round">RECEPÇÃO</text>
-<text x="96.67" y="181.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">RECEPÇÃO</text>
-<circle cx="59.33" cy="174.67" r="2.1" fill="#c0392b" stroke="#ffffff" stroke-width="0.4"/>
-<text x="59.33" y="175.47" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">1</text>
-<circle cx="95.33" cy="81.33" r="2.1" fill="#c0392b" stroke="#ffffff" stroke-width="0.4"/>
-<text x="95.33" y="82.13" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">2</text>
-<circle cx="96.67" cy="163.33" r="2.1" fill="#c0392b" stroke="#ffffff" stroke-width="0.4"/>
-<text x="96.67" y="164.13" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">3</text>
-<circle cx="138.67" cy="74.67" r="2.1" fill="#c0392b" stroke="#ffffff" stroke-width="0.4"/>
-<text x="138.67" y="75.47" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">4</text>
-<circle cx="82.67" cy="42" r="2.1" fill="#c0392b" stroke="#ffffff" stroke-width="0.4"/>
-<text x="82.67" y="42.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">5</text>
-<path d="M162,36 L220.13,36 L220.13,69.33 L211.87,69.33 L211.87,91.87 L162,91.87 Z" fill="#fde3bf" stroke="none"/>
-<path d="M199.6,91.87 L211.87,91.87 L211.87,109.87 L199.6,109.87 Z" fill="#d8ecf8" stroke="none"/>
-<path d="M223.47,36 L259.6,36 L259.6,69.33 L223.47,69.33 Z" fill="#cfeccb" stroke="none"/>
-<path d="M261.2,36 L296,36 L296,87.6 L261.2,87.6 Z" fill="#d6def3" stroke="none"/>
-<path d="M213.47,70.93 L245.73,70.93 L245.73,86.4 L213.47,86.4 Z" fill="#ececec" stroke="none"/>
-<path d="M247.33,70.93 L259.6,70.93 L259.6,117.07 L248.53,117.07 L248.53,88 L247.33,88 Z" fill="#ececec" stroke="none"/>
-<path d="M213.47,88 L246.93,88 L246.93,115.47 L213.47,115.47 Z" fill="#e8dcf2" stroke="none"/>
-<path d="M213.47,117.07 L259.6,117.07 L259.6,171.33 L213.47,171.33 Z" fill="#e8dcf2" stroke="none"/>
-<path d="M213.47,172.93 L252.67,172.93 L252.67,211.6 L213.47,211.6 Z" fill="#f1ead2" stroke="none"/>
-<rect x="160" y="34" width="138" height="2" fill="#333333"/>
-<rect x="160" y="34" width="2" height="59.87" fill="#333333"/>
-<rect x="160" y="91.87" width="39.6" height="2" fill="#333333"/>
-<rect x="197.6" y="91.87" width="2" height="20" fill="#333333"/>
-<rect x="197.6" y="109.87" width="15.87" height="2" fill="#333333"/>
-<rect x="211.47" y="109.87" width="2" height="103.73" fill="#333333"/>
-<rect x="211.47" y="211.6" width="29.87" height="2" fill="#333333"/>
-<rect x="252" y="211.6" width="2.67" height="2" fill="#333333"/>
-<rect x="252.67" y="171.33" width="2" height="42.27" fill="#333333"/>
-<rect x="252.67" y="171.33" width="8.93" height="2" fill="#333333"/>
-<rect x="259.6" y="87.6" width="2" height="85.73" fill="#333333"/>
-<rect x="259.6" y="87.6" width="38.4" height="2" fill="#333333"/>
-<rect x="296" y="34" width="2" height="55.6" fill="#333333"/>
-<rect x="220.13" y="36" width="3.33" height="10.67" fill="#333333"/>
-<rect x="220.13" y="60" width="3.33" height="9.33" fill="#333333"/>
-<rect x="259.6" y="36" width="1.6" height="40.27" fill="#333333"/>
-<rect x="259.6" y="86.93" width="1.6" height="0.67" fill="#333333"/>
-<rect x="247.33" y="69.33" width="0.8" height="1.6" fill="#333333"/>
-<rect x="258.8" y="69.33" width="0.8" height="1.6" fill="#333333"/>
-<rect x="211.87" y="69.33" width="35.47" height="1.6" fill="#333333"/>
-<rect x="211.87" y="69.33" width="1.6" height="40.53" fill="#333333"/>
-<rect x="245.73" y="69.33" width="1.6" height="2.4" fill="#333333"/>
-<rect x="245.73" y="79.73" width="1.6" height="8.27" fill="#333333"/>
-<rect x="211.87" y="86.4" width="36.67" height="1.6" fill="#333333"/>
-<rect x="246.93" y="86.4" width="1.6" height="30.67" fill="#333333"/>
-<rect x="213.47" y="115.47" width="0" height="1.6" fill="#333333"/>
-<rect x="224.13" y="115.47" width="24.4" height="1.6" fill="#333333"/>
-<rect x="237.33" y="171.33" width="15.33" height="1.6" fill="#333333"/>
-<rect x="220.13" y="46.67" width="3.33" height="13.33" fill="#ffffff" stroke="#1f1f1f" stroke-width="0.15"/>
-<line x1="221.8" y1="46.67" x2="221.8" y2="60" stroke="#1f1f1f" stroke-width="0.15"/>
-<line x1="261.2" y1="86.93" x2="271.87" y2="86.93" stroke="#1f1f1f" stroke-width="0.35"/>
-<path d="M261.2,76.27 A10.67,10.67 0 0 1 271.87,86.93" fill="none" stroke="#1f1f1f" stroke-width="0.18"/>
-<line x1="258.8" y1="69.33" x2="258.8" y2="58.67" stroke="#1f1f1f" stroke-width="0.35"/>
-<path d="M248.13,69.33 A10.67,10.67 0 0 1 258.8,58.67" fill="none" stroke="#1f1f1f" stroke-width="0.18"/>
-<line x1="252" y1="213.6" x2="252" y2="224.27" stroke="#1f1f1f" stroke-width="0.35"/>
-<path d="M241.33,213.6 A10.67,10.67 0 0 0 252,224.27" fill="none" stroke="#1f1f1f" stroke-width="0.18"/>
-<rect x="200.4" y="109.87" width="10.67" height="2" fill="#ffffff" stroke="#c2410c" stroke-width="0.3" stroke-dasharray="0.8 0.5"/>
-<line x1="252.67" y1="117.07" x2="252.67" y2="171.33" stroke="#c2410c" stroke-width="0.25" stroke-dasharray="1.2 0.8"/>
-<rect x="245.73" y="71.73" width="1.6" height="8" fill="#d62828"/>
-<rect x="211.87" y="96.67" width="1.6" height="10.67" fill="#f2c300"/>
-<line x1="213.47" y1="107.33" x2="224.13" y2="107.33" stroke="#1e8449" stroke-width="0.35"/>
-<path d="M213.47,96.67 A10.67,10.67 0 0 1 224.13,107.33" fill="none" stroke="#1e8449" stroke-width="0.18"/>
-<rect x="226" y="86.4" width="9.33" height="1.6" fill="#f2c300"/>
-<line x1="226" y1="86.4" x2="226" y2="77.07" stroke="#1e8449" stroke-width="0.35"/>
-<path d="M235.33,86.4 A9.33,9.33 0 0 0 226,77.07" fill="none" stroke="#1e8449" stroke-width="0.18"/>
-<rect x="162.67" y="36.67" width="16" height="9.33" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="170.67" y="41.83" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">bancada</text>
-<rect x="179.33" y="36.67" width="16" height="12" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="187.33" y="43.17" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.35" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">fogão 6b 1,20×0,90</text>
-<rect x="196" y="36.67" width="14.8" height="9.33" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="203.4" y="41.83" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">bancada</text>
-<rect x="210.8" y="36.67" width="9.33" height="32" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="215.97" y="52.67" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 215.97 52.67)" fill="#3a3a3a">porcion.</text>
-<rect x="162.67" y="54.67" width="9.33" height="24" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="167.83" y="66.67" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.35" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 167.83 66.67)" fill="#3a3a3a">pré-preparo + cuba</text>
-<rect x="162.67" y="81.33" width="10" height="10" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="167.67" y="86.83" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">MP fria</text>
-<rect x="174" y="85.33" width="24" height="6" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="186" y="88.83" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.35" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">secos 1,80×0,45</text>
-<rect x="207.2" y="80" width="4.67" height="6" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="209.53" y="83.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">lav.</text>
-<rect x="199.33" y="86" width="4.67" height="4.67" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="201.67" y="88.83" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">lixo</text>
-<rect x="223.47" y="36.67" width="9.33" height="32" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="228.63" y="52.67" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.35" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 228.63 52.67)" fill="#3a3a3a">bancada 2,40</text>
-<rect x="235.33" y="36.67" width="10.67" height="8.67" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="240.67" y="41.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">seladora</text>
-<rect x="248.27" y="36.67" width="10.67" height="11.33" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="253.6" y="42.83" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.35" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">ultracong.</text>
-<rect x="241.33" y="64" width="6" height="4.67" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="244.33" y="66.83" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">lav.</text>
-<rect x="268.67" y="36.67" width="26.67" height="21.33" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="282" y="47.83" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.35" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">câmara 2,00×1,60</text>
-<rect x="261.87" y="36.67" width="6" height="37.33" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="265.37" y="55.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.35" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 265.37 55.33)" fill="#3a3a3a">embalagens</text>
-<rect x="289.33" y="62" width="6" height="24.67" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="292.83" y="74.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.35" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 292.83 74.33)" fill="#3a3a3a">embalagens</text>
-<rect x="240.93" y="89.33" width="6" height="18.67" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="244.43" y="98.67" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 244.43 98.67)" fill="#3a3a3a">armários</text>
-<rect x="227.33" y="110" width="12.67" height="4.67" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="233.67" y="112.83" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">banco</text>
-<rect x="240" y="149.33" width="10.67" height="10.67" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="245.33" y="155.17" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">mesa</text>
-<rect x="238" y="164.27" width="14" height="6.67" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="245" y="168.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">copa</text>
-<rect x="213.73" y="137.33" width="6" height="30.67" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="217.23" y="152.67" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 217.23 152.67)" fill="#3a3a3a">reserva</text>
-<rect x="213.73" y="177.33" width="9.33" height="24" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="218.9" y="189.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 218.9 189.33)" fill="#3a3a3a">separação</text>
-<rect x="243.33" y="174" width="9.07" height="17.33" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="248.37" y="182.67" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 248.37 182.67)" fill="#3a3a3a">freezer</text>
-<rect x="213.73" y="171.6" width="12.93" height="3.73" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="220.2" y="173.97" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">balcão</text>
-<rect x="178" y="36.67" width="18.67" height="13.33" fill="none" stroke="#4a4a4a" stroke-width="0.2" stroke-dasharray="0.8 0.6"/>
-<rect x="298.67" y="40" width="8" height="10.67" fill="#ffffff" stroke="#4a4a4a" stroke-width="0.2"/>
-<text x="303.17" y="45.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.3" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 303.17 45.33)" fill="#3a3a3a">cond.</text>
-<rect x="226.8" y="171.33" width="10.53" height="0.67" fill="#1e8449"/>
-<line x1="172" y1="72.67" x2="207.2" y2="72.67" stroke="#6c3483" stroke-width="0.18"/>
-<line x1="171.45" y1="73.22" x2="172.55" y2="72.12" stroke="#6c3483" stroke-width="0.3"/>
-<line x1="206.65" y1="73.22" x2="207.75" y2="72.12" stroke="#6c3483" stroke-width="0.3"/>
-<text x="189.6" y="71.97" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.45" font-weight="normal" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.58" stroke-linejoin="round">2,64 livre</text>
-<text x="189.6" y="71.97" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.45" font-weight="normal" font-style="normal" text-anchor="middle" fill="#6c3483">2,64 livre</text>
-<line x1="232.8" y1="57.6" x2="248.27" y2="57.6" stroke="#6c3483" stroke-width="0.18"/>
-<line x1="232.25" y1="58.15" x2="233.35" y2="57.05" stroke="#6c3483" stroke-width="0.3"/>
-<line x1="247.72" y1="58.15" x2="248.82" y2="57.05" stroke="#6c3483" stroke-width="0.3"/>
-<text x="240.53" y="56.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.45" font-weight="normal" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.58" stroke-linejoin="round">1,16 livre</text>
-<text x="240.53" y="56.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.45" font-weight="normal" font-style="normal" text-anchor="middle" fill="#6c3483">1,16 livre</text>
-<line x1="224.13" y1="99.33" x2="240.93" y2="99.33" stroke="#6c3483" stroke-width="0.18"/>
-<line x1="223.58" y1="99.88" x2="224.68" y2="98.78" stroke="#6c3483" stroke-width="0.3"/>
-<line x1="240.38" y1="99.88" x2="241.48" y2="98.78" stroke="#6c3483" stroke-width="0.3"/>
-<text x="232.53" y="98.63" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.45" font-weight="normal" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.58" stroke-linejoin="round">1,26 livre</text>
-<text x="232.53" y="98.63" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.45" font-weight="normal" font-style="normal" text-anchor="middle" fill="#6c3483">1,26 livre</text>
-<line x1="270.67" y1="58" x2="270.67" y2="76.27" stroke="#6c3483" stroke-width="0.18"/>
-<line x1="270.12" y1="58.55" x2="271.22" y2="57.45" stroke="#6c3483" stroke-width="0.3"/>
-<line x1="270.12" y1="76.82" x2="271.22" y2="75.72" stroke="#6c3483" stroke-width="0.3"/>
-<text x="269.97" y="67.13" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.45" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 269.97 67.13)" fill="none" stroke="#ffffff" stroke-width="0.58" stroke-linejoin="round">1,37 livre</text>
-<text x="269.97" y="67.13" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.45" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 269.97 67.13)" fill="#6c3483">1,37 livre</text>
-<path d="M205.33,125.33 L205.33,83.33 L186,83.33" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" stroke-opacity="0.85"/>
-<path d="M205.33,125.33 L205.33,83.33 L186,83.33" fill="none" stroke="#c0392b" stroke-width="0.7" stroke-linejoin="round"/>
-<path d="M205.33,102.23 L204.29,104.31 L206.37,104.31 Z" fill="#c0392b"/>
-<path d="M186,83.33 L188.08,84.37 L188.08,82.29 Z" fill="#c0392b"/>
-<path d="M175.33,76 L175.33,53.33 L253.33,53.33 L253.33,80 L273.33,80 L273.33,60" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" stroke-opacity="0.85"/>
-<path d="M175.33,76 L175.33,53.33 L253.33,53.33 L253.33,80 L273.33,80 L273.33,60" fill="none" stroke="#1e8449" stroke-width="0.7" stroke-linejoin="round"/>
-<path d="M175.33,63.53 L174.29,65.61 L176.37,65.61 Z" fill="#1e8449"/>
-<path d="M218.23,53.33 L216.15,52.29 L216.15,54.37 Z" fill="#1e8449"/>
-<path d="M253.33,68 L254.37,65.92 L252.29,65.92 Z" fill="#1e8449"/>
-<path d="M264.33,80 L262.25,78.96 L262.25,81.04 Z" fill="#1e8449"/>
-<path d="M273.33,60 L272.29,62.08 L274.37,62.08 Z" fill="#1e8449"/>
-<path d="M286.67,60 L286.67,83.33 L256.93,83.33 L256.93,140.67 L232,140.67 L232,198 L250,198 L250,224.67" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" stroke-opacity="0.85"/>
-<path d="M286.67,60 L286.67,83.33 L256.93,83.33 L256.93,140.67 L232,140.67 L232,198 L250,198 L250,224.67" fill="none" stroke="#1e8449" stroke-width="0.7" stroke-linejoin="round"/>
-<path d="M286.67,72.83 L287.71,70.75 L285.63,70.75 Z" fill="#1e8449"/>
-<path d="M270.31,83.33 L272.39,84.37 L272.39,82.29 Z" fill="#1e8449"/>
-<path d="M256.93,114.87 L257.97,112.79 L255.89,112.79 Z" fill="#1e8449"/>
-<path d="M243.22,140.67 L245.3,141.71 L245.3,139.63 Z" fill="#1e8449"/>
-<path d="M232,172.2 L233.04,170.12 L230.96,170.12 Z" fill="#1e8449"/>
-<path d="M241.9,198 L239.82,196.96 L239.82,199.04 Z" fill="#1e8449"/>
-<path d="M250,224.67 L251.04,222.59 L248.96,222.59 Z" fill="#1e8449"/>
-<path d="M201.33,88.67 L201.33,120" fill="none" stroke="#ffffff" stroke-width="1.4" stroke-linejoin="round" stroke-opacity="0.85"/>
-<path d="M201.33,88.67 L201.33,120" fill="none" stroke="#555555" stroke-width="0.6" stroke-linejoin="round" stroke-dasharray="2.2 1.4"/>
-<path d="M201.33,120 L202.37,117.92 L200.29,117.92 Z" fill="#555555"/>
-<path d="M246.67,224.67 L246.67,202 L228,202 L228,132.67 L219.33,132.67 L219.33,102 L208.67,102 L208.67,87.33" fill="none" stroke="#ffffff" stroke-width="1.35" stroke-linejoin="round" stroke-opacity="0.85"/>
-<path d="M246.67,224.67 L246.67,202 L228,202 L228,132.67 L219.33,132.67 L219.33,102 L208.67,102 L208.67,87.33" fill="none" stroke="#7d3c98" stroke-width="0.55" stroke-linejoin="round" stroke-dasharray="0.9 0.9"/>
-<path d="M246.67,212.2 L245.63,214.28 L247.71,214.28 Z" fill="#7d3c98"/>
-<path d="M236.4,202 L238.48,203.04 L238.48,200.96 Z" fill="#7d3c98"/>
-<path d="M228,163.87 L226.96,165.95 L229.04,165.95 Z" fill="#7d3c98"/>
-<path d="M219.33,115.8 L218.29,117.88 L220.37,117.88 Z" fill="#7d3c98"/>
-<path d="M208.67,87.33 L207.63,89.41 L209.71,89.41 Z" fill="#7d3c98"/>
-<path d="M232.67,105.33 L222.67,105.33 L222.67,128 L250.27,128 L250.27,66.67" fill="none" stroke="#ffffff" stroke-width="1.35" stroke-linejoin="round" stroke-opacity="0.85"/>
-<path d="M232.67,105.33 L222.67,105.33 L222.67,128 L250.27,128 L250.27,66.67" fill="none" stroke="#7d3c98" stroke-width="0.55" stroke-linejoin="round" stroke-dasharray="0.9 0.9"/>
-<path d="M222.67,117.8 L223.71,115.72 L221.63,115.72 Z" fill="#7d3c98"/>
-<path d="M237.85,128 L235.77,126.96 L235.77,129.04 Z" fill="#7d3c98"/>
-<path d="M250.27,66.67 L249.23,68.75 L251.31,68.75 Z" fill="#7d3c98"/>
-<text x="188" y="66" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.88" stroke-linejoin="round">COZINHA</text>
-<text x="188" y="66" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">COZINHA</text>
-<text x="188" y="68.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.55" font-weight="normal" font-style="italic" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.62" stroke-linejoin="round">cru → cozido em sentido único</text>
-<text x="188" y="68.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.55" font-weight="normal" font-style="italic" text-anchor="middle" fill="#444444">cru → cozido em sentido único</text>
-<text x="205.73" y="108.27" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.6" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.64" stroke-linejoin="round">antecâm.</text>
-<text x="205.73" y="108.27" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.6" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">antecâm.</text>
-<text x="244" y="62" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.88" stroke-linejoin="round">MONTAGEM</text>
-<text x="244" y="62" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">MONTAGEM</text>
-<text x="280" y="67.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.88" stroke-linejoin="round">CÂMARA +</text>
-<text x="280" y="67.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">CÂMARA +</text>
-<text x="280" y="70.03" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.88" stroke-linejoin="round">EMBALAGENS</text>
-<text x="280" y="70.03" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">EMBALAGENS</text>
-<text x="218.67" y="78" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.88" stroke-linejoin="round">WC</text>
-<text x="218.67" y="78" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">WC</text>
-<text x="231.33" y="103.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.88" stroke-linejoin="round">VESTIÁRIO</text>
-<text x="231.33" y="103.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">VESTIÁRIO</text>
-<text x="242.67" y="146" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.88" stroke-linejoin="round">EQUIPE / COPA</text>
-<text x="242.67" y="146" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">EQUIPE / COPA</text>
-<text x="240" y="182" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.88" stroke-linejoin="round">RECEPÇÃO +</text>
-<text x="240" y="182" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">RECEPÇÃO +</text>
-<text x="240" y="184.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.88" stroke-linejoin="round">EXPEDIÇÃO</text>
-<text x="240" y="184.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.2" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">EXPEDIÇÃO</text>
-<circle cx="216.67" cy="92.27" r="2.1" fill="#1e8449" stroke="#ffffff" stroke-width="0.4"/>
-<text x="216.67" y="93.07" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">1</text>
-<circle cx="231.33" cy="94.93" r="2.1" fill="#1e8449" stroke="#ffffff" stroke-width="0.4"/>
-<text x="231.33" y="95.73" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">2</text>
-<circle cx="221.73" cy="65.6" r="2.1" fill="#1e8449" stroke="#ffffff" stroke-width="0.4"/>
-<text x="221.73" y="66.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">3</text>
-<circle cx="202" cy="76.67" r="2.1" fill="#1e8449" stroke="#ffffff" stroke-width="0.4"/>
-<text x="202" y="77.47" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">4</text>
-<circle cx="272.67" cy="41.33" r="2.1" fill="#1e8449" stroke="#ffffff" stroke-width="0.4"/>
-<text x="272.67" y="42.13" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">5</text>
-<circle cx="236" cy="176.67" r="2.1" fill="#1e8449" stroke="#ffffff" stroke-width="0.4"/>
-<text x="236" y="177.47" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">6</text>
-<text x="14" y="123.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.5" font-weight="bold" font-style="normal" text-anchor="start" fill="#c0392b">PROBLEMAS</text>
-<circle cx="16.1" cy="127.58" r="1.9" fill="#c0392b"/>
-<text x="16.1" y="128.28" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">1</text>
-<text x="19.5" y="128.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Cozinha sem porta</text>
-<text x="19.5" y="130.98" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">para dentro: a MP do</text>
-<text x="19.5" y="133.63" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">estoque e a equipe</text>
-<text x="19.5" y="136.28" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">(WC) dão a volta por</text>
-<text x="19.5" y="138.93" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">fora do prédio.</text>
-<circle cx="16.1" cy="142.43" r="1.9" fill="#c0392b"/>
-<text x="16.1" y="143.13" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">2</text>
-<text x="19.5" y="143.18" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">WC, montagem e</text>
-<text x="19.5" y="145.83" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">estoque abrem no</text>
-<text x="19.5" y="148.48" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">mesmo patamar de ≈1</text>
-<text x="19.5" y="151.13" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">m²; a MP cruza a</text>
-<text x="19.5" y="153.78" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">porta da montagem.</text>
-<circle cx="16.1" cy="157.28" r="1.9" fill="#c0392b"/>
-<text x="16.1" y="157.98" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">3</text>
-<text x="19.5" y="158.03" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Produto congelado</text>
-<text x="19.5" y="160.68" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">guardado na área de</text>
-<text x="19.5" y="163.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">descanso.</text>
-<circle cx="16.1" cy="166.83" r="1.9" fill="#c0392b"/>
-<text x="16.1" y="167.53" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">4</text>
-<text x="19.5" y="167.58" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Estoque de MP colado</text>
-<text x="19.5" y="170.23" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">na montagem e longe</text>
-<text x="19.5" y="172.88" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">da cozinha.</text>
-<circle cx="16.1" cy="176.38" r="1.9" fill="#c0392b"/>
-<text x="16.1" y="177.08" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">5</text>
-<text x="19.5" y="177.13" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Montagem sem</text>
-<text x="19.5" y="179.78" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">lavatório e sem lugar</text>
-<text x="19.5" y="182.43" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">para ultracongelador</text>
-<text x="19.5" y="185.08" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">e seladora.</text>
-<text x="263.6" y="96.67" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.5" font-weight="bold" font-style="normal" text-anchor="start" fill="#1e8449">INTERVENÇÕES</text>
-<circle cx="265.7" cy="100.92" r="1.9" fill="#1e8449"/>
-<text x="265.7" y="101.62" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">1</text>
-<text x="269.1" y="101.67" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Abrir porta 0,80 entre o</text>
-<text x="269.1" y="104.32" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">nicho e o Amb. 04</text>
-<text x="269.1" y="106.97" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">(parede interna de 12</text>
-<text x="269.1" y="109.62" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">cm): cozinha ligada por</text>
-<text x="269.1" y="112.27" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">dentro.</text>
-<circle cx="265.7" cy="115.77" r="1.9" fill="#1e8449"/>
-<text x="265.7" y="116.47" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">2</text>
-<text x="269.1" y="116.52" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">WC: fechar a porta da</text>
-<text x="269.1" y="119.17" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">circulação (0,60) e</text>
-<text x="269.1" y="121.82" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">abrir porta 0,70 para o</text>
-<text x="269.1" y="124.47" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">vestiário. O WC sai do</text>
-<text x="269.1" y="127.12" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">patamar da montagem.</text>
-<circle cx="265.7" cy="130.62" r="1.9" fill="#1e8449"/>
-<text x="265.7" y="131.32" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">3</text>
-<text x="269.1" y="131.37" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Janela vira passa-prato</text>
-<text x="269.1" y="134.02" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">(≈1,00 × 0,60, peitoril</text>
-<text x="269.1" y="136.67" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">0,90) com bancada inox</text>
-<text x="269.1" y="139.32" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">dos dois lados.</text>
-<circle cx="265.7" cy="142.82" r="1.9" fill="#1e8449"/>
-<text x="265.7" y="143.52" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">4</text>
-<text x="269.1" y="143.57" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Lavatórios na entrada da</text>
-<text x="269.1" y="146.22" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">cozinha e da montagem,</text>
-<text x="269.1" y="148.87" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">na parede do WC</text>
-<text x="269.1" y="151.52" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">(aproveita a</text>
-<text x="269.1" y="154.17" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">hidráulica).</text>
-<circle cx="265.7" cy="157.67" r="1.9" fill="#1e8449"/>
-<text x="265.7" y="158.37" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">5</text>
-<text x="269.1" y="158.42" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Câmara fria 2,00 × 1,60</text>
-<text x="269.1" y="161.07" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">no Amb. 03, condensadora</text>
-<text x="269.1" y="163.72" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">na parede externa; MP</text>
-<text x="269.1" y="166.37" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">sai do Amb. 03 e vai</text>
-<text x="269.1" y="169.02" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">para a cozinha.</text>
-<circle cx="265.7" cy="172.52" r="1.9" fill="#1e8449"/>
-<text x="265.7" y="173.22" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">6</text>
-<text x="269.1" y="173.27" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Balcão + meia-porta no</text>
-<text x="269.1" y="175.92" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">vão de 1,79: recepção</text>
-<text x="269.1" y="178.57" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">separada da área</text>
-<text x="269.1" y="181.22" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">interna.</text>
-<text x="263.6" y="186.47" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="italic" text-anchor="start" fill="#555555">Sem demolir parede inteira:</text>
-<text x="263.6" y="189.07" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="italic" text-anchor="start" fill="#555555">2 aberturas em parede</text>
-<text x="263.6" y="191.67" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="italic" text-anchor="start" fill="#555555">interna de 12 cm, 1 vão</text>
-<text x="263.6" y="194.27" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="italic" text-anchor="start" fill="#555555">fechado, marcenaria e</text>
-<text x="263.6" y="196.87" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="italic" text-anchor="start" fill="#555555">equipamentos.</text>
-<text x="160" y="123.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.5" font-weight="bold" font-style="normal" text-anchor="start" fill="#1e8449">COMO FICA O FLUXO</text>
-<text x="160" y="128.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="bold" font-style="normal" text-anchor="start" fill="#1e8449">1.</text>
-<text x="163.2" y="128.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">MP entra pela porta da</text>
-<text x="163.2" y="130.98" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">cozinha e vai direto</text>
-<text x="163.2" y="133.63" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">para secos / MP fria.</text>
-<text x="160" y="137.48" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="bold" font-style="normal" text-anchor="start" fill="#1e8449">2.</text>
-<text x="163.2" y="137.48" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Pré-preparo (esq.) →</text>
-<text x="163.2" y="140.13" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">cocção (fundo) →</text>
-<text x="163.2" y="142.78" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">porcionamento (dir.).</text>
-<text x="160" y="146.63" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="bold" font-style="normal" text-anchor="start" fill="#1e8449">3.</text>
-<text x="163.2" y="146.63" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Passa-prato → montagem:</text>
-<text x="163.2" y="149.28" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">porciona, sela,</text>
-<text x="163.2" y="151.93" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">ultracongela.</text>
-<text x="160" y="155.78" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="bold" font-style="normal" text-anchor="start" fill="#1e8449">4.</text>
-<text x="163.2" y="155.78" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Produto selado → câmara</text>
-<text x="163.2" y="158.43" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">(Amb. 03) → expedição</text>
-<text x="163.2" y="161.08" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">(Amb. 06).</text>
-<text x="160" y="164.93" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="bold" font-style="normal" text-anchor="start" fill="#1e8449">5.</text>
-<text x="163.2" y="164.93" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Equipe entra pela</text>
-<text x="163.2" y="167.58" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">recepção → vestiário/WC</text>
-<text x="163.2" y="170.23" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">→ lavatório → produção.</text>
-<text x="160" y="174.08" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="bold" font-style="normal" text-anchor="start" fill="#1e8449">6.</text>
-<text x="163.2" y="174.08" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Lixo da cozinha sai</text>
-<text x="163.2" y="176.73" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">pela porta do nicho, no</text>
-<text x="163.2" y="179.38" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.85" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">fim do turno.</text>
-<text x="318" y="35" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.9" font-weight="bold" font-style="normal" text-anchor="start" fill="#1f1f1f">LEGENDA</text>
-<rect x="318" y="38" width="6" height="3.2" fill="#fde3bf" stroke="#999999" stroke-width="0.15"/>
-<text x="326.5" y="40.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Cozinha (pré-preparo e cocção)</text>
-<rect x="318" y="42.3" width="6" height="3.2" fill="#cfeccb" stroke="#999999" stroke-width="0.15"/>
-<text x="326.5" y="44.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Montagem (área limpa)</text>
-<rect x="318" y="46.6" width="6" height="3.2" fill="#d8ecf8" stroke="#999999" stroke-width="0.15"/>
-<text x="326.5" y="49.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Antecâmara / barreira</text>
-<rect x="318" y="50.9" width="6" height="3.2" fill="#d6def3" stroke="#999999" stroke-width="0.15"/>
-<text x="326.5" y="53.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Armazenagem</text>
-<rect x="318" y="55.2" width="6" height="3.2" fill="#e8dcf2" stroke="#999999" stroke-width="0.15"/>
-<text x="326.5" y="57.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Equipe (vestiário, copa, descanso)</text>
-<rect x="318" y="59.5" width="6" height="3.2" fill="#f1ead2" stroke="#999999" stroke-width="0.15"/>
-<text x="326.5" y="62" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Recepção / expedição</text>
-<rect x="318" y="63.8" width="6" height="3.2" fill="#f6d4d4" stroke="#999999" stroke-width="0.15"/>
-<text x="326.5" y="66.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Uso misto (problema)</text>
-<rect x="318" y="68.1" width="6" height="3.2" fill="#ececec" stroke="#999999" stroke-width="0.15"/>
-<text x="326.5" y="70.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">WC / circulação</text>
-<line x1="318" y1="75" x2="324" y2="75" stroke="#c0392b" stroke-width="0.7"/>
-<text x="326.5" y="75.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Matéria-prima</text>
-<line x1="318" y1="79.3" x2="324" y2="79.3" stroke="#1e8449" stroke-width="0.7"/>
-<text x="326.5" y="80.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Produto (cozido → embalado → expedido)</text>
-<line x1="318" y1="83.6" x2="324" y2="83.6" stroke="#555555" stroke-width="0.6" stroke-dasharray="2.2 1.4"/>
-<text x="326.5" y="84.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Lixo</text>
-<line x1="318" y1="87.9" x2="324" y2="87.9" stroke="#7d3c98" stroke-width="0.55" stroke-dasharray="0.9 0.9"/>
-<text x="326.5" y="88.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Equipe</text>
-<circle cx="321" cy="92.2" r="1.2" fill="none" stroke="#c0392b" stroke-width="0.5"/>
-<text x="326.5" y="93.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Cruzamento entre fluxos diferentes</text>
-<rect x="318" y="95.2" width="6" height="1.8" fill="#f2c300"/>
-<text x="326.5" y="97.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Abrir vão (a demolir)</text>
-<rect x="318" y="99.5" width="6" height="1.8" fill="#d62828"/>
-<text x="326.5" y="101.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Fechar vão (a construir)</text>
-<rect x="318" y="103.6" width="6" height="2.4" fill="#ffffff" stroke="#c2410c" stroke-width="0.3" stroke-dasharray="0.8 0.5"/>
-<text x="326.5" y="106" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Porta / elemento a confirmar</text>
-<line x1="318" y1="109.4" x2="324" y2="109.4" stroke="#6c3483" stroke-width="0.3"/>
-<text x="326.5" y="110.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.95" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Espaço livre entre equipamentos (m)</text>
-<text x="318" y="118.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.6" font-weight="bold" font-style="normal" text-anchor="start" fill="#1f1f1f">TRAJETOS (m)</text>
-<text x="370" y="122.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="end" fill="#555555">Antes</text>
-<text x="402" y="122.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="end" fill="#555555">Depois</text>
-<text x="318" y="126.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">MP estocada → pré-preparo</text>
-<text x="370" y="126.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">31 (13 fora)</text>
-<text x="402" y="126.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="end" fill="#1e8449">≈ 3</text>
-<text x="318" y="130.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Cozinha → WC</text>
-<text x="370" y="130.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">30 (12 fora)</text>
-<text x="402" y="130.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="end" fill="#1e8449">4</text>
-<text x="318" y="134.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Montagem → frio</text>
-<text x="370" y="134.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">10</text>
-<text x="402" y="134.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="end" fill="#1e8449">6</text>
-<text x="318" y="138.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Cruzamentos no diagrama</text>
-<text x="370" y="138.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">2</text>
-<text x="402" y="138.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="end" fill="#1e8449">0</text>
-<text x="318" y="147" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.6" font-weight="bold" font-style="normal" text-anchor="start" fill="#1f1f1f">ÁREA ÚTIL POR FUNÇÃO (m²)</text>
-<text x="370" y="151.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="end" fill="#555555">Antes</text>
-<text x="402" y="151.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="end" fill="#555555">Depois</text>
-<text x="318" y="155.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Cozinha + nicho</text>
-<text x="370" y="155.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">18,46</text>
-<text x="402" y="155.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">18,46</text>
-<text x="318" y="159.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Montagem</text>
-<text x="370" y="159.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">6,78</text>
-<text x="402" y="159.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">6,78</text>
-<text x="318" y="163.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Estoque / câmara + embal.</text>
-<text x="370" y="163.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">10,10</text>
-<text x="402" y="163.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">10,10</text>
-<text x="318" y="166.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Equipe + circulação central</text>
-<text x="370" y="166.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">5,17</text>
-<text x="402" y="166.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">19,25</text>
-<text x="318" y="170.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Uso misto (Amb. 05)</text>
-<text x="370" y="170.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">14,08</text>
-<text x="402" y="170.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">—</text>
-<text x="318" y="174.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Recepção / expedição</text>
-<text x="370" y="174.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">8,53</text>
-<text x="402" y="174.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">8,53</text>
-<text x="318" y="178.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">WC + circulação</text>
-<text x="370" y="178.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">5,79</text>
-<text x="402" y="178.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">5,79</text>
-<text x="318" y="184.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="italic" text-anchor="start" fill="#555555">A área não muda: o ganho vem de cada sala ter uma</text>
-<text x="318" y="186.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="italic" text-anchor="start" fill="#555555">função só e de os fluxos não se cruzarem.</text>
-<text x="318" y="195.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="bold" font-style="normal" text-anchor="start" fill="#1f1f1f">ESCALA 1:75</text>
-<rect x="318" y="197.8" width="13.33" height="1.4" fill="#1f1f1f" stroke="#1f1f1f" stroke-width="0.2"/>
-<text x="318" y="201.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.7" font-weight="normal" font-style="normal" text-anchor="middle" fill="#1f1f1f">0</text>
-<rect x="331.33" y="197.8" width="13.33" height="1.4" fill="#ffffff" stroke="#1f1f1f" stroke-width="0.2"/>
-<text x="331.33" y="201.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.7" font-weight="normal" font-style="normal" text-anchor="middle" fill="#1f1f1f">1</text>
-<rect x="344.67" y="197.8" width="13.33" height="1.4" fill="#1f1f1f" stroke="#1f1f1f" stroke-width="0.2"/>
-<text x="344.67" y="201.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.7" font-weight="normal" font-style="normal" text-anchor="middle" fill="#1f1f1f">2</text>
-<rect x="358" y="197.8" width="13.33" height="1.4" fill="#ffffff" stroke="#1f1f1f" stroke-width="0.2"/>
-<text x="358" y="201.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.7" font-weight="normal" font-style="normal" text-anchor="middle" fill="#1f1f1f">3</text>
-<rect x="371.33" y="197.8" width="13.33" height="1.4" fill="#1f1f1f" stroke="#1f1f1f" stroke-width="0.2"/>
-<text x="371.33" y="201.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.7" font-weight="normal" font-style="normal" text-anchor="middle" fill="#1f1f1f">4</text>
-<text x="384.67" y="201.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.7" font-weight="normal" font-style="normal" text-anchor="middle" fill="#1f1f1f">5 m</text>
+<text x="14" y="15.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="4.4" font-weight="bold" font-style="normal" text-anchor="start" fill="#1f1f1f">ANTES × DEPOIS — FLUXOS, LAYOUT E INTERVENÇÕES (v2)</text>
+<text x="14" y="21.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="normal" font-style="normal" text-anchor="start" fill="#555555">Safran Congelados · imóvel do Barro Duro · sobre a planta R02 · escala 1:75 · equipamentos com medidas típicas (conferir com as propostas) · nicho fechado; cozinha com portão para a rua principal</text>
+<text x="22.67" y="30.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="3.3" font-weight="bold" font-style="normal" text-anchor="start" fill="#c0392b">ANTES (hoje)</text>
+<text x="174" y="30.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="3.3" font-weight="bold" font-style="normal" text-anchor="start" fill="#1e8449">DEPOIS (proposta)</text>
+<path d="M24.67,36 L82.8,36 L82.8,69.33 L74.53,69.33 L74.53,91.87 L24.67,91.87 Z" fill="#fde3bf" stroke="none"/>
+<path d="M62.27,91.87 L74.53,91.87 L74.53,109.87 L62.27,109.87 Z" fill="#fde3bf" stroke="none"/>
+<path d="M86.13,36 L122.27,36 L122.27,69.33 L86.13,69.33 Z" fill="#cfeccb" stroke="none"/>
+<path d="M123.87,36 L158.67,36 L158.67,87.6 L123.87,87.6 Z" fill="#d6def3" stroke="none"/>
+<path d="M76.13,70.93 L108.4,70.93 L108.4,86.4 L76.13,86.4 Z" fill="#ececec" stroke="none"/>
+<path d="M110,70.93 L122.27,70.93 L122.27,117.07 L111.2,117.07 L111.2,88 L110,88 Z" fill="#ececec" stroke="none"/>
+<path d="M76.13,88 L109.6,88 L109.6,115.47 L76.13,115.47 Z" fill="#e8dcf2" stroke="none"/>
+<path d="M76.13,117.07 L122.27,117.07 L122.27,171.33 L76.13,171.33 Z" fill="#f6d4d4" stroke="none"/>
+<path d="M76.13,172.93 L115.33,172.93 L115.33,211.6 L76.13,211.6 Z" fill="#f1ead2" stroke="none"/>
+<rect x="22.67" y="34" width="138" height="2" fill="#333333"/>
+<rect x="22.67" y="66.93" width="2" height="26.93" fill="#333333"/>
+<rect x="22.67" y="91.87" width="39.6" height="2" fill="#333333"/>
+<rect x="60.27" y="91.87" width="2" height="20" fill="#333333"/>
+<rect x="60.27" y="109.87" width="15.87" height="2" fill="#333333"/>
+<rect x="74.13" y="109.87" width="2" height="103.73" fill="#333333"/>
+<rect x="74.13" y="211.6" width="29.87" height="2" fill="#333333"/>
+<rect x="114.67" y="211.6" width="2.67" height="2" fill="#333333"/>
+<rect x="115.33" y="171.33" width="2" height="42.27" fill="#333333"/>
+<rect x="115.33" y="171.33" width="8.93" height="2" fill="#333333"/>
+<rect x="122.27" y="87.6" width="2" height="85.73" fill="#333333"/>
+<rect x="122.27" y="87.6" width="38.4" height="2" fill="#333333"/>
+<rect x="158.67" y="34" width="2" height="55.6" fill="#333333"/>
+<rect x="82.8" y="36" width="3.33" height="10.67" fill="#333333"/>
+<rect x="82.8" y="60" width="3.33" height="9.33" fill="#333333"/>
+<rect x="122.27" y="36" width="1.6" height="40.27" fill="#333333"/>
+<rect x="122.27" y="86.93" width="1.6" height="0.67" fill="#333333"/>
+<rect x="110" y="69.33" width="0.8" height="1.6" fill="#333333"/>
+<rect x="121.47" y="69.33" width="0.8" height="1.6" fill="#333333"/>
+<rect x="74.53" y="69.33" width="35.47" height="1.6" fill="#333333"/>
+<rect x="74.53" y="69.33" width="1.6" height="40.53" fill="#333333"/>
+<rect x="108.4" y="69.33" width="1.6" height="2.4" fill="#333333"/>
+<rect x="108.4" y="79.73" width="1.6" height="8.27" fill="#333333"/>
+<rect x="74.53" y="86.4" width="36.67" height="1.6" fill="#333333"/>
+<rect x="109.6" y="86.4" width="1.6" height="30.67" fill="#333333"/>
+<rect x="76.13" y="115.47" width="0" height="1.6" fill="#333333"/>
+<rect x="86.8" y="115.47" width="24.4" height="1.6" fill="#333333"/>
+<rect x="100" y="171.33" width="15.33" height="1.6" fill="#333333"/>
+<rect x="82.8" y="46.67" width="3.33" height="13.33" fill="#ffffff" stroke="#1f1f1f" stroke-width="0.15"/>
+<line x1="84.47" y1="46.67" x2="84.47" y2="60" stroke="#1f1f1f" stroke-width="0.15"/>
+<line x1="23.67" y1="36" x2="23.67" y2="66.93" stroke="#1f1f1f" stroke-width="0.3" stroke-dasharray="1.2 0.7"/>
+<text x="18.67" y="80" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" transform="rotate(-90 18.67 80)" fill="#555555">RUA PRINCIPAL</text>
+<text x="18.67" y="51.47" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.6" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 18.67 51.47)" fill="none" stroke="#ffffff" stroke-width="0.64" stroke-linejoin="round">portão</text>
+<text x="18.67" y="51.47" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.6" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 18.67 51.47)" fill="#555555">portão</text>
+<line x1="108.4" y1="71.73" x2="100.4" y2="71.73" stroke="#1f1f1f" stroke-width="0.35"/>
+<path d="M108.4,79.73 A8,8 0 0 1 100.4,71.73" fill="none" stroke="#1f1f1f" stroke-width="0.18"/>
+<line x1="123.87" y1="86.93" x2="134.53" y2="86.93" stroke="#1f1f1f" stroke-width="0.35"/>
+<path d="M123.87,76.27 A10.67,10.67 0 0 1 134.53,86.93" fill="none" stroke="#1f1f1f" stroke-width="0.18"/>
+<line x1="121.47" y1="69.33" x2="121.47" y2="58.67" stroke="#1f1f1f" stroke-width="0.35"/>
+<path d="M110.8,69.33 A10.67,10.67 0 0 1 121.47,58.67" fill="none" stroke="#1f1f1f" stroke-width="0.18"/>
+<line x1="114.67" y1="213.6" x2="114.67" y2="224.27" stroke="#1f1f1f" stroke-width="0.35"/>
+<path d="M104,213.6 A10.67,10.67 0 0 0 114.67,224.27" fill="none" stroke="#1f1f1f" stroke-width="0.18"/>
+<line x1="115.33" y1="117.07" x2="115.33" y2="171.33" stroke="#c2410c" stroke-width="0.25" stroke-dasharray="1.2 0.8"/>
+<path d="M106,224.67 L106,206 L86,206 L86,132.67 L114,132.67 L114,82 L136.67,82" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" stroke-opacity="0.85"/>
+<path d="M106,224.67 L106,206 L86,206 L86,132.67 L114,132.67 L114,82 L136.67,82" fill="none" stroke="#c0392b" stroke-width="0.7" stroke-linejoin="round"/>
+<path d="M106,214.4 L104.96,216.48 L107.04,216.48 Z" fill="#c0392b"/>
+<path d="M95,206 L97.08,207.04 L97.08,204.96 Z" fill="#c0392b"/>
+<path d="M86,165.67 L84.96,167.75 L87.04,167.75 Z" fill="#c0392b"/>
+<path d="M101.4,132.67 L99.32,131.63 L99.32,133.71 Z" fill="#c0392b"/>
+<path d="M114,104.8 L112.96,106.88 L115.04,106.88 Z" fill="#c0392b"/>
+<path d="M136.67,82 L134.59,80.96 L134.59,83.04 Z" fill="#c0392b"/>
+<path d="M136.67,84.67 L116.93,84.67 L116.93,136.67 L90.67,136.67 L90.67,202 L109.33,202 L109.33,228.67 L12.67,228.67 L12.67,57.33 L42,57.33" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" stroke-opacity="0.85"/>
+<path d="M136.67,84.67 L116.93,84.67 L116.93,136.67 L90.67,136.67 L90.67,202 L109.33,202 L109.33,228.67 L12.67,228.67 L12.67,57.33 L42,57.33" fill="none" stroke="#c0392b" stroke-width="0.7" stroke-linejoin="round"/>
+<path d="M125.81,84.67 L127.89,85.71 L127.89,83.63 Z" fill="#c0392b"/>
+<path d="M116.93,113.27 L117.97,111.19 L115.89,111.19 Z" fill="#c0392b"/>
+<path d="M102.49,136.67 L104.57,137.71 L104.57,135.63 Z" fill="#c0392b"/>
+<path d="M90.67,172.6 L91.71,170.52 L89.63,170.52 Z" fill="#c0392b"/>
+<path d="M100.93,202 L98.85,200.96 L98.85,203.04 Z" fill="#c0392b"/>
+<path d="M109.33,216.67 L110.37,214.59 L108.29,214.59 Z" fill="#c0392b"/>
+<path d="M56.17,228.67 L58.25,229.71 L58.25,227.63 Z" fill="#c0392b"/>
+<path d="M12.67,134.43 L11.63,136.51 L13.71,136.51 Z" fill="#c0392b"/>
+<path d="M42,57.33 L39.92,56.29 L39.92,58.37 Z" fill="#c0392b"/>
+<path d="M42,52 L119.6,52 L119.6,140.67 L94.67,140.67 L94.67,198 L112.67,198 L112.67,224.67" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" stroke-opacity="0.85"/>
+<path d="M42,52 L119.6,52 L119.6,140.67 L94.67,140.67 L94.67,198 L112.67,198 L112.67,224.67" fill="none" stroke="#1e8449" stroke-width="0.7" stroke-linejoin="round"/>
+<path d="M84.68,52 L82.6,50.96 L82.6,53.04 Z" fill="#1e8449"/>
+<path d="M119.6,100.77 L120.64,98.69 L118.56,98.69 Z" fill="#1e8449"/>
+<path d="M105.89,140.67 L107.97,141.71 L107.97,139.63 Z" fill="#1e8449"/>
+<path d="M94.67,172.2 L95.71,170.12 L93.63,170.12 Z" fill="#1e8449"/>
+<path d="M104.57,198 L102.49,196.96 L102.49,199.04 Z" fill="#1e8449"/>
+<path d="M112.67,224.67 L113.71,222.59 L111.63,222.59 Z" fill="#1e8449"/>
+<path d="M42,63.33 L16.67,63.33" fill="none" stroke="#ffffff" stroke-width="1.4" stroke-linejoin="round" stroke-opacity="0.85"/>
+<path d="M42,63.33 L16.67,63.33" fill="none" stroke="#555555" stroke-width="0.6" stroke-linejoin="round" stroke-dasharray="2.2 1.4"/>
+<path d="M16.67,63.33 L18.75,64.37 L18.75,62.29 Z" fill="#555555"/>
+<circle cx="119.6" cy="82" r="1.3" fill="none" stroke="#c0392b" stroke-width="0.5"/>
+<circle cx="119.6" cy="84.67" r="1.3" fill="none" stroke="#c0392b" stroke-width="0.5"/>
+<text x="14.17" y="231.87" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.6" font-weight="normal" font-style="italic" text-anchor="start" fill="#c0392b">volta pela rua (esquemático)</text>
+<text x="51.33" y="74" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.84" stroke-linejoin="round">COZINHA</text>
+<text x="51.33" y="74" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">COZINHA</text>
+<text x="51.33" y="76.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="italic" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.60" stroke-linejoin="round">portão p/ a rua principal</text>
+<text x="51.33" y="76.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="italic" text-anchor="middle" fill="#444444">portão p/ a rua principal</text>
+<text x="68.4" y="102" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.6" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.64" stroke-linejoin="round">nicho</text>
+<text x="68.4" y="102" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.6" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">nicho</text>
+<text x="104" y="43.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.84" stroke-linejoin="round">MONTAGEM</text>
+<text x="104" y="43.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">MONTAGEM</text>
+<text x="141.33" y="57.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.84" stroke-linejoin="round">ESTOQUE</text>
+<text x="141.33" y="57.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">ESTOQUE</text>
+<text x="85.33" y="78" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.84" stroke-linejoin="round">WC</text>
+<text x="85.33" y="78" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">WC</text>
+<text x="92.67" y="102" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.72" stroke-linejoin="round">COPA</text>
+<text x="92.67" y="102" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">COPA</text>
+<text x="105.33" y="150" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.84" stroke-linejoin="round">FUNCIONÁRIOS</text>
+<text x="105.33" y="150" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">FUNCIONÁRIOS</text>
+<text x="105.33" y="152.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="italic" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.60" stroke-linejoin="round">freezer · descanso</text>
+<text x="105.33" y="152.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="italic" text-anchor="middle" fill="#444444">freezer · descanso</text>
+<text x="105.33" y="181.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.84" stroke-linejoin="round">RECEPÇÃO</text>
+<text x="105.33" y="181.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">RECEPÇÃO</text>
+<circle cx="12.67" cy="156" r="2.1" fill="#c0392b" stroke="#ffffff" stroke-width="0.4"/>
+<text x="12.67" y="156.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">1</text>
+<circle cx="104" cy="81.33" r="2.1" fill="#c0392b" stroke="#ffffff" stroke-width="0.4"/>
+<text x="104" y="82.13" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">2</text>
+<circle cx="105.33" cy="163.33" r="2.1" fill="#c0392b" stroke="#ffffff" stroke-width="0.4"/>
+<text x="105.33" y="164.13" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">3</text>
+<circle cx="90.67" cy="42.67" r="2.1" fill="#c0392b" stroke="#ffffff" stroke-width="0.4"/>
+<text x="90.67" y="43.47" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">4</text>
+<circle cx="80.67" cy="158.67" r="2.1" fill="#c0392b" stroke="#ffffff" stroke-width="0.4"/>
+<text x="80.67" y="159.47" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">5</text>
+<path d="M176,36 L234.13,36 L234.13,69.33 L225.87,69.33 L225.87,91.87 L176,91.87 Z" fill="#fde3bf" stroke="none"/>
+<path d="M213.6,91.87 L225.87,91.87 L225.87,109.87 L213.6,109.87 Z" fill="#d8ecf8" stroke="none"/>
+<path d="M237.47,36 L273.6,36 L273.6,69.33 L237.47,69.33 Z" fill="#cfeccb" stroke="none"/>
+<path d="M275.2,36 L310,36 L310,87.6 L275.2,87.6 Z" fill="#cfeccb" stroke="none"/>
+<path d="M227.47,70.93 L259.73,70.93 L259.73,86.4 L227.47,86.4 Z" fill="#ececec" stroke="none"/>
+<path d="M261.33,70.93 L273.6,70.93 L273.6,117.07 L262.53,117.07 L262.53,88 L261.33,88 Z" fill="#ececec" stroke="none"/>
+<path d="M227.47,88 L260.93,88 L260.93,115.47 L227.47,115.47 Z" fill="#fde3bf" stroke="none"/>
+<path d="M227.47,117.07 L273.6,117.07 L273.6,171.33 L227.47,171.33 Z" fill="#e8dcf2" stroke="none"/>
+<path d="M227.47,172.93 L266.67,172.93 L266.67,211.6 L227.47,211.6 Z" fill="#f1ead2" stroke="none"/>
+<rect x="174" y="34" width="138" height="2" fill="#333333"/>
+<rect x="174" y="66.93" width="2" height="26.93" fill="#333333"/>
+<rect x="174" y="91.87" width="39.6" height="2" fill="#333333"/>
+<rect x="211.6" y="91.87" width="2" height="20" fill="#333333"/>
+<rect x="211.6" y="109.87" width="15.87" height="2" fill="#333333"/>
+<rect x="225.47" y="109.87" width="2" height="103.73" fill="#333333"/>
+<rect x="225.47" y="211.6" width="29.87" height="2" fill="#333333"/>
+<rect x="266" y="211.6" width="2.67" height="2" fill="#333333"/>
+<rect x="266.67" y="171.33" width="2" height="42.27" fill="#333333"/>
+<rect x="266.67" y="171.33" width="8.93" height="2" fill="#333333"/>
+<rect x="273.6" y="87.6" width="2" height="85.73" fill="#333333"/>
+<rect x="273.6" y="87.6" width="38.4" height="2" fill="#333333"/>
+<rect x="310" y="34" width="2" height="55.6" fill="#333333"/>
+<rect x="234.13" y="36" width="3.33" height="10.67" fill="#333333"/>
+<rect x="234.13" y="60" width="3.33" height="9.33" fill="#333333"/>
+<rect x="273.6" y="36" width="1.6" height="40.27" fill="#333333"/>
+<rect x="273.6" y="86.93" width="1.6" height="0.67" fill="#333333"/>
+<rect x="261.33" y="69.33" width="0.8" height="1.6" fill="#333333"/>
+<rect x="272.8" y="69.33" width="0.8" height="1.6" fill="#333333"/>
+<rect x="225.87" y="69.33" width="35.47" height="1.6" fill="#333333"/>
+<rect x="225.87" y="69.33" width="1.6" height="40.53" fill="#333333"/>
+<rect x="259.73" y="69.33" width="1.6" height="2.4" fill="#333333"/>
+<rect x="259.73" y="79.73" width="1.6" height="8.27" fill="#333333"/>
+<rect x="225.87" y="86.4" width="36.67" height="1.6" fill="#333333"/>
+<rect x="260.93" y="86.4" width="1.6" height="30.67" fill="#333333"/>
+<rect x="227.47" y="115.47" width="0" height="1.6" fill="#333333"/>
+<rect x="238.13" y="115.47" width="24.4" height="1.6" fill="#333333"/>
+<rect x="251.33" y="171.33" width="15.33" height="1.6" fill="#333333"/>
+<rect x="234.13" y="46.67" width="3.33" height="13.33" fill="#ffffff" stroke="#1f1f1f" stroke-width="0.15"/>
+<line x1="235.8" y1="46.67" x2="235.8" y2="60" stroke="#1f1f1f" stroke-width="0.15"/>
+<line x1="175" y1="36" x2="175" y2="66.93" stroke="#1f1f1f" stroke-width="0.3" stroke-dasharray="1.2 0.7"/>
+<text x="170" y="80" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" transform="rotate(-90 170 80)" fill="#555555">RUA PRINCIPAL</text>
+<text x="170" y="51.47" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.6" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 170 51.47)" fill="none" stroke="#ffffff" stroke-width="0.64" stroke-linejoin="round">portão</text>
+<text x="170" y="51.47" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.6" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 170 51.47)" fill="#555555">portão</text>
+<line x1="259.73" y1="71.73" x2="251.73" y2="71.73" stroke="#1f1f1f" stroke-width="0.35"/>
+<path d="M259.73,79.73 A8,8 0 0 1 251.73,71.73" fill="none" stroke="#1f1f1f" stroke-width="0.18"/>
+<line x1="275.2" y1="86.93" x2="285.87" y2="86.93" stroke="#1f1f1f" stroke-width="0.35"/>
+<path d="M275.2,76.27 A10.67,10.67 0 0 1 285.87,86.93" fill="none" stroke="#1f1f1f" stroke-width="0.18"/>
+<line x1="272.8" y1="69.33" x2="272.8" y2="58.67" stroke="#1f1f1f" stroke-width="0.35"/>
+<path d="M262.13,69.33 A10.67,10.67 0 0 1 272.8,58.67" fill="none" stroke="#1f1f1f" stroke-width="0.18"/>
+<line x1="266" y1="213.6" x2="266" y2="224.27" stroke="#1f1f1f" stroke-width="0.35"/>
+<path d="M255.33,213.6 A10.67,10.67 0 0 0 266,224.27" fill="none" stroke="#1f1f1f" stroke-width="0.18"/>
+<line x1="266.67" y1="117.07" x2="266.67" y2="171.33" stroke="#c2410c" stroke-width="0.25" stroke-dasharray="1.2 0.8"/>
+<rect x="225.87" y="97.33" width="1.6" height="10.67" fill="#f2c300"/>
+<line x1="225.87" y1="108" x2="215.2" y2="108" stroke="#1e8449" stroke-width="0.35"/>
+<path d="M225.87,97.33 A10.67,10.67 0 0 0 215.2,108" fill="none" stroke="#1e8449" stroke-width="0.18"/>
+<rect x="273.6" y="38" width="1.6" height="10.67" fill="#f2c300"/>
+<line x1="273.6" y1="48.67" x2="262.93" y2="48.67" stroke="#1e8449" stroke-width="0.35"/>
+<path d="M273.6,38 A10.67,10.67 0 0 0 262.93,48.67" fill="none" stroke="#1e8449" stroke-width="0.18"/>
+<rect x="192" y="36.67" width="16" height="12" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
+<text x="200" y="43.17" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.3" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">fogão 6b 1,20×0,90</text>
+<rect x="208.67" y="36.67" width="16.13" height="9.33" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
+<text x="216.73" y="41.83" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">apoio</text>
+<rect x="224.8" y="36.67" width="9.33" height="32" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
+<text x="229.97" y="52.67" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 229.97 52.67)" fill="#3a3a3a">porcion.</text>
+<rect x="176.67" y="82.53" width="16" height="8.8" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
+<text x="184.67" y="87.43" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">lavagem</text>
+<rect x="193.33" y="82.53" width="20" height="8.8" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
+<text x="203.33" y="87.43" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">bancada</text>
+<rect x="221.2" y="75.33" width="4.67" height="6" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
+<text x="223.53" y="78.83" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">lav.</text>
+<rect x="176.67" y="68.67" width="5.33" height="5.33" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
+<text x="179.33" y="71.83" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">lixo</text>
+<rect x="236" y="88.27" width="24.67" height="9.33" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
+<text x="248.33" y="93.43" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.3" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">pré-preparo + cuba</text>
+<rect x="250.67" y="99.33" width="10" height="16" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
+<text x="256.17" y="107.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 256.17 107.33)" fill="#3a3a3a">MP fria</text>
+<rect x="227.73" y="88.27" width="6.93" height="7.07" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
+<text x="231.2" y="92.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">secos</text>
+<rect x="239.33" y="110.67" width="6" height="4.67" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
+<text x="242.33" y="113.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">lav.</text>
+<rect x="237.47" y="36.67" width="9.33" height="32" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
+<text x="242.63" y="52.67" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.3" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 242.63 52.67)" fill="#3a3a3a">bancada 2,40</text>
+<rect x="248" y="36.67" width="14" height="8" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
+<text x="255" y="41.17" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">rotulagem</text>
+<rect x="255.33" y="64" width="6" height="4.67" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
+<text x="258.33" y="66.83" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">lav.</text>
+<rect x="282.67" y="36.67" width="10.67" height="8.67" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
+<text x="288" y="41.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">seladora</text>
+<rect x="298" y="36.67" width="10.67" height="11.33" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
+<text x="303.33" y="42.83" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.3" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">ultracong.</text>
+<rect x="288" y="60.67" width="21.33" height="26.67" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
+<text x="298.67" y="85.13" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.3" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">câmara 1,60×2,00</text>
+<rect x="241.33" y="117.33" width="18.67" height="6" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
+<text x="250.67" y="120.83" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">armários</text>
+<rect x="254" y="149.33" width="10.67" height="10.67" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
+<text x="259.33" y="155.17" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">mesa</text>
+<rect x="252" y="164.27" width="14" height="6.67" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
+<text x="259" y="168.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" fill="#3a3a3a">copa</text>
+<rect x="227.73" y="134.67" width="5.6" height="33.33" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
+<text x="231.03" y="151.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.3" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 231.03 151.33)" fill="#3a3a3a">embal. + secos</text>
+<rect x="257.33" y="174" width="9.07" height="17.33" fill="#ffffff" fill-opacity="0.85" stroke="#4a4a4a" stroke-width="0.2"/>
+<text x="262.37" y="182.67" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 262.37 182.67)" fill="#3a3a3a">freezer</text>
+<rect x="190.67" y="36.67" width="18.67" height="13.33" fill="none" stroke="#4a4a4a" stroke-width="0.2" stroke-dasharray="0.8 0.6"/>
+<rect x="312.67" y="68" width="8" height="10.67" fill="#ffffff" stroke="#4a4a4a" stroke-width="0.2"/>
+<text x="317.17" y="73.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.3" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 317.17 73.33)" fill="#3a3a3a">cond.</text>
+<line x1="176" y1="78.93" x2="221.2" y2="78.93" stroke="#6c3483" stroke-width="0.18"/>
+<line x1="175.45" y1="79.48" x2="176.55" y2="78.38" stroke="#6c3483" stroke-width="0.3"/>
+<line x1="220.65" y1="79.48" x2="221.75" y2="78.38" stroke="#6c3483" stroke-width="0.3"/>
+<text x="198.6" y="78.23" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.4" font-weight="normal" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.56" stroke-linejoin="round">3,39 livre</text>
+<text x="198.6" y="78.23" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.4" font-weight="normal" font-style="normal" text-anchor="middle" fill="#6c3483">3,39 livre</text>
+<line x1="246.8" y1="55.33" x2="273.6" y2="55.33" stroke="#6c3483" stroke-width="0.18"/>
+<line x1="246.25" y1="55.88" x2="247.35" y2="54.78" stroke="#6c3483" stroke-width="0.3"/>
+<line x1="273.05" y1="55.88" x2="274.15" y2="54.78" stroke="#6c3483" stroke-width="0.3"/>
+<text x="260.2" y="54.63" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.4" font-weight="normal" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.56" stroke-linejoin="round">2,01 livre</text>
+<text x="260.2" y="54.63" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.4" font-weight="normal" font-style="normal" text-anchor="middle" fill="#6c3483">2,01 livre</text>
+<line x1="303.33" y1="48" x2="303.33" y2="60.67" stroke="#6c3483" stroke-width="0.18"/>
+<line x1="302.78" y1="48.55" x2="303.88" y2="47.45" stroke="#6c3483" stroke-width="0.3"/>
+<line x1="302.78" y1="61.22" x2="303.88" y2="60.12" stroke="#6c3483" stroke-width="0.3"/>
+<text x="302.63" y="54.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.4" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 302.63 54.33)" fill="none" stroke="#ffffff" stroke-width="0.56" stroke-linejoin="round">0,95 livre</text>
+<text x="302.63" y="54.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.4" font-weight="normal" font-style="normal" text-anchor="middle" transform="rotate(-90 302.63 54.33)" fill="#6c3483">0,95 livre</text>
+<path d="M258.4,224.67 L258.4,206 L237.33,206 L237.33,106 L248.67,106" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" stroke-opacity="0.85"/>
+<path d="M258.4,224.67 L258.4,206 L237.33,206 L237.33,106 L248.67,106" fill="none" stroke="#c0392b" stroke-width="0.7" stroke-linejoin="round"/>
+<path d="M258.4,214.4 L257.36,216.48 L259.44,216.48 Z" fill="#c0392b"/>
+<path d="M246.81,206 L248.89,207.04 L248.89,204.96 Z" fill="#c0392b"/>
+<path d="M237.33,151 L236.29,153.08 L238.37,153.08 Z" fill="#c0392b"/>
+<path d="M248.67,106 L246.59,104.96 L246.59,107.04 Z" fill="#c0392b"/>
+<path d="M248,100 L219.33,100 L219.33,56 L206.67,56 L206.67,50.67 L268,50.67 L268,43.33 L280,43.33 L280,53.33 L301.33,53.33" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" stroke-opacity="0.85"/>
+<path d="M248,100 L219.33,100 L219.33,56 L206.67,56 L206.67,50.67 L268,50.67 L268,43.33 L280,43.33 L280,53.33 L301.33,53.33" fill="none" stroke="#1e8449" stroke-width="0.7" stroke-linejoin="round"/>
+<path d="M232.23,100 L234.31,101.04 L234.31,98.96 Z" fill="#1e8449"/>
+<path d="M219.33,75.8 L218.29,77.88 L220.37,77.88 Z" fill="#1e8449"/>
+<path d="M212.37,56 L214.45,57.04 L214.45,54.96 Z" fill="#1e8449"/>
+<path d="M240.4,50.67 L238.32,49.63 L238.32,51.71 Z" fill="#1e8449"/>
+<path d="M301.33,53.33 L299.25,52.29 L299.25,54.37 Z" fill="#1e8449"/>
+<path d="M284,57.33 L284,72 L288,72" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" stroke-opacity="0.85"/>
+<path d="M284,57.33 L284,72 L288,72" fill="none" stroke="#1e8449" stroke-width="0.7" stroke-linejoin="round"/>
+<path d="M284,65.4 L285.04,63.32 L282.96,63.32 Z" fill="#1e8449"/>
+<path d="M288,72 L285.92,70.96 L285.92,73.04 Z" fill="#1e8449"/>
+<path d="M288,80.67 L270.93,80.67 L270.93,140.67 L246,140.67 L246,198 L263.73,198 L263.73,224.67" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" stroke-opacity="0.85"/>
+<path d="M288,80.67 L270.93,80.67 L270.93,140.67 L246,140.67 L246,198 L263.73,198 L263.73,224.67" fill="none" stroke="#1e8449" stroke-width="0.7" stroke-linejoin="round"/>
+<path d="M278.61,80.67 L280.69,81.71 L280.69,79.63 Z" fill="#1e8449"/>
+<path d="M270.93,113.67 L271.97,111.59 L269.89,111.59 Z" fill="#1e8449"/>
+<path d="M257.22,140.67 L259.3,141.71 L259.3,139.63 Z" fill="#1e8449"/>
+<path d="M246,172.2 L247.04,170.12 L244.96,170.12 Z" fill="#1e8449"/>
+<path d="M255.75,198 L253.67,196.96 L253.67,199.04 Z" fill="#1e8449"/>
+<path d="M263.73,224.67 L264.77,222.59 L262.69,222.59 Z" fill="#1e8449"/>
+<path d="M179.33,68.67 L179.33,63.33 L168,63.33" fill="none" stroke="#ffffff" stroke-width="1.4" stroke-linejoin="round" stroke-opacity="0.85"/>
+<path d="M179.33,68.67 L179.33,63.33 L168,63.33" fill="none" stroke="#555555" stroke-width="0.6" stroke-linejoin="round" stroke-dasharray="2.2 1.4"/>
+<path d="M168,63.33 L170.08,64.37 L170.08,62.29 Z" fill="#555555"/>
+<path d="M264.67,61.33 L264.67,136.67 L242,136.67 L242,202 L261.07,202 L261.07,224.67" fill="none" stroke="#ffffff" stroke-width="1.4" stroke-linejoin="round" stroke-opacity="0.85"/>
+<path d="M264.67,61.33 L264.67,136.67 L242,136.67 L242,202 L261.07,202 L261.07,224.67" fill="none" stroke="#555555" stroke-width="0.6" stroke-linejoin="round" stroke-dasharray="2.2 1.4"/>
+<path d="M264.67,102.77 L265.71,100.69 L263.63,100.69 Z" fill="#555555"/>
+<path d="M252.2,136.67 L254.28,137.71 L254.28,135.63 Z" fill="#555555"/>
+<path d="M242,172.6 L243.04,170.52 L240.96,170.52 Z" fill="#555555"/>
+<path d="M252.49,202 L250.41,200.96 L250.41,203.04 Z" fill="#555555"/>
+<path d="M261.07,224.67 L262.11,222.59 L260.03,222.59 Z" fill="#555555"/>
+<path d="M234.93,109.33 L234.93,209.33 L256,209.33 L256,224.67" fill="none" stroke="#ffffff" stroke-width="1.4" stroke-linejoin="round" stroke-opacity="0.85"/>
+<path d="M234.93,109.33 L234.93,209.33 L256,209.33 L256,224.67" fill="none" stroke="#555555" stroke-width="0.6" stroke-linejoin="round" stroke-dasharray="2.2 1.4"/>
+<path d="M234.93,164.33 L235.97,162.25 L233.89,162.25 Z" fill="#555555"/>
+<path d="M246.52,209.33 L244.44,208.29 L244.44,210.37 Z" fill="#555555"/>
+<path d="M256,224.67 L257.04,222.59 L254.96,222.59 Z" fill="#555555"/>
+<path d="M250.67,126 L230,126 L230,102.67 L216,102.67 L216,80" fill="none" stroke="#ffffff" stroke-width="1.35" stroke-linejoin="round" stroke-opacity="0.85"/>
+<path d="M250.67,126 L230,126 L230,102.67 L216,102.67 L216,80" fill="none" stroke="#7d3c98" stroke-width="0.55" stroke-linejoin="round" stroke-dasharray="0.9 0.9"/>
+<path d="M239.3,126 L241.38,127.04 L241.38,124.96 Z" fill="#7d3c98"/>
+<path d="M230,113.17 L228.96,115.25 L231.04,115.25 Z" fill="#7d3c98"/>
+<path d="M222.3,102.67 L224.38,103.71 L224.38,101.63 Z" fill="#7d3c98"/>
+<path d="M216,80 L214.96,82.08 L217.04,82.08 Z" fill="#7d3c98"/>
+<path d="M250.67,126 L267.73,126 L267.73,66.67" fill="none" stroke="#ffffff" stroke-width="1.35" stroke-linejoin="round" stroke-opacity="0.85"/>
+<path d="M250.67,126 L267.73,126 L267.73,66.67" fill="none" stroke="#7d3c98" stroke-width="0.55" stroke-linejoin="round" stroke-dasharray="0.9 0.9"/>
+<path d="M260.05,126 L257.97,124.96 L257.97,127.04 Z" fill="#7d3c98"/>
+<path d="M267.73,66.67 L266.69,68.75 L268.77,68.75 Z" fill="#7d3c98"/>
+<text x="198.67" y="64.67" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.84" stroke-linejoin="round">COZINHA</text>
+<text x="198.67" y="64.67" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">COZINHA</text>
+<text x="198.67" y="66.97" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="italic" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.60" stroke-linejoin="round">cocção + lavagem</text>
+<text x="198.67" y="66.97" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="italic" text-anchor="middle" fill="#444444">cocção + lavagem</text>
+<text x="219.73" y="108.67" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.6" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.64" stroke-linejoin="round">passagem</text>
+<text x="219.73" y="108.67" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.6" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">passagem</text>
+<text x="258" y="62" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.84" stroke-linejoin="round">MONTAGEM</text>
+<text x="258" y="62" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">MONTAGEM</text>
+<text x="298.67" y="66" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.84" stroke-linejoin="round">SELAGEM + FRIO</text>
+<text x="298.67" y="66" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">SELAGEM + FRIO</text>
+<text x="232.67" y="78" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.84" stroke-linejoin="round">WC</text>
+<text x="232.67" y="78" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">WC</text>
+<text x="243.33" y="104.27" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.72" stroke-linejoin="round">PRÉ-PREPARO</text>
+<text x="243.33" y="104.27" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">PRÉ-PREPARO</text>
+<text x="256.67" y="145.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.84" stroke-linejoin="round">EQUIPE</text>
+<text x="256.67" y="145.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">EQUIPE</text>
+<text x="256.67" y="147.63" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="italic" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.60" stroke-linejoin="round">vestiário · copa · estoque seco</text>
+<text x="256.67" y="147.63" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.5" font-weight="normal" font-style="italic" text-anchor="middle" fill="#444444">vestiário · copa · estoque seco</text>
+<text x="252" y="183.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.84" stroke-linejoin="round">RECEPÇÃO +</text>
+<text x="252" y="183.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">RECEPÇÃO +</text>
+<text x="252" y="185.93" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="none" stroke="#ffffff" stroke-width="0.84" stroke-linejoin="round">EXPEDIÇÃO</text>
+<text x="252" y="185.93" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1f1f1f">EXPEDIÇÃO</text>
+<circle cx="230.67" cy="97.6" r="2.1" fill="#1e8449" stroke="#ffffff" stroke-width="0.4"/>
+<text x="230.67" y="98.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">1</text>
+<circle cx="278.67" cy="39.33" r="2.1" fill="#1e8449" stroke="#ffffff" stroke-width="0.4"/>
+<text x="278.67" y="40.13" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">2</text>
+<circle cx="235.73" cy="65.6" r="2.1" fill="#1e8449" stroke="#ffffff" stroke-width="0.4"/>
+<text x="235.73" y="66.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">3</text>
+<circle cx="213.33" cy="72.67" r="2.1" fill="#1e8449" stroke="#ffffff" stroke-width="0.4"/>
+<text x="213.33" y="73.47" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">4</text>
+<circle cx="306" cy="83.33" r="2.1" fill="#1e8449" stroke="#ffffff" stroke-width="0.4"/>
+<text x="306" y="84.13" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">5</text>
+<circle cx="248" cy="112" r="2.1" fill="#1e8449" stroke="#ffffff" stroke-width="0.4"/>
+<text x="248" y="112.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">6</text>
+<circle cx="230.67" cy="169.87" r="2.1" fill="#1e8449" stroke="#ffffff" stroke-width="0.4"/>
+<text x="230.67" y="170.67" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.1" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">7</text>
+<text x="22.67" y="123.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.5" font-weight="bold" font-style="normal" text-anchor="start" fill="#c0392b">PROBLEMAS</text>
+<circle cx="24.77" cy="127.58" r="1.9" fill="#c0392b"/>
+<text x="24.77" y="128.28" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">1</text>
+<text x="28.17" y="128.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">A cozinha só se liga</text>
+<text x="28.17" y="130.88" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">ao resto pela janela:</text>
+<text x="28.17" y="133.43" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">MP do estoque e quem</text>
+<text x="28.17" y="135.98" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">vai ao WC saem pelo</text>
+<text x="28.17" y="138.53" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">portão e dão a volta</text>
+<text x="28.17" y="141.08" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">pela rua.</text>
+<circle cx="24.77" cy="144.38" r="1.9" fill="#c0392b"/>
+<text x="24.77" y="145.08" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">2</text>
+<text x="28.17" y="145.13" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">WC, montagem e</text>
+<text x="28.17" y="147.68" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">estoque abrem no</text>
+<text x="28.17" y="150.23" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">mesmo patamar de ≈1</text>
+<text x="28.17" y="152.78" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">m²; a MP cruza a</text>
+<text x="28.17" y="155.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">porta da montagem.</text>
+<circle cx="24.77" cy="158.63" r="1.9" fill="#c0392b"/>
+<text x="24.77" y="159.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">3</text>
+<text x="28.17" y="159.38" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Produto congelado</text>
+<text x="28.17" y="161.93" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">guardado na área de</text>
+<text x="28.17" y="164.48" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">descanso.</text>
+<circle cx="24.77" cy="167.78" r="1.9" fill="#c0392b"/>
+<text x="24.77" y="168.48" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">4</text>
+<text x="28.17" y="168.53" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Montagem com 6,8 m²</text>
+<text x="28.17" y="171.08" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">(ideal 9–10) e sem</text>
+<text x="28.17" y="173.63" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">lavatório: não cabem</text>
+<text x="28.17" y="176.18" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">ultracongelador e</text>
+<text x="28.17" y="178.73" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">seladora.</text>
+<circle cx="24.77" cy="182.03" r="1.9" fill="#c0392b"/>
+<text x="24.77" y="182.73" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">5</text>
+<text x="28.17" y="182.78" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Amb. 05 tem 14 m² sem</text>
+<text x="28.17" y="185.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">função definida</text>
+<text x="28.17" y="187.88" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">enquanto cozinha e</text>
+<text x="28.17" y="190.43" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">montagem estão abaixo</text>
+<text x="28.17" y="192.98" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">do ideal.</text>
+<text x="277.6" y="95.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.5" font-weight="bold" font-style="normal" text-anchor="start" fill="#1e8449">INTERVENÇÕES</text>
+<circle cx="279.7" cy="99.58" r="1.9" fill="#1e8449"/>
+<text x="279.7" y="100.28" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">1</text>
+<text x="283.1" y="100.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Abrir porta 0,80 entre</text>
+<text x="283.1" y="102.88" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">o nicho e o Amb. 04</text>
+<text x="283.1" y="105.43" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">(parede interna de 12</text>
+<text x="283.1" y="107.98" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">cm). É o que liga a</text>
+<text x="283.1" y="110.53" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">cozinha ao resto do</text>
+<text x="283.1" y="113.08" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">prédio — confirmar se</text>
+<text x="283.1" y="115.63" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">a parede pode ser</text>
+<text x="283.1" y="118.18" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">aberta.</text>
+<circle cx="279.7" cy="121.48" r="1.9" fill="#1e8449"/>
+<text x="279.7" y="122.18" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">2</text>
+<text x="283.1" y="122.23" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Abrir porta 0,80 entre</text>
+<text x="283.1" y="124.78" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">montagem e Amb. 03</text>
+<text x="283.1" y="127.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">(parede interna de 12</text>
+<text x="283.1" y="129.88" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">cm): porciona → sela →</text>
+<text x="283.1" y="132.43" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">ultracongela → câmara,</text>
+<text x="283.1" y="134.98" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">em linha.</text>
+<circle cx="279.7" cy="138.28" r="1.9" fill="#1e8449"/>
+<text x="279.7" y="138.98" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">3</text>
+<text x="283.1" y="139.03" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Janela vira</text>
+<text x="283.1" y="141.58" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">passa-prato (≈1,00 ×</text>
+<text x="283.1" y="144.13" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">0,60, peitoril 0,90),</text>
+<text x="283.1" y="146.68" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">bancada inox dos dois</text>
+<text x="283.1" y="149.23" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">lados.</text>
+<circle cx="279.7" cy="152.53" r="1.9" fill="#1e8449"/>
+<text x="279.7" y="153.23" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">4</text>
+<text x="283.1" y="153.28" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Lavatórios na entrada</text>
+<text x="283.1" y="155.83" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">da produção (Amb. 04),</text>
+<text x="283.1" y="158.38" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">na cozinha e na</text>
+<text x="283.1" y="160.93" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">montagem (os dois</text>
+<text x="283.1" y="163.48" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">últimos na parede do</text>
+<text x="283.1" y="166.03" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">WC).</text>
+<circle cx="279.7" cy="169.33" r="1.9" fill="#1e8449"/>
+<text x="279.7" y="170.03" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">5</text>
+<text x="283.1" y="170.08" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Câmara 1,60 × 2,00 no</text>
+<text x="283.1" y="172.63" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Amb. 03, condensadora</text>
+<text x="283.1" y="175.18" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">na parede externa.</text>
+<circle cx="279.7" cy="178.48" r="1.9" fill="#1e8449"/>
+<text x="279.7" y="179.18" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">6</text>
+<text x="283.1" y="179.23" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Amb. 04 vira</text>
+<text x="283.1" y="181.78" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">pré-preparo + MP do</text>
+<text x="283.1" y="184.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">dia (amplia a pia da</text>
+<text x="283.1" y="186.88" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">copa): a cozinha passa</text>
+<text x="283.1" y="189.43" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">a 23,6 m².</text>
+<circle cx="279.7" cy="192.73" r="1.9" fill="#1e8449"/>
+<text x="279.7" y="193.43" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">7</text>
+<text x="283.1" y="193.48" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Amb. 05 vira vestiário</text>
+<text x="283.1" y="196.03" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">+ copa + estoque seco;</text>
+<text x="283.1" y="198.58" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">o freezer sai da área</text>
+<text x="283.1" y="201.13" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">de descanso.</text>
+<text x="277.6" y="206.18" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.75" font-weight="normal" font-style="italic" text-anchor="start" fill="#555555">Obra: 2 aberturas em parede</text>
+<text x="277.6" y="208.68" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.75" font-weight="normal" font-style="italic" text-anchor="start" fill="#555555">interna de 12 cm, ponto de</text>
+<text x="277.6" y="211.18" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.75" font-weight="normal" font-style="italic" text-anchor="start" fill="#555555">água e esgoto no Amb. 04, 3</text>
+<text x="277.6" y="213.68" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.75" font-weight="normal" font-style="italic" text-anchor="start" fill="#555555">lavatórios e passa-prato. O</text>
+<text x="277.6" y="216.18" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.75" font-weight="normal" font-style="italic" text-anchor="start" fill="#555555">resto é mudança de uso e</text>
+<text x="277.6" y="218.68" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.75" font-weight="normal" font-style="italic" text-anchor="start" fill="#555555">equipamento.</text>
+<text x="174" y="123.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.5" font-weight="bold" font-style="normal" text-anchor="start" fill="#1e8449">COMO FICA O FLUXO</text>
+<text x="174" y="128.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="start" fill="#1e8449">1.</text>
+<text x="177.2" y="128.33" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">MP entra pelos fundos</text>
+<text x="177.2" y="130.88" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">(Amb. 06) e vai direto ao</text>
+<text x="177.2" y="133.43" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Amb. 04. Papelão de</text>
+<text x="177.2" y="135.98" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">fornecedor fica na</text>
+<text x="177.2" y="138.53" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">recepção.</text>
+<text x="174" y="142.18" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="start" fill="#1e8449">2.</text>
+<text x="177.2" y="142.18" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Pré-preparo (Amb. 04) →</text>
+<text x="177.2" y="144.73" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">passagem → cocção (Amb.</text>
+<text x="177.2" y="147.28" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">01).</text>
+<text x="174" y="150.93" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="start" fill="#1e8449">3.</text>
+<text x="177.2" y="150.93" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Passa-prato → montagem:</text>
+<text x="177.2" y="153.48" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">porciona e rotula.</text>
+<text x="174" y="157.13" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="start" fill="#1e8449">4.</text>
+<text x="177.2" y="157.13" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Amb. 03: sela,</text>
+<text x="177.2" y="159.68" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">ultracongela e guarda na</text>
+<text x="177.2" y="162.23" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">câmara.</text>
+<text x="174" y="165.88" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="start" fill="#1e8449">5.</text>
+<text x="177.2" y="165.88" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Expedição: câmara →</text>
+<text x="177.2" y="168.43" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">circulação → Amb. 06.</text>
+<text x="174" y="172.08" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="start" fill="#1e8449">6.</text>
+<text x="177.2" y="172.08" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Equipe: fundos →</text>
+<text x="177.2" y="174.63" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">vestiário (Amb. 05) →</text>
+<text x="177.2" y="177.18" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">lavatório → produção.</text>
+<text x="174" y="180.83" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="start" fill="#1e8449">7.</text>
+<text x="177.2" y="180.83" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Lixo da cozinha sai pelo</text>
+<text x="177.2" y="183.38" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">portão; o resto sai pelos</text>
+<text x="177.2" y="185.93" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">fundos. Sempre no fim do</text>
+<text x="177.2" y="188.48" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">turno.</text>
+<text x="327" y="35" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.9" font-weight="bold" font-style="normal" text-anchor="start" fill="#1f1f1f">LEGENDA</text>
+<rect x="327" y="38" width="6" height="3.2" fill="#fde3bf" stroke="#999999" stroke-width="0.15"/>
+<text x="335.5" y="40.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Cozinha (pré-preparo, cocção, lavagem)</text>
+<rect x="327" y="42.1" width="6" height="3.2" fill="#cfeccb" stroke="#999999" stroke-width="0.15"/>
+<text x="335.5" y="44.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Montagem e frio (área limpa)</text>
+<rect x="327" y="46.2" width="6" height="3.2" fill="#d8ecf8" stroke="#999999" stroke-width="0.15"/>
+<text x="335.5" y="48.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Passagem / barreira</text>
+<rect x="327" y="50.3" width="6" height="3.2" fill="#d6def3" stroke="#999999" stroke-width="0.15"/>
+<text x="335.5" y="52.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Armazenagem</text>
+<rect x="327" y="54.4" width="6" height="3.2" fill="#e8dcf2" stroke="#999999" stroke-width="0.15"/>
+<text x="335.5" y="56.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Equipe (vestiário, copa, descanso)</text>
+<rect x="327" y="58.5" width="6" height="3.2" fill="#f1ead2" stroke="#999999" stroke-width="0.15"/>
+<text x="335.5" y="61" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Recepção / expedição</text>
+<rect x="327" y="62.6" width="6" height="3.2" fill="#f6d4d4" stroke="#999999" stroke-width="0.15"/>
+<text x="335.5" y="65.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Uso misto (problema)</text>
+<rect x="327" y="66.7" width="6" height="3.2" fill="#ececec" stroke="#999999" stroke-width="0.15"/>
+<text x="335.5" y="69.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">WC / circulação</text>
+<line x1="327" y1="73.4" x2="333" y2="73.4" stroke="#c0392b" stroke-width="0.7"/>
+<text x="335.5" y="74.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Matéria-prima</text>
+<line x1="327" y1="77.5" x2="333" y2="77.5" stroke="#1e8449" stroke-width="0.7"/>
+<text x="335.5" y="78.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Alimento / produto</text>
+<line x1="327" y1="81.6" x2="333" y2="81.6" stroke="#555555" stroke-width="0.6" stroke-dasharray="2.2 1.4"/>
+<text x="335.5" y="82.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Lixo</text>
+<line x1="327" y1="85.7" x2="333" y2="85.7" stroke="#7d3c98" stroke-width="0.55" stroke-dasharray="0.9 0.9"/>
+<text x="335.5" y="86.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Equipe</text>
+<circle cx="330" cy="89.8" r="1.2" fill="none" stroke="#c0392b" stroke-width="0.5"/>
+<text x="335.5" y="90.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Cruzamento sujo × limpo</text>
+<rect x="327" y="92.6" width="6" height="1.8" fill="#f2c300"/>
+<text x="335.5" y="94.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Abrir vão (porta nova em verde)</text>
+<line x1="327" y1="98" x2="333" y2="98" stroke="#6c3483" stroke-width="0.3"/>
+<text x="335.5" y="98.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.9" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Espaço livre entre equipamentos (m)</text>
+<text x="327" y="106.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.6" font-weight="bold" font-style="normal" text-anchor="start" fill="#1f1f1f">TRAJETOS (m)</text>
+<text x="385" y="111.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="end" fill="#555555">Antes</text>
+<text x="407" y="111.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="end" fill="#555555">Depois</text>
+<text x="327" y="115.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">MP estocada → pré-preparo</text>
+<text x="385" y="115.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">38 (22 na rua)</text>
+<text x="407" y="115.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="end" fill="#1e8449">&lt; 1</text>
+<text x="327" y="118.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Cozinha → WC</text>
+<text x="385" y="118.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">36 (21 na rua)</text>
+<text x="407" y="118.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="end" fill="#1e8449">13</text>
+<text x="327" y="122.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Porcionamento → frio</text>
+<text x="385" y="122.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">10</text>
+<text x="407" y="122.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="end" fill="#1e8449">5</text>
+<text x="327" y="126" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Cruzamentos sujo × limpo</text>
+<text x="385" y="126" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">2</text>
+<text x="407" y="126" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="end" fill="#1e8449">0</text>
+<text x="327" y="130.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.6" font-weight="normal" font-style="italic" text-anchor="start" fill="#555555">Trechos na rua são esquemáticos (mínimo): a volta</text>
+<text x="327" y="133" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.6" font-weight="normal" font-style="italic" text-anchor="start" fill="#555555">real depende do quarteirão.</text>
+<text x="327" y="140.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.6" font-weight="bold" font-style="normal" text-anchor="start" fill="#1f1f1f">ÁREA POR SETOR (m²)</text>
+<text x="371" y="144.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="end" fill="#555555">Ideal*</text>
+<text x="389" y="144.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="end" fill="#555555">Antes</text>
+<text x="407" y="144.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="end" fill="#555555">Depois</text>
+<text x="327" y="148.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Cozinha</text>
+<text x="371" y="148.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="end" fill="#555555">20–24</text>
+<text x="389" y="148.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">18,46</text>
+<text x="407" y="148.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="end" fill="#1e8449">23,63</text>
+<text x="327" y="152.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Montagem + selagem/UC</text>
+<text x="371" y="152.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="end" fill="#555555">9–10</text>
+<text x="389" y="152.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">6,78</text>
+<text x="407" y="152.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="end" fill="#1e8449">≈ 11</text>
+<text x="327" y="155.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Armazenagem</text>
+<text x="371" y="155.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="end" fill="#555555">11–12</text>
+<text x="389" y="155.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">10,10</text>
+<text x="407" y="155.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="end" fill="#1e8449">≈ 9 (3 salas)</text>
+<text x="327" y="159.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Recepção / expedição</text>
+<text x="371" y="159.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="end" fill="#555555">6–8</text>
+<text x="389" y="159.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">8,53</text>
+<text x="407" y="159.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="end" fill="#1e8449">8,53</text>
+<text x="327" y="163.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Equipe (sem WC)</text>
+<text x="371" y="163.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="end" fill="#555555">6–10</text>
+<text x="389" y="163.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">5,17</text>
+<text x="407" y="163.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="end" fill="#1e8449">≈ 11</text>
+<text x="327" y="166.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="start" fill="#1f1f1f">Uso misto</text>
+<text x="371" y="166.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="end" fill="#555555">—</text>
+<text x="389" y="166.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="normal" font-style="normal" text-anchor="end" fill="#1f1f1f">14,08</text>
+<text x="407" y="166.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.8" font-weight="bold" font-style="normal" text-anchor="end" fill="#1e8449">—</text>
+<text x="327" y="171.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.6" font-weight="normal" font-style="italic" text-anchor="start" fill="#555555">* Estimativa para ~150 refeições/dia (capacidade</text>
+<text x="327" y="173.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.6" font-weight="normal" font-style="italic" text-anchor="start" fill="#555555">já demonstrada), com equipamentos ocupando ≈ 40%</text>
+<text x="327" y="176.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.6" font-weight="normal" font-style="italic" text-anchor="start" fill="#555555">da área de produção e ≈ 60% da de armazenagem.</text>
+<text x="327" y="183.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="2.0" font-weight="bold" font-style="normal" text-anchor="start" fill="#1f1f1f">ESCALA 1:75</text>
+<rect x="327" y="186" width="13.33" height="1.4" fill="#1f1f1f" stroke="#1f1f1f" stroke-width="0.2"/>
+<text x="327" y="190" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.7" font-weight="normal" font-style="normal" text-anchor="middle" fill="#1f1f1f">0</text>
+<rect x="340.33" y="186" width="13.33" height="1.4" fill="#ffffff" stroke="#1f1f1f" stroke-width="0.2"/>
+<text x="340.33" y="190" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.7" font-weight="normal" font-style="normal" text-anchor="middle" fill="#1f1f1f">1</text>
+<rect x="353.67" y="186" width="13.33" height="1.4" fill="#1f1f1f" stroke="#1f1f1f" stroke-width="0.2"/>
+<text x="353.67" y="190" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.7" font-weight="normal" font-style="normal" text-anchor="middle" fill="#1f1f1f">2</text>
+<rect x="367" y="186" width="13.33" height="1.4" fill="#ffffff" stroke="#1f1f1f" stroke-width="0.2"/>
+<text x="367" y="190" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.7" font-weight="normal" font-style="normal" text-anchor="middle" fill="#1f1f1f">3</text>
+<rect x="380.33" y="186" width="13.33" height="1.4" fill="#1f1f1f" stroke="#1f1f1f" stroke-width="0.2"/>
+<text x="380.33" y="190" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.7" font-weight="normal" font-style="normal" text-anchor="middle" fill="#1f1f1f">4</text>
+<text x="393.67" y="190" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1.7" font-weight="normal" font-style="normal" text-anchor="middle" fill="#1f1f1f">5 m</text>
 </svg>

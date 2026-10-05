@@ -104,6 +104,7 @@ DOOR_WC = 0.60
 DOOR_STD = 0.80
 VAO_A04 = (X_ALA, X_ALA + 0.80)               # estimado
 JANELA_01_02 = (0.80, 1.80)                   # janela cozinha/montagem (posição estimada)
+PORTAO_A01 = (0.0, m["a01_esq_1"])            # portão da cozinha para a rua principal
 
 # ---------------------------------------------------------------------------
 # Paredes: retângulos (x0, y0, x1, y1). Vãos são lacunas entre retângulos.
@@ -137,7 +138,7 @@ Y_EXT_B = Y_A06_B + T_EXT
 WALLS = [
     # externas
     (-T_EXT, -T_EXT, X_EXT_R, 0),                                   # superior
-    (-T_EXT, -T_EXT, 0, Y_A01_B + T_EXT),                           # esquerda Amb. 01
+    (-T_EXT, PORTAO_A01[1], 0, Y_A01_B + T_EXT),                    # esquerda Amb. 01
     (-T_EXT, Y_A01_B, X_NICHO, Y_A01_B + T_EXT),                    # inferior Amb. 01
     (X_NICHO - T_EXT, Y_A01_B, X_NICHO, Y_NICHO_B + T_EXT),         # esquerda nicho
     (X_NICHO - T_EXT, Y_NICHO_B, X_ALA, Y_NICHO_B + T_EXT),         # fundo nicho
@@ -255,7 +256,6 @@ DIMS = [
 
 # Marcas "a confirmar" (letra, x, y) e linhas tracejadas correspondentes
 TAGS = [
-    ("A", -0.55, m["a01_esq_1"]),
     ("B", X_A03_R - 0.38, Y_A03_B - m["a03_marca"] - 0.32),
     ("C", X_A06_R, Y_A05_T + 0.40),
     ("?", X_ALA + 0.40, Y_CIRC_B + 0.30),
@@ -263,10 +263,8 @@ TAGS = [
 ]
 
 PENDENCIAS = [
-    ("1", "Acesso ao Amb. 01: entre ele e o Amb. 02 há só uma janela. Por "
-          "onde se entra no Amb. 01? Onde fica a entrada principal do imóvel?"),
-    ("A", "Parede esquerda do Amb. 01: trecho de 2,32 desenhado com linha "
-          "tripla — é janela, porta ou vão? Largura e peitoril."),
+    ("1", "Porta do Amb. 06: dá para qual rua? O portão do Amb. 01 (2,32) "
+          "dá para a rua principal; o nicho é fechado, sem acesso externo."),
     ("B", "Amb. 03: marca em \"T\" na parede direita, a 2,00 m do canto "
           "inferior — o que é (janela, ponto hidráulico, pilar)?"),
     ("C", "Amb. 05: linha paralela à parede direita, alinhada com a parede "
@@ -282,8 +280,8 @@ PENDENCIAS = [
           f"{br(T_INT)} (internas). A parede Amb. 01/02 ficou com "
           f"{br(T_DIV)} para fechar 4,36 + 2,71 com 0,62 + 2,51 + 0,83."),
     ("5", "Não constam no croqui: pé-direito, janelas, norte, pontos de "
-          "água/esgoto/elétrica/gás e a área externa a lápis (com um "
-          "elemento de 1,207 × 0,594)."),
+          "água/esgoto/elétrica/gás e a área a lápis à esquerda da ala "
+          "(com um elemento de 1,207 × 0,594)."),
 ]
 
 # ===========================================================================
@@ -372,6 +370,17 @@ def door(hinge, closed_dir, open_dir, width, color=INK):
         f'fill="none" stroke="{color}" stroke-width="0.18"/>')
 
 
+def draw_portao():
+    """Portão do Amb. 01 (de enrolar): vão na parede + linha tracejada."""
+    (a, b), (_, d) = P(-T_EXT, PORTAO_A01[0]), P(0, PORTAO_A01[1])
+    line(a + 0.4, b, a + 0.4, d, INK, 0.3, "1.4 0.8")
+    line(a - 0.6, b, a + 3.6, b, INK, 0.3)
+    line(a - 0.6, d, a + 3.6, d, INK, 0.3)
+    text(a - 2.6, (b + d) / 2, "RUA PRINCIPAL", 2.3, "bold", rot=-90,
+         color="#555555", halo=False)
+    text(a + 6.2, (b + d) / 2, "portão 2,32", 2.0, rot=-90, color=INK)
+
+
 def draw_window(x0, x1, y0, y1):
     """Janela em parede vertical: três linhas finas no vão."""
     (a, b), (c, d) = P(x0, y0), P(x1, y1)
@@ -441,9 +450,8 @@ def build_svg():
         add(f'<rect x="{f(min(a, c))}" y="{f(min(b, d))}" width="{f(abs(c - a))}" '
             f'height="{f(abs(d - b))}" fill="{WALL}"/>')
 
-    # marcas na parede (A e B)
-    for x, y0, x1 in [(-T_EXT, m["a01_esq_1"], 0),
-                      (X_A03_R, Y_A03_B - m["a03_marca"], X_EXT_R)]:
+    # marca na parede (B)
+    for x, y0, x1 in [(X_A03_R, Y_A03_B - m["a03_marca"], X_EXT_R)]:
         (a, b), (c, _) = P(x, y0), P(x1, y0)
         line(a - 1.2, b, c + 1.2, b, AMBER, 0.45)
 
@@ -453,6 +461,7 @@ def build_svg():
     door((D4[1], Y_WC_T), (-1, 0), (0, -1), DOOR_STD)
     draw_window(X_A01_R, X_A02_L, *JANELA_01_02)
     door((D3[1], Y_EXT_B), (-1, 0), (0, 1), DOOR_STD)
+    draw_portao()
 
     # vãos estimados: contorno tracejado laranja
     for (x0, y0, x1, y1) in [
@@ -639,7 +648,7 @@ def draw_title_block():
 
     cells = [
         ("ESCALA", "1:50"), ("FOLHA", "A3"),
-        ("UNIDADE", "metro"), ("REVISÃO", "R01"),
+        ("UNIDADE", "metro"), ("REVISÃO", "R02"),
         ("DATA", "05/10/2026"), ("STATUS", "PRELIMINAR"),
     ]
     cw, ch = (x1 - 205) / 2, (y1 - y0) / 3
@@ -724,6 +733,11 @@ def build_dxf(path):
         msp.add_line(q(xv, JANELA_01_02[0]), q(xv, JANELA_01_02[1]),
                      dxfattribs={"layer": "A-JANELA"})
     dxf_door((D3[1], Y_EXT_B), (-1, 0), (0, 1), DOOR_STD)
+    msp.add_line(q(-T_EXT / 2, PORTAO_A01[0]), q(-T_EXT / 2, PORTAO_A01[1]),
+                 dxfattribs={"layer": "A-PORTA", "linetype": "DASHED"})
+    msp.add_text("portão 2,32 (rua principal)", height=0.10,
+                 dxfattribs={"layer": "A-TEXTO", "rotation": 90}) \
+        .set_placement(q(-0.35, PORTAO_A01[1]))
 
     for x1, y1, x2, y2 in [
         (X_NICHO, Y_A01_B, X_ALA_FE, Y_A01_B),
@@ -755,7 +769,7 @@ def build_dxf(path):
         )
         dim.render()
 
-    msp.add_text("PLANTA BAIXA — LEVANTAMENTO CADASTRAL — SAFRAN (R01, preliminar)",
+    msp.add_text("PLANTA BAIXA — LEVANTAMENTO CADASTRAL — SAFRAN (R02, preliminar)",
                  height=0.22, dxfattribs={"layer": "A-TEXTO"}) \
         .set_placement(q(-0.15, -1.2))
     doc.saveas(path)

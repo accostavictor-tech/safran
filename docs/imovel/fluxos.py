@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Antes × depois: fluxos, layout e intervenções sobre a planta R01.
+"""Antes × depois: fluxos, layout e intervenções sobre a planta R02.
 
-Usa a geometria de planta_baixa.py e gera fluxos.svg / fluxos.png (A3
-paisagem, 1:75). Premissa: a cozinha (Amb. 01) não tem porta para dentro do
-prédio (só janela para a montagem), então o acesso a ela é pelo lado de fora,
-presumido pelo nicho.
+Usa a geometria de planta_baixa.py e gera fluxos.svg / .png / .pdf (A3
+paisagem, 1:75). Fatos de campo: a cozinha (Amb. 01) tem portão de 2,32 para
+a rua principal e só uma janela para a montagem; o nicho é fechado.
 
 Medidas de equipamento são típicas de mercado e precisam ser conferidas com
 as propostas dos fornecedores.
@@ -26,14 +25,13 @@ FONT = pb.FONT
 INK = "#1f1f1f"
 VERDE = "#1e8449"
 VERMELHO = "#c0392b"
-CONSTRUIR = "#d62828"
 DEMOLIR = "#f2c300"
 LIVRE = "#6c3483"
 
 ZONAS = {
-    "coccao": ("#fde3bf", "Cozinha (pré-preparo e cocção)"),
-    "limpa": ("#cfeccb", "Montagem (área limpa)"),
-    "transicao": ("#d8ecf8", "Antecâmara / barreira"),
+    "coccao": ("#fde3bf", "Cozinha (pré-preparo, cocção, lavagem)"),
+    "limpa": ("#cfeccb", "Montagem e frio (área limpa)"),
+    "transicao": ("#d8ecf8", "Passagem / barreira"),
     "armazem": ("#d6def3", "Armazenagem"),
     "pessoal": ("#e8dcf2", "Equipe (vestiário, copa, descanso)"),
     "recepcao": ("#f1ead2", "Recepção / expedição"),
@@ -42,17 +40,18 @@ ZONAS = {
 }
 FLUXOS = {
     "mp": ("#c0392b", "none", 0.7, "Matéria-prima"),
-    "prod": ("#1e8449", "none", 0.7, "Produto (cozido → embalado → expedido)"),
+    "prod": ("#1e8449", "none", 0.7, "Alimento / produto"),
     "lixo": ("#555555", "2.2 1.4", 0.6, "Lixo"),
     "equipe": ("#7d3c98", "0.9 0.9", 0.55, "Equipe"),
 }
+SUJO, LIMPO = {"mp", "lixo"}, {"prod"}
 
 # código: (zona, linhas do rótulo, subtítulo, posição do rótulo em m)
 ANTES = {
-    "01": ("coccao", ["COZINHA"], "acesso só por fora", (1.80, 2.35)),
+    "01": ("coccao", ["COZINHA"], "portão p/ a rua principal", (2.00, 2.85)),
     "01a": ("coccao", ["nicho"], "", (3.28, 4.95)),
-    "02": ("limpa", ["MONTAGEM"], "", (6.05, 0.55)),
-    "03": ("armazem", ["ESTOQUE"], "", (8.75, 1.20)),
+    "02": ("limpa", ["MONTAGEM"], "", (5.95, 0.55)),
+    "03": ("armazem", ["ESTOQUE"], "", (8.75, 1.60)),
     "WC": ("neutro", ["WC"], "", (4.55, 3.15)),
     "C": ("neutro", [], "", None),
     "04": ("pessoal", ["COPA"], "", (5.10, 4.95)),
@@ -60,122 +59,140 @@ ANTES = {
     "06": ("recepcao", ["RECEPÇÃO"], "", (6.05, 10.90)),
 }
 DEPOIS = {
-    "01": ("coccao", ["COZINHA"], "cru → cozido em sentido único", (1.95, 2.25)),
-    "01a": ("transicao", ["antecâm."], "", (3.28, 5.42)),
+    "01": ("coccao", ["COZINHA"], "cocção + lavagem", (1.70, 2.15)),
+    "01a": ("transicao", ["passagem"], "", (3.28, 5.45)),
     "02": ("limpa", ["MONTAGEM"], "", (6.15, 1.95)),
-    "03": ("armazem", ["CÂMARA +", "EMBALAGENS"], "", (8.85, 2.35)),
+    "03": ("limpa", ["SELAGEM + FRIO"], "", (9.20, 2.25)),
     "WC": ("neutro", ["WC"], "", (4.25, 3.15)),
     "C": ("neutro", [], "", None),
-    "04": ("pessoal", ["VESTIÁRIO"], "", (5.20, 5.05)),
-    "05": ("pessoal", ["EQUIPE / COPA"], "", (6.05, 8.25)),
-    "06": ("recepcao", ["RECEPÇÃO +", "EXPEDIÇÃO"], "", (5.85, 10.95)),
+    "04": ("coccao", ["PRÉ-PREPARO"], "", (5.05, 5.12)),
+    "05": ("pessoal", ["EQUIPE"], "vestiário · copa · estoque seco", (6.05, 8.20)),
+    "06": ("recepcao", ["RECEPÇÃO +", "EXPEDIÇÃO"], "", (5.70, 11.05)),
 }
 
-# Porta externa da cozinha, presumida no fundo do nicho
-PORTA_COZINHA = (pb.X_NICHO + 0.06, pb.X_NICHO + 0.86)
-# Intervenções (depois)
-PORTA_NICHO_04 = (4.55, 5.35)                 # y, na parede nicho/Amb. 04
-PORTA_WC_NOVA = (4.80, 5.50)                  # x, na parede inferior do WC
-PORTA_WC_ATUAL = pb.D1                        # y, na parede direita do WC
+PORTA_NICHO_04 = (4.60, 5.40)                 # y, parede nicho/Amb. 04 (nova)
+PORTA_02_03 = (0.15, 0.95)                    # y, parede Amb. 02/03 (nova)
 
 # --- trajetos (m) ----------------------------------------------------------
 ANTES_FLUXOS = [
     ("mp", [(6.10, 14.15), (6.10, 12.75), (4.60, 12.75), (4.60, 7.25),
             (6.70, 7.25), (6.70, 3.45), (8.40, 3.45)]),
     ("mp", [(8.40, 3.65), (6.92, 3.65), (6.92, 7.55), (4.95, 7.55),
-            (4.95, 12.45), (6.35, 12.45), (6.35, 14.45), (3.25, 14.45),
-            (3.25, 3.40), (2.00, 3.40)]),
-    ("prod", [(1.20, 1.30), (7.12, 1.30), (7.12, 7.85), (5.25, 7.85),
+            (4.95, 12.45), (6.35, 12.45), (6.35, 14.45), (-0.90, 14.45),
+            (-0.90, 1.60), (1.30, 1.60)]),
+    ("prod", [(1.30, 1.20), (7.12, 1.20), (7.12, 7.85), (5.25, 7.85),
               (5.25, 12.15), (6.60, 12.15), (6.60, 14.15)]),
-    ("lixo", [(1.60, 4.05), (2.95, 4.05), (2.95, 6.30)]),
+    ("lixo", [(1.30, 2.05), (-0.60, 2.05)]),
 ]
 DEPOIS_FLUXOS = [
-    ("mp", [(3.25, 6.70), (3.25, 3.55), (1.80, 3.55)]),
-    ("prod", [(1.00, 3.00), (1.00, 1.30), (6.85, 1.30), (6.85, 3.30),
-              (8.35, 3.30), (8.35, 1.80)]),
-    ("prod", [(9.35, 1.80), (9.35, 3.55), (7.12, 3.55), (7.12, 7.85),
-              (5.25, 7.85), (5.25, 12.15), (6.60, 12.15), (6.60, 14.15)]),
-    ("lixo", [(2.95, 3.95), (2.95, 6.30)]),
-    ("equipe", [(6.35, 14.15), (6.35, 12.45), (4.95, 12.45), (4.95, 7.25),
-                (4.30, 7.25), (4.30, 4.95), (3.50, 4.95), (3.50, 3.85)]),
-    ("equipe", [(5.30, 5.20), (4.55, 5.20), (4.55, 6.90), (6.62, 6.90),
-                (6.62, 2.30)]),
+    ("mp", [(6.18, 14.15), (6.18, 12.75), (4.60, 12.75), (4.60, 5.25),
+            (5.45, 5.25)]),
+    ("prod", [(5.40, 4.80), (3.25, 4.80), (3.25, 1.50), (2.30, 1.50),
+              (2.30, 1.10), (6.90, 1.10), (6.90, 0.55), (7.80, 0.55),
+              (7.80, 1.30), (9.40, 1.30)]),
+    ("prod", [(8.10, 1.60), (8.10, 2.70), (8.40, 2.70)]),
+    ("prod", [(8.40, 3.35), (7.12, 3.35), (7.12, 7.85), (5.25, 7.85),
+              (5.25, 12.15), (6.58, 12.15), (6.58, 14.15)]),
+    ("lixo", [(0.25, 2.45), (0.25, 2.05), (-0.60, 2.05)]),
+    ("lixo", [(6.65, 1.90), (6.65, 7.55), (4.95, 7.55), (4.95, 12.45),
+              (6.38, 12.45), (6.38, 14.15)]),
+    ("lixo", [(4.42, 5.50), (4.42, 13.00), (6.00, 13.00), (6.00, 14.15)]),
+    ("equipe", [(5.60, 6.75), (4.05, 6.75), (4.05, 5.00), (3.00, 5.00),
+                (3.00, 3.30)]),
+    ("equipe", [(5.60, 6.75), (6.88, 6.75), (6.88, 2.30)]),
 ]
 # Trajetos só para medir (não desenhados)
-COZINHA_WC_ANTES = [(2.00, 3.40), (3.40, 3.40), (3.40, 14.30), (6.20, 14.30),
+MP_PREPARO_DEPOIS = [(5.45, 5.25), (5.45, 4.80)]
+COZINHA_WC_ANTES = [(1.30, 1.80), (-0.70, 1.80), (-0.70, 14.30), (6.20, 14.30),
                     (6.20, 12.30), (5.10, 12.30), (5.10, 7.40), (6.80, 7.40),
                     (6.80, 3.00), (6.40, 3.00)]
-COZINHA_WC_DEPOIS = [(3.50, 3.85), (3.50, 4.95), (5.15, 4.95), (5.15, 3.90)]
-MONTAGEM_FRIO_ANTES = [(5.90, 1.30), (7.12, 1.30), (7.12, 7.85), (5.60, 7.85),
-                       (5.60, 8.60)]
-MONTAGEM_FRIO_DEPOIS = [(5.90, 1.30), (6.85, 1.30), (6.85, 3.30), (8.35, 3.30),
-                        (8.35, 1.80)]
+COZINHA_WC_DEPOIS = [(2.50, 2.60), (3.00, 2.60), (3.00, 5.00), (4.05, 5.00),
+                     (4.05, 6.75), (6.88, 6.75), (6.88, 3.00), (6.40, 3.00)]
+PORCION_FRIO_ANTES = [(5.90, 1.20), (7.12, 1.20), (7.12, 7.85), (5.60, 7.85),
+                      (5.60, 8.60)]
+PORCION_FRIO_DEPOIS = [(5.90, 1.10), (6.90, 1.10), (6.90, 0.55), (7.80, 0.55),
+                       (7.80, 1.30), (9.40, 1.30)]
 
 ANTES_NOTAS = [
-    ("1", (3.25, 10.40), "Cozinha sem porta para dentro: a MP do estoque e a "
-                         "equipe (WC) dão a volta por fora do prédio."),
+    ("1", (-0.90, 9.00), "A cozinha só se liga ao resto pela janela: MP do "
+                         "estoque e quem vai ao WC saem pelo portão e dão a "
+                         "volta pela rua."),
     ("2", (5.95, 3.40), "WC, montagem e estoque abrem no mesmo patamar de "
                         "≈1 m²; a MP cruza a porta da montagem."),
     ("3", (6.05, 9.55), "Produto congelado guardado na área de descanso."),
-    ("4", (9.20, 2.90), "Estoque de MP colado na montagem e longe da cozinha."),
-    ("5", (5.00, 0.45), "Montagem sem lavatório e sem lugar para "
-                        "ultracongelador e seladora."),
+    ("4", (4.95, 0.50), "Montagem com 6,8 m² (ideal 9–10) e sem lavatório: "
+                        "não cabem ultracongelador e seladora."),
+    ("5", (4.20, 9.20), "Amb. 05 tem 14 m² sem função definida enquanto "
+                        "cozinha e montagem estão abaixo do ideal."),
 ]
 DEPOIS_NOTAS = [
-    ("1", (4.10, 4.22), "Abrir porta 0,80 entre o nicho e o Amb. 04 (parede "
-                        "interna de 12 cm): cozinha ligada por dentro."),
-    ("2", (5.20, 4.42), "WC: fechar a porta da circulação (0,60) e abrir porta "
-                        "0,70 para o vestiário. O WC sai do patamar da montagem."),
-    ("3", (4.48, 2.22), "Janela vira passa-prato (≈1,00 × 0,60, peitoril 0,90) "
-                        "com bancada inox dos dois lados."),
-    ("4", (3.00, 3.05), "Lavatórios na entrada da cozinha e da montagem, na "
-                        "parede do WC (aproveita a hidráulica)."),
-    ("5", (8.30, 0.40), "Câmara fria 2,00 × 1,60 no Amb. 03, condensadora na "
-                        "parede externa; MP sai do Amb. 03 e vai para a cozinha."),
-    ("6", (5.55, 10.55), "Balcão + meia-porta no vão de 1,79: recepção "
-                         "separada da área interna."),
+    ("1", (4.10, 4.62), "Abrir porta 0,80 entre o nicho e o Amb. 04 (parede "
+                        "interna de 12 cm). É o que liga a cozinha ao resto "
+                        "do prédio — confirmar se a parede pode ser aberta."),
+    ("2", (7.70, 0.25), "Abrir porta 0,80 entre montagem e Amb. 03 (parede "
+                        "interna de 12 cm): porciona → sela → ultracongela → "
+                        "câmara, em linha."),
+    ("3", (4.48, 2.22), "Janela vira passa-prato (≈1,00 × 0,60, peitoril "
+                        "0,90), bancada inox dos dois lados."),
+    ("4", (2.80, 2.75), "Lavatórios na entrada da produção (Amb. 04), na "
+                        "cozinha e na montagem (os dois últimos na parede do WC)."),
+    ("5", (9.75, 3.55), "Câmara 1,60 × 2,00 no Amb. 03, condensadora na "
+                        "parede externa."),
+    ("6", (5.40, 5.70), "Amb. 04 vira pré-preparo + MP do dia (amplia a pia "
+                        "da copa): a cozinha passa a 23,6 m²."),
+    ("7", (4.10, 10.04), "Amb. 05 vira vestiário + copa + estoque seco; o "
+                        "freezer sai da área de descanso."),
 ]
 
 # Equipamentos (depois): (x0, y0, x1, y1, rótulo)
 EQUIP = [
     # cozinha
-    (0.05, 0.05, 1.25, 0.75, "bancada"),
-    (1.30, 0.05, 2.50, 0.95, "fogão 6b 1,20×0,90"),
-    (2.55, 0.05, 3.66, 0.75, "bancada"),
+    (1.20, 0.05, 2.40, 0.95, "fogão 6b 1,20×0,90"),
+    (2.45, 0.05, 3.66, 0.75, "apoio"),
     (3.66, 0.05, 4.36, 2.45, "porcion."),
-    (0.05, 1.40, 0.75, 3.20, "pré-preparo + cuba"),
-    (0.05, 3.40, 0.80, 4.15, "MP fria"),
-    (0.90, 3.70, 2.70, 4.15, "secos 1,80×0,45"),
-    (3.39, 3.30, 3.74, 3.75, "lav."),
-    (2.80, 3.75, 3.15, 4.10, "lixo"),
+    (0.05, 3.49, 1.25, 4.15, "lavagem"),
+    (1.30, 3.49, 2.80, 4.15, "bancada"),
+    (3.39, 2.95, 3.74, 3.40, "lav."),
+    (0.05, 2.45, 0.45, 2.85, "lixo"),
+    # pré-preparo
+    (4.50, 3.92, 6.35, 4.62, "pré-preparo + cuba"),
+    (5.60, 4.75, 6.35, 5.95, "MP fria"),
+    (3.88, 3.92, 4.40, 4.45, "secos"),
+    (4.75, 5.60, 5.20, 5.95, "lav."),
     # montagem
     (pb.X_A02_L, 0.05, pb.X_A02_L + 0.70, 2.45, "bancada 2,40"),
-    (5.50, 0.05, 6.30, 0.70, "seladora"),
-    (6.47, 0.05, 7.27, 0.90, "ultracong."),
+    (5.40, 0.05, 6.45, 0.65, "rotulagem"),
     (5.95, 2.10, 6.40, 2.45, "lav."),
-    # Amb. 03
-    (8.00, 0.05, 10.00, 1.65, "câmara 2,00×1,60"),
-    (7.49, 0.05, 7.94, 2.85, "embalagens"),
-    (9.55, 1.95, 10.00, 3.80, "embalagens"),
-    # vestiário
-    (5.92, 4.00, 6.37, 5.40, "armários"),
-    (4.90, 5.55, 5.85, 5.90, "banco"),
-    # equipe / copa
+    # selagem + frio
+    (8.00, 0.05, 8.80, 0.70, "seladora"),
+    (9.15, 0.05, 9.95, 0.90, "ultracong."),
+    (8.40, 1.85, 10.00, 3.85, "câmara 1,60×2,00"),
+    # equipe
+    (4.90, 6.10, 6.30, 6.55, "armários"),
     (5.85, 8.50, 6.65, 9.30, "mesa"),
     (5.70, 9.62, 6.75, 10.12, "copa"),
-    (3.88, 7.60, 4.33, 9.90, "reserva"),
+    (3.88, 7.40, 4.30, 9.90, "embal. + secos"),
     # recepção / expedição
-    (3.88, 10.60, 4.58, 12.40, "separação"),
     (6.10, 10.35, 6.78, 11.65, "freezer"),
-    (3.88, 10.17, 4.85, 10.45, "balcão"),
 ]
-COIFA = (1.20, 0.05, 2.60, 1.05)
-CONDENSADORA = (pb.X_EXT_R + 0.05, 0.30, pb.X_EXT_R + 0.65, 1.10)
+COIFA = (1.10, 0.05, 2.50, 1.05)
+CONDENSADORA = (pb.X_EXT_R + 0.05, 2.40, pb.X_EXT_R + 0.65, 3.20)
 LIVRES = [  # cotas de espaço livre (depois)
-    (0.75, 2.75, 3.39, 2.75, "livre"),
-    (pb.X_A02_L + 0.70, 1.62, 6.47, 1.62, "livre"),
-    (4.66, 4.75, 5.92, 4.75, "livre"),
-    (8.15, 1.65, 8.15, 3.02, "livre"),
+    (0.0, 3.22, 3.39, 3.22),
+    (pb.X_A02_L + 0.70, 1.45, pb.X_A02_R, 1.45),
+    (9.55, 0.90, 9.55, 1.85),
+]
+
+COMO_FICA = [
+    "MP entra pelos fundos (Amb. 06) e vai direto ao Amb. 04. Papelão de "
+    "fornecedor fica na recepção.",
+    "Pré-preparo (Amb. 04) → passagem → cocção (Amb. 01).",
+    "Passa-prato → montagem: porciona e rotula.",
+    "Amb. 03: sela, ultracongela e guarda na câmara.",
+    "Expedição: câmara → circulação → Amb. 06.",
+    "Equipe: fundos → vestiário (Amb. 05) → lavatório → produção.",
+    "Lixo da cozinha sai pelo portão; o resto sai pelos fundos. Sempre no "
+    "fim do turno.",
 ]
 
 
@@ -217,6 +234,13 @@ def rect(pn, x0, y0, x1, y1, **attrs):
         f'height="{f(abs(d - b))}" {extra}/>')
 
 
+def line(pn, x1, y1, x2, y2, color=INK, w=0.25, dash=None):
+    (a, b), (c, d) = pn.P(x1, y1), pn.P(x2, y2)
+    da = f' stroke-dasharray="{dash}"' if dash else ""
+    add(f'<line x1="{f(a)}" y1="{f(b)}" x2="{f(c)}" y2="{f(d)}" stroke="{color}" '
+        f'stroke-width="{w}"{da}/>')
+
+
 def door(pn, hinge, closed_dir, open_dir, width, color=INK):
     hx, hy = pn.P(*hinge)
     w = width * S
@@ -247,11 +271,11 @@ def seg_intersection(a, b, c, d):
 
 
 def crossings(flows):
-    """Cruzamentos entre fluxos de tipos diferentes."""
+    """Cruzamentos sujo × limpo (matéria-prima ou lixo cruzando alimento)."""
     pts = []
     for i, (k1, p1) in enumerate(flows):
         for k2, p2 in flows[i + 1:]:
-            if k1 == k2:
+            if not ((k1 in SUJO and k2 in LIMPO) or (k2 in SUJO and k1 in LIMPO)):
                 continue
             for a, b in zip(p1, p1[1:]):
                 for c, d in zip(p2, p2[1:]):
@@ -323,70 +347,67 @@ def draw_base(pn, usos):
     # janela cozinha/montagem
     rect(pn, pb.X_A01_R, pb.JANELA_01_02[0], pb.X_A02_L, pb.JANELA_01_02[1],
          fill="#ffffff", stroke=INK, stroke_width="0.15")
-    xm = pn.P((pb.X_A01_R + pb.X_A02_L) / 2, 0)[0]
-    add(f'<line x1="{f(xm)}" y1="{f(pn.P(0, pb.JANELA_01_02[0])[1])}" x2="{f(xm)}" '
-        f'y2="{f(pn.P(0, pb.JANELA_01_02[1])[1])}" stroke="{INK}" stroke-width="0.15"/>')
+    xm = (pb.X_A01_R + pb.X_A02_L) / 2
+    line(pn, xm, pb.JANELA_01_02[0], xm, pb.JANELA_01_02[1], INK, 0.15)
+    # portão para a rua principal
+    y0, y1 = pb.PORTAO_A01
+    line(pn, -pb.T_EXT / 2, y0, -pb.T_EXT / 2, y1, INK, 0.3, "1.2 0.7")
+    a, b = pn.P(-0.45, 3.30)
+    text(a, b, "RUA PRINCIPAL", 1.9, "bold", rot=-90, color="#555555")
+    a, b = pn.P(-0.45, (y0 + y1) / 2)
+    text(a, b, "portão", 1.6, rot=-90, color="#555555", halo=True)
     # portas existentes
+    door(pn, (pb.X_WC_R, pb.D1[0]), (0, 1), (-1, 0), pb.DOOR_WC)
     door(pn, (pb.X_A03_L, pb.D2[1]), (0, -1), (1, 0), pb.DOOR_STD)
     door(pn, (pb.D4[1], pb.Y_WC_T), (-1, 0), (0, -1), pb.DOOR_STD)
     door(pn, (pb.D3[1], pb.Y_EXT_B), (-1, 0), (0, 1), pb.DOOR_STD)
-    # porta externa da cozinha (presumida)
-    rect(pn, PORTA_COZINHA[0], pb.Y_NICHO_B, PORTA_COZINHA[1], pb.Y_NICHO_B + pb.T_EXT,
-         fill="#ffffff", stroke=pb.AMBER, stroke_width="0.3", stroke_dasharray="0.8 0.5")
     # linha "C" do croqui
-    a, b = pn.P(pb.X_A06_R, pb.Y_A05_T)
-    c, d = pn.P(pb.X_A06_R, pb.Y_A05_B)
-    add(f'<line x1="{f(a)}" y1="{f(b)}" x2="{f(c)}" y2="{f(d)}" stroke="{pb.AMBER}" '
-        f'stroke-width="0.25" stroke-dasharray="1.2 0.8"/>')
+    line(pn, pb.X_A06_R, pb.Y_A05_T, pb.X_A06_R, pb.Y_A05_B, pb.AMBER, 0.25, "1.2 0.8")
 
 
 def draw_antes(pn):
     draw_base(pn, ANTES)
-    door(pn, (pb.X_WC_R, pb.D1[0]), (0, 1), (-1, 0), pb.DOOR_WC)
     draw_flows(pn, ANTES_FLUXOS)
+    a, b = pn.P(-0.90, 14.45)
+    text(a + 1.5, b + 3.2, "volta pela rua (esquemático)", 1.6, anchor="start",
+         color=VERMELHO, style="italic")
     labels(pn, ANTES)
     badges(pn, ANTES_NOTAS, VERMELHO)
 
 
 def draw_depois(pn):
     draw_base(pn, DEPOIS)
-    # porta do WC na circulação: fechar (a construir)
-    rect(pn, pb.X_WC_R, PORTA_WC_ATUAL[0], pb.X_WC_R + pb.T_INT, PORTA_WC_ATUAL[1],
-         fill=CONSTRUIR)
     # aberturas novas (a demolir) + folhas
     rect(pn, pb.X_ALA_FE, PORTA_NICHO_04[0], pb.X_ALA, PORTA_NICHO_04[1], fill=DEMOLIR)
-    door(pn, (pb.X_ALA, PORTA_NICHO_04[1]), (0, -1), (1, 0), 0.80, VERDE)
-    rect(pn, PORTA_WC_NOVA[0], pb.Y_WC_IN_B, PORTA_WC_NOVA[1], pb.Y_WC_B, fill=DEMOLIR)
-    door(pn, (PORTA_WC_NOVA[0], pb.Y_WC_IN_B), (1, 0), (0, -1), 0.70, VERDE)
-    # equipamentos
+    door(pn, (pb.X_ALA_FE, PORTA_NICHO_04[1]), (0, -1), (-1, 0), 0.80, VERDE)
+    rect(pn, pb.X_A02_R, PORTA_02_03[0], pb.X_A03_L, PORTA_02_03[1], fill=DEMOLIR)
+    door(pn, (pb.X_A02_R, PORTA_02_03[1]), (0, -1), (-1, 0), 0.80, VERDE)
     for x0, y0, x1, y1, lab in EQUIP:
         rect(pn, x0, y0, x1, y1, fill="#ffffff", fill_opacity="0.85",
              stroke="#4a4a4a", stroke_width="0.2")
         (a, b), (c, d) = pn.P(x0, y0), pn.P(x1, y1)
         rot = -90 if (d - b) > (c - a) * 1.4 else 0
-        size = 1.35 if len(lab) > 9 else 1.5
-        text((a + c) / 2 + (0.5 if rot else 0), (b + d) / 2 + (0 if rot else 0.5),
-             lab, size, color="#3a3a3a", rot=rot)
+        size = 1.3 if len(lab) > 9 else 1.5
+        ty = (b + d) / 2 + (0 if rot else 0.5)
+        if lab.startswith("câmara"):
+            ty = d - 2.2
+        text((a + c) / 2 + (0.5 if rot else 0), ty, lab, size, color="#3a3a3a", rot=rot)
     rect(pn, *COIFA, fill="none", stroke="#4a4a4a", stroke_width="0.2",
          stroke_dasharray="0.8 0.6")
     rect(pn, *CONDENSADORA, fill="#ffffff", stroke="#4a4a4a", stroke_width="0.2")
     a, b = pn.P((CONDENSADORA[0] + CONDENSADORA[2]) / 2, (CONDENSADORA[1] + CONDENSADORA[3]) / 2)
     text(a + 0.5, b, "cond.", 1.3, rot=-90, color="#3a3a3a")
-    # meia-porta no vão Amb. 05/06
-    rect(pn, 4.86, pb.Y_A05_B, 5.65, pb.Y_A05_B + 0.05, fill=VERDE)
-    for x1, y1, x2, y2, lab in LIVRES:
+    for x1, y1, x2, y2 in LIVRES:
+        line(pn, x1, y1, x2, y2, LIVRE, 0.18)
         (a, b), (c, d) = pn.P(x1, y1), pn.P(x2, y2)
-        add(f'<line x1="{f(a)}" y1="{f(b)}" x2="{f(c)}" y2="{f(d)}" stroke="{LIVRE}" '
-            f'stroke-width="0.18"/>')
         for px, py in ((a, b), (c, d)):
             add(f'<line x1="{f(px - 0.55)}" y1="{f(py + 0.55)}" x2="{f(px + 0.55)}" '
                 f'y2="{f(py - 0.55)}" stroke="{LIVRE}" stroke-width="0.3"/>')
-        val = pb.br(math.hypot(x2 - x1, y2 - y1))
+        val = pb.br(math.hypot(x2 - x1, y2 - y1)) + " livre"
         if abs(d - b) < 1e-6:
-            text((a + c) / 2, b - 0.7, f"{val} {lab}", 1.45, color=LIVRE, halo=True)
+            text((a + c) / 2, b - 0.7, val, 1.4, color=LIVRE, halo=True)
         else:
-            text(a - 0.7, (b + d) / 2, f"{val} {lab}", 1.45, color=LIVRE, halo=True,
-                 rot=-90)
+            text(a - 0.7, (b + d) / 2, val, 1.4, color=LIVRE, halo=True, rot=-90)
     draw_flows(pn, DEPOIS_FLUXOS)
     labels(pn, DEPOIS)
     badges(pn, DEPOIS_NOTAS, VERDE)
@@ -397,11 +418,11 @@ def labels(pn, usos):
         if not pos:
             continue
         px, py = pn.P(*pos)
-        size = 1.6 if code == "01a" else 2.2
+        size = 1.6 if code == "01a" else (1.8 if code == "04" else 2.1)
         for i, ln in enumerate(linhas):
-            text(px, py + i * 2.7, ln, size, "bold", halo=True)
+            text(px, py + i * 2.6, ln, size, "bold", halo=True)
         if sub:
-            text(px, py + len(linhas) * 2.7 - 0.3, sub, 1.55, color="#444444",
+            text(px, py + len(linhas) * 2.6 - 0.3, sub, 1.5, color="#444444",
                  halo=True, style="italic")
 
 
@@ -419,9 +440,9 @@ def notes_block(x, y, notas, color, w):
         add(f'<circle cx="{f(x + 2.1)}" cy="{f(yy - 0.75)}" r="1.9" fill="{color}"/>')
         text(x + 2.1, yy - 0.05, k, 1.9, "bold", color="#ffffff")
         for ln in pb.wrap(t, w):
-            text(x + 5.5, yy, ln, 1.85, anchor="start")
-            yy += 2.65
-        yy += 1.6
+            text(x + 5.5, yy, ln, 1.8, anchor="start")
+            yy += 2.55
+        yy += 1.5
     return yy
 
 
@@ -431,15 +452,15 @@ def build():
     add(f'<rect width="{f(PAGE_W)}" height="{f(PAGE_H)}" fill="#ffffff"/>')
     add(f'<rect x="8" y="6" width="404" height="285" fill="none" stroke="{INK}" '
         f'stroke-width="0.4"/>')
-    text(14, 15.5, "ANTES × DEPOIS — FLUXOS, LAYOUT E INTERVENÇÕES", 4.4, "bold",
-         anchor="start")
-    text(14, 21.5, "Safran Congelados · imóvel do Barro Duro · sobre a planta R01 · "
+    text(14, 15.5, "ANTES × DEPOIS — FLUXOS, LAYOUT E INTERVENÇÕES (v2)", 4.4,
+         "bold", anchor="start")
+    text(14, 21.5, "Safran Congelados · imóvel do Barro Duro · sobre a planta R02 · "
          "escala 1:75 · equipamentos com medidas típicas (conferir com as "
-         "propostas) · acesso externo da cozinha presumido pelo nicho",
+         "propostas) · nicho fechado; cozinha com portão para a rua principal",
          2.1, anchor="start", color="#555555")
 
-    antes = Panel(14 + 0.15 * S, 36)
-    depois = Panel(160 + 0.15 * S, 36)
+    antes = Panel(12 + 0.95 * S, 36)
+    depois = Panel(166 + 0.75 * S, 36)
     for pn, title, color in [(antes, "ANTES (hoje)", VERMELHO),
                              (depois, "DEPOIS (proposta)", VERDE)]:
         tx, ty = pn.P(-0.15, -0.15)
@@ -451,34 +472,34 @@ def build():
     x, y = antes.P(-0.15, 6.55)
     text(x, y, "PROBLEMAS", 2.5, "bold", anchor="start", color=VERMELHO)
     notes_block(x, y + 5, ANTES_NOTAS, VERMELHO, 21)
-    x, y = depois.P(7.62, 4.55)
+
+    x, y = depois.P(7.62, 4.45)
     text(x, y, "INTERVENÇÕES", 2.5, "bold", anchor="start", color=VERDE)
-    yy = notes_block(x, y + 5, DEPOIS_NOTAS, VERDE, 24)
-    for ln in pb.wrap("Sem demolir parede inteira: 2 aberturas em parede interna "
-                      "de 12 cm, 1 vão fechado, marcenaria e equipamentos.", 28):
-        text(x, yy + 1, ln, 1.8, anchor="start", color="#555555", style="italic")
-        yy += 2.6
+    yy = notes_block(x, y + 5, DEPOIS_NOTAS, VERDE, 22)
+    for ln in pb.wrap("Obra: 2 aberturas em parede interna de 12 cm, ponto de "
+                      "água e esgoto no Amb. 04, 3 lavatórios e passa-prato. O "
+                      "resto é mudança de uso e equipamento.", 27):
+        text(x, yy + 1, ln, 1.75, anchor="start", color="#555555", style="italic")
+        yy += 2.5
+
     x, y = depois.P(-0.15, 6.55)
     text(x, y, "COMO FICA O FLUXO", 2.5, "bold", anchor="start", color=VERDE)
-    passos = [
-        "MP entra pela porta da cozinha e vai direto para secos / MP fria.",
-        "Pré-preparo (esq.) → cocção (fundo) → porcionamento (dir.).",
-        "Passa-prato → montagem: porciona, sela, ultracongela.",
-        "Produto selado → câmara (Amb. 03) → expedição (Amb. 06).",
-        "Equipe entra pela recepção → vestiário/WC → lavatório → produção.",
-        "Lixo da cozinha sai pela porta do nicho, no fim do turno.",
-    ]
     yy = y + 5
-    for i, p in enumerate(passos, 1):
-        text(x, yy, f"{i}.", 1.85, "bold", anchor="start", color=VERDE)
-        for ln in pb.wrap(p, 23):
-            text(x + 3.2, yy, ln, 1.85, anchor="start")
-            yy += 2.65
-        yy += 1.2
+    for i, p in enumerate(COMO_FICA, 1):
+        text(x, yy, f"{i}.", 1.8, "bold", anchor="start", color=VERDE)
+        for ln in pb.wrap(p, 25):
+            text(x + 3.2, yy, ln, 1.8, anchor="start")
+            yy += 2.55
+        yy += 1.1
 
-    legend(318, 36)
+    legend(327, 36)
     add("</svg>")
     return "\n".join(svg)
+
+
+def fmt(pts):
+    t, fora = comprimento(pts)
+    return f"{pb.br(t, 0)}" + (f" ({pb.br(fora, 0)} na rua)" if fora > 0.5 else "")
 
 
 def legend(x, y):
@@ -487,90 +508,80 @@ def legend(x, y):
     for cor, nome in ZONAS.values():
         add(f'<rect x="{f(x)}" y="{f(yy - 2.5)}" width="6" height="3.2" fill="{cor}" '
             f'stroke="#999999" stroke-width="0.15"/>')
-        text(x + 8.5, yy, nome, 1.95, anchor="start")
-        yy += 4.3
+        text(x + 8.5, yy, nome, 1.9, anchor="start")
+        yy += 4.1
     yy += 1
     for color, dash, w, nome in FLUXOS.values():
         da = f' stroke-dasharray="{dash}"' if dash != "none" else ""
         add(f'<line x1="{f(x)}" y1="{f(yy - 0.9)}" x2="{f(x + 6)}" y2="{f(yy - 0.9)}" '
             f'stroke="{color}" stroke-width="{w}"{da}/>')
-        text(x + 8.5, yy, nome, 1.95, anchor="start")
-        yy += 4.3
+        text(x + 8.5, yy, nome, 1.9, anchor="start")
+        yy += 4.1
     add(f'<circle cx="{f(x + 3)}" cy="{f(yy - 0.9)}" r="1.2" fill="none" '
         f'stroke="{VERMELHO}" stroke-width="0.5"/>')
-    text(x + 8.5, yy, "Cruzamento entre fluxos diferentes", 1.95, anchor="start")
-    yy += 4.3
-    items = [
-        (DEMOLIR, "Abrir vão (a demolir)"),
-        (CONSTRUIR, "Fechar vão (a construir)"),
-    ]
-    for cor, nome in items:
-        add(f'<rect x="{f(x)}" y="{f(yy - 2.2)}" width="6" height="1.8" fill="{cor}"/>')
-        text(x + 8.5, yy, nome, 1.95, anchor="start")
-        yy += 4.3
-    add(f'<rect x="{f(x)}" y="{f(yy - 2.4)}" width="6" height="2.4" fill="#ffffff" '
-        f'stroke="{pb.AMBER}" stroke-width="0.3" stroke-dasharray="0.8 0.5"/>')
-    text(x + 8.5, yy, "Porta / elemento a confirmar", 1.95, anchor="start")
-    yy += 4.3
+    text(x + 8.5, yy, "Cruzamento sujo × limpo", 1.9, anchor="start")
+    yy += 4.1
+    add(f'<rect x="{f(x)}" y="{f(yy - 2.2)}" width="6" height="1.8" fill="{DEMOLIR}"/>')
+    text(x + 8.5, yy, "Abrir vão (porta nova em verde)", 1.9, anchor="start")
+    yy += 4.1
     add(f'<line x1="{f(x)}" y1="{f(yy - 0.9)}" x2="{f(x + 6)}" y2="{f(yy - 0.9)}" '
         f'stroke="{LIVRE}" stroke-width="0.3"/>')
-    text(x + 8.5, yy, "Espaço livre entre equipamentos (m)", 1.95, anchor="start")
+    text(x + 8.5, yy, "Espaço livre entre equipamentos (m)", 1.9, anchor="start")
 
-    # trajetos
     yy += 8
     text(x, yy, "TRAJETOS (m)", 2.6, "bold", anchor="start")
     yy += 4.5
-    text(x + 52, yy, "Antes", 1.9, "bold", anchor="end", color="#555555")
-    text(x + 84, yy, "Depois", 1.9, "bold", anchor="end", color="#555555")
-    yy += 4
-    def fmt(pts):
-        t, fora = comprimento(pts)
-        s = f"{pb.br(t, 0)}"
-        return s + (f" ({pb.br(fora, 0)} fora)" if fora > 0.5 else "")
+    text(x + 58, yy, "Antes", 1.8, "bold", anchor="end", color="#555555")
+    text(x + 80, yy, "Depois", 1.8, "bold", anchor="end", color="#555555")
+    yy += 3.8
     rows = [
-        ("MP estocada → pré-preparo", fmt(ANTES_FLUXOS[1][1]), "≈ 3"),
+        ("MP estocada → pré-preparo", fmt(ANTES_FLUXOS[1][1]), "< 1"),
         ("Cozinha → WC", fmt(COZINHA_WC_ANTES), fmt(COZINHA_WC_DEPOIS)),
-        ("Montagem → frio", fmt(MONTAGEM_FRIO_ANTES), fmt(MONTAGEM_FRIO_DEPOIS)),
-        ("Cruzamentos no diagrama", str(len(crossings(ANTES_FLUXOS))),
+        ("Porcionamento → frio", fmt(PORCION_FRIO_ANTES), fmt(PORCION_FRIO_DEPOIS)),
+        ("Cruzamentos sujo × limpo", str(len(crossings(ANTES_FLUXOS))),
          str(len(crossings(DEPOIS_FLUXOS)))),
     ]
     for a, b, c in rows:
-        text(x, yy, a, 1.9, anchor="start")
-        text(x + 52, yy, b, 1.9, anchor="end")
-        text(x + 84, yy, c, 1.9, "bold", anchor="end", color=VERDE)
-        yy += 3.8
+        text(x, yy, a, 1.8, anchor="start")
+        text(x + 58, yy, b, 1.8, anchor="end")
+        text(x + 80, yy, c, 1.8, "bold", anchor="end", color=VERDE)
+        yy += 3.6
+    yy += 1
+    for ln in pb.wrap("Trechos na rua são esquemáticos (mínimo): a volta real "
+                      "depende do quarteirão.", 50):
+        text(x, yy, ln, 1.6, anchor="start", color="#555555", style="italic")
+        yy += 2.4
 
-    # áreas
     yy += 5
-    text(x, yy, "ÁREA ÚTIL POR FUNÇÃO (m²)", 2.6, "bold", anchor="start")
+    text(x, yy, "ÁREA POR SETOR (m²)", 2.6, "bold", anchor="start")
     yy += 4.5
-    text(x + 52, yy, "Antes", 1.9, "bold", anchor="end", color="#555555")
-    text(x + 84, yy, "Depois", 1.9, "bold", anchor="end", color="#555555")
-    yy += 4
+    for col, lab in ((44, "Ideal*"), (62, "Antes"), (80, "Depois")):
+        text(x + col, yy, lab, 1.8, "bold", anchor="end", color="#555555")
+    yy += 3.8
     A = pb.ROOM_AREAS
     br = pb.br
     rows = [
-        ("Cozinha + nicho", br(A["01"] + A["01a"]), br(A["01"] + A["01a"])),
-        ("Montagem", br(A["02"]), br(A["02"])),
-        ("Estoque / câmara + embal.", br(A["03"]), br(A["03"])),
-        ("Equipe + circulação central", br(A["04"]), br(A["04"] + A["05"])),
-        ("Uso misto (Amb. 05)", br(A["05"]), "—"),
-        ("Recepção / expedição", br(A["06"]), br(A["06"])),
-        ("WC + circulação", br(A["WC"] + A["C"]), br(A["WC"] + A["C"])),
+        ("Cozinha", "20–24", br(A["01"] + A["01a"]), br(A["01"] + A["01a"] + A["04"])),
+        ("Montagem + selagem/UC", "9–10", br(A["02"]), "≈ 11"),
+        ("Armazenagem", "11–12", br(A["03"]), "≈ 9 (3 salas)"),
+        ("Recepção / expedição", "6–8", br(A["06"]), br(A["06"])),
+        ("Equipe (sem WC)", "6–10", br(A["04"]), "≈ 11"),
+        ("Uso misto", "—", br(A["05"]), "—"),
     ]
-    for a, b, c in rows:
-        text(x, yy, a, 1.9, anchor="start")
-        text(x + 52, yy, b, 1.9, anchor="end")
-        text(x + 84, yy, c, 1.9, anchor="end")
-        yy += 3.8
-    yy += 2
-    for ln in pb.wrap("A área não muda: o ganho vem de cada sala ter uma função só "
-                      "e de os fluxos não se cruzarem.", 52):
-        text(x, yy, ln, 1.8, anchor="start", color="#555555", style="italic")
-        yy += 2.6
+    for a, i, b, c in rows:
+        text(x, yy, a, 1.8, anchor="start")
+        text(x + 44, yy, i, 1.8, anchor="end", color="#555555")
+        text(x + 62, yy, b, 1.8, anchor="end")
+        text(x + 80, yy, c, 1.8, "bold", anchor="end", color=VERDE)
+        yy += 3.6
+    yy += 1
+    for ln in pb.wrap("* Estimativa para ~150 refeições/dia (capacidade já "
+                      "demonstrada), com equipamentos ocupando ≈ 40% da área "
+                      "de produção e ≈ 60% da de armazenagem.", 50):
+        text(x, yy, ln, 1.6, anchor="start", color="#555555", style="italic")
+        yy += 2.4
 
-    # escala
-    yy += 6
+    yy += 5
     text(x, yy, "ESCALA 1:75", 2.0, "bold", anchor="start")
     yy += 2.5
     for i in range(5):
@@ -588,13 +599,13 @@ def main():
     cairosvg.svg2png(bytestring=s.encode(), write_to=str(OUT / "fluxos.png"),
                      output_width=3508)
     cairosvg.svg2pdf(bytestring=s.encode(), write_to=str(OUT / "fluxos.pdf"))
-    print("cruzamentos antes:", len(crossings(ANTES_FLUXOS)))
-    print("cruzamentos depois:", len(crossings(DEPOIS_FLUXOS)))
+    print("cruzamentos sujo × limpo — antes:", len(crossings(ANTES_FLUXOS)),
+          "depois:", len(crossings(DEPOIS_FLUXOS)))
     for nome, pts in [("MP estoque→cozinha antes", ANTES_FLUXOS[1][1]),
                       ("cozinha→WC antes", COZINHA_WC_ANTES),
                       ("cozinha→WC depois", COZINHA_WC_DEPOIS),
-                      ("montagem→frio antes", MONTAGEM_FRIO_ANTES),
-                      ("montagem→frio depois", MONTAGEM_FRIO_DEPOIS)]:
+                      ("porcion→frio antes", PORCION_FRIO_ANTES),
+                      ("porcion→frio depois", PORCION_FRIO_DEPOIS)]:
         t, fora = comprimento(pts)
         print(f"  {nome}: {t:.1f} m ({fora:.1f} m fora)")
 
