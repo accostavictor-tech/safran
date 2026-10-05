@@ -6,6 +6,7 @@ import {
   boolean,
   integer,
   timestamp,
+  date,
   jsonb,
   pgEnum,
   unique,
@@ -558,4 +559,90 @@ export const assinaturaCiclos = pgTable(
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [unique("ciclo_assinatura_data_unq").on(t.assinaturaId, t.dataEntrega)]
+);
+
+// --- Extrato bancário (Pluggy / Open Finance) ---
+
+/**
+ * Uma conexão com um banco na Pluggy (o "item" da API).
+ *
+ * A Safran conecta os próprios bancos pelo Meu Pluggy, sem widget de conexão
+ * no site: daqui só se guarda o ID do item e o estado do último sync. As
+ * contas e movimentações vêm da API e são recriadas a cada sincronização.
+ */
+export const conexoesBancarias = pgTable("conexoes_bancarias", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  provedor: text("provedor").notNull().default("pluggy"),
+  providerItemId: text("provider_item_id").notNull().unique(),
+  /** Nome do banco como a Pluggy informa (ex.: "Mercado Pago"). */
+  instituicao: text("instituicao"),
+  /** Status do item na Pluggy: UPDATED, OUTDATED, LOGIN_ERROR... */
+  status: text("status"),
+  /** Última vez que a Pluggy buscou dados no banco — não é o nosso sync. */
+  dadosAtualizadosEm: timestamp("dados_atualizados_em", { withTimezone: true }),
+  ultimoSyncEm: timestamp("ultimo_sync_em", { withTimezone: true }),
+  ultimoSyncOk: boolean("ultimo_sync_ok"),
+  ultimoSyncDetalhe: text("ultimo_sync_detalhe"),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+/**
+ * Conta dentro de uma conexão: corrente, pagamento, poupança ou cartão.
+ *
+ * Criada automaticamente pelo sync — não há cadastro manual nem vínculo a
+ * fazer. `tipo` é BANK ou CREDIT, como na Pluggy.
+ */
+export const contasBancarias = pgTable(
+  "contas_bancarias",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    conexaoId: uuid("conexao_id")
+      .notNull()
+      .references(() => conexoesBancarias.id, { onDelete: "cascade" }),
+    providerAccountId: text("provider_account_id").notNull().unique(),
+    nome: text("nome").notNull(),
+    numero: text("numero"),
+    tipo: text("tipo").notNull(),
+    subtipo: text("subtipo"),
+    /** Conta: saldo disponível. Cartão: fatura em aberto. */
+    saldoCentavos: integer("saldo_centavos").notNull().default(0),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("conta_bancaria_conexao_idx").on(t.conexaoId)]
+);
+
+/**
+ * Uma linha do extrato.
+ *
+ * `valorCentavos` tem sinal do ponto de vista do caixa da Safran: positivo
+ * entrou, negativo saiu — inclusive no cartão, onde compra é saída. O payload
+ * original fica guardado porque a conciliação com pedidos e a apuração da
+ * receita ainda vão precisar de campos que hoje não viraram coluna.
+ */
+export const movimentacoesBancarias = pgTable(
+  "movimentacoes_bancarias",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    contaId: uuid("conta_id")
+      .notNull()
+      .references(() => contasBancarias.id, { onDelete: "cascade" }),
+    providerTransactionId: text("provider_transaction_id").notNull().unique(),
+    data: date("data", { mode: "string" }).notNull(),
+    descricao: text("descricao").notNull(),
+    valorCentavos: integer("valor_centavos").notNull(),
+    /** DEBIT ou CREDIT, como na Pluggy. */
+    tipo: text("tipo"),
+    /** PIX, TED, BOLETO... quando o banco informa. */
+    meio: text("meio"),
+    /** Quem pagou (entrada) ou quem recebeu (saída). */
+    contraparte: text("contraparte"),
+    contraparteDocumento: text("contraparte_documento"),
+    categoriaPluggy: text("categoria_pluggy"),
+    payloadBruto: jsonb("payload_bruto"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("movimentacao_conta_data_idx").on(t.contaId, t.data)]
 );

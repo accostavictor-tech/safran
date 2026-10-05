@@ -71,6 +71,7 @@ da lógica já validada no protótipo anterior (ver `calcularCustoItem`,
 | `npm run db:seed` | Cria as contas dos 3 sócios |
 | `npm run db:studio` | Abre o Drizzle Studio (explorador visual do banco) |
 | `npm run db:import-lovable -- <pasta> [--reset]` | Importa o export CSV do Lovable/Supabase (ver seção abaixo) |
+| `npm run pluggy:sync [-- <itemId>]` | Sincroniza o extrato bancário da Pluggy (ver seção abaixo) |
 
 ## Deploy no Vercel
 
@@ -82,6 +83,50 @@ da lógica já validada no protótipo anterior (ver `calcularCustoItem`,
    pra base de produção), aplique o schema e rode o seed.
 4. Deploy. O `proxy.ts` (equivalente ao antigo middleware) protege todas as
    rotas exceto `/login`.
+
+## Extrato bancário (Pluggy)
+
+`/admin/extrato` mostra as movimentações dos bancos da Safran, puxadas da
+[Pluggy](https://pluggy.ai) via Open Finance. Mesmo caminho do projeto
+pessoal: os bancos são conectados no **Meu Pluggy**, e o sistema só lê o que
+já está autorizado lá — não há widget de conexão no site.
+
+### Configurar
+
+1. **Credenciais.** Em [dashboard.pluggy.ai](https://dashboard.pluggy.ai),
+   pegue o `Client ID` e o `Client Secret` da aplicação.
+2. **Conectar o banco.** Em [meu.pluggy.ai](https://meu.pluggy.ai), com o
+   cadastro do **CNPJ da Safran**, conecte cada banco (Mercado Pago, conta PJ,
+   cartão) pelo Open Finance e copie o **ID do item** de cada conexão.
+3. **Variáveis no Vercel** (Settings → Environment Variables, produção):
+   `PLUGGY_CLIENT_ID`, `PLUGGY_CLIENT_SECRET` e `CRON_SECRET` (qualquer
+   string longa e aleatória). Localmente, as mesmas no `.env.local`.
+4. **Deploy.** A migration `0012_extrato_bancario` entra sozinha no build.
+5. Em `/admin/extrato`, cole o ID do item e clique em **Conectar e puxar
+   extrato**. As contas são criadas automaticamente, sem vínculo manual.
+
+### Como o sync roda
+
+- **Todo dia às 07:00 (Maceió)** pelo Vercel Cron (`vercel.json` →
+  `/api/cron/pluggy`). A rota só aceita a chamada com o `CRON_SECRET`.
+- **Na hora**, pelo botão *Sincronizar agora* ou por
+  `npm run pluggy:sync` (`-- <itemId>` conecta e sincroniza um banco novo).
+- É idempotente: tudo é upsert pelo ID da Pluggy.
+
+### Regras do extrato
+
+- `valor_centavos` tem o sinal do caixa: positivo entrou, negativo saiu —
+  também no cartão, onde compra é saída.
+- Transações **pendentes** ficam de fora até serem efetivadas.
+- **Transferência entre contas da própria Safran** (contraparte com o CNPJ
+  da empresa) aparece marcada e não entra em entradas/saídas.
+- Entradas/saídas do mês contam só **contas**, não cartão: o dinheiro do
+  cartão sai quando a fatura é paga, e esse pagamento já aparece na conta.
+- O payload original de cada transação fica em `payload_bruto`, para a
+  conciliação com pedidos e a apuração da receita.
+- O consentimento do Open Finance expira. Quando o banco aparecer como
+  *Reconectar*, renove a conexão no Meu Pluggy. Se a renovação gerar um
+  item novo, conecte o novo ID na tela; o histórico já puxado continua.
 
 ## Migração dos dados do Lovable
 

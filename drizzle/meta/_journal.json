@@ -85,6 +85,13 @@
       "when": 1789894886005,
       "tag": "0011_parceiros",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1791215593347,
+      "tag": "0012_extrato_bancario",
+      "breakpoints": true
     }
   ]
 }

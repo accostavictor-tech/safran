@@ -12,6 +12,7 @@ import {
   ClipboardList,
   TicketPercent,
   Handshake,
+  Landmark,
   Store,
   LogOut,
   Menu,
@@ -30,6 +31,7 @@ const LINKS = [
   { href: "/admin/assinaturas", label: "Assinaturas", icon: CalendarClock },
   { href: "/admin/cupons", label: "Cupons", icon: TicketPercent },
   { href: "/admin/parceiros", label: "Parceiros", icon: Handshake },
+  { href: "/admin/extrato", label: "Extrato", icon: Landmark },
 ];
 
 function Brand() {
