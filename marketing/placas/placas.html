@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Safran Congelados — Placas de identificação 30 × 15 cm</title>
+<style>
+  @font-face { font-family: "Epilogue"; font-weight: 600; src: url("fonts/Epilogue-600.ttf") format("truetype"); }
+  @font-face { font-family: "Epilogue"; font-weight: 800; src: url("fonts/Epilogue-800.ttf") format("truetype"); }
+  @font-face { font-family: "Jakarta"; font-weight: 500; src: url("fonts/Jakarta-500.ttf") format("truetype"); }
+  @font-face { font-family: "Jakarta"; font-weight: 700; src: url("fonts/Jakarta-700.ttf") format("truetype"); }
+
+  /* Tokens do design system "Sabor & Rotina Vibrante" (src/app/globals.css) */
+  :root {
+    --violeta: #842a9b;
+    --violeta-escuro: #690481;
+    --linho: #faf7f2;
+    --areia: #f3ece3;
+    --tinta: #271f30;
+    --tinta-suave: #4f4350;
+    --acafrao: #e59b12;
+    --borda: #e9e0d4;
+  }
+
+  @page { size: 30cm 15cm; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #fff; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  .placa {
+    width: 30cm; height: 15cm;
+    page-break-after: always;
+    position: relative; overflow: hidden;
+    display: grid;
+    grid-template-columns: 2.4cm 1fr;
+    background: var(--linho);
+    color: var(--tinta);
+    font-family: "Jakarta", sans-serif;
+  }
+  .placa:last-child { page-break-after: auto; }
+
+  /* Faixa lateral violeta com a marca em pé */
+  .faixa {
+    background: var(--violeta);
+    position: relative;
+  }
+  .faixa .marca {
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%) rotate(-90deg);
+    transform-origin: center;
+    white-space: nowrap;
+    font-family: "Epilogue", sans-serif; font-weight: 800;
+    font-size: 0.78cm; letter-spacing: 0.22em;
+    color: #fff;
+  }
+
+  .corpo {
+    padding: 1.5cm 1.7cm 1.3cm 1.7cm;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+
+  .topo {
+    display: flex; align-items: center; gap: 0.35cm;
+    font-weight: 700; font-size: 0.42cm; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--violeta);
+  }
+  .topo .ponto { width: 0.3cm; height: 0.3cm; border-radius: 50%; background: var(--acafrao); }
+
+  .nome {
+    font-family: "Epilogue", sans-serif; font-weight: 800;
+    font-size: 2.6cm; line-height: 0.95; letter-spacing: -0.015em;
+    text-transform: uppercase; color: var(--tinta);
+  }
+  .nome.longo { font-size: 2.0cm; }
+  .nome.duas-linhas { font-size: 1.85cm; }
+
+  .rodape {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    border-top: 0.06cm solid var(--borda); padding-top: 0.5cm;
+  }
+  .descricao { font-weight: 500; font-size: 0.58cm; color: var(--tinta-suave); max-width: 21cm; line-height: 1.3; }
+  .descricao b { font-weight: 700; color: var(--tinta); }
+  .acafrao-mark { width: 1.7cm; height: 1.7cm; flex: none; }
+
+  /* Variante invertida (entrada / acesso restrito): fundo violeta */
+  .placa.inversa { background: var(--violeta); color: #fff; }
+  .placa.inversa .faixa { background: var(--violeta-escuro); }
+  .placa.inversa .topo { color: #fff; opacity: .9; }
+  .placa.inversa .nome { color: #fff; }
+  .placa.inversa .rodape { border-top-color: rgba(255,255,255,.3); }
+  .placa.inversa .descricao { color: rgba(255,255,255,.85); }
+  .placa.inversa .descricao b { color: #fff; }
+
+  /* Placa de fachada / entrada: sem faixa, marca centralizada */
+  .placa.entrada { grid-template-columns: 1fr; }
+  .placa.entrada .corpo { align-items: center; justify-content: center; text-align: center; padding: 1.4cm 2cm; }
+  .placa.entrada .marca-grande {
+    font-family: "Epilogue", sans-serif; font-weight: 800;
+    font-size: 3.6cm; line-height: 1; letter-spacing: 0.06em; color: #fff;
+  }
+  .placa.entrada .sub {
+    margin-top: 0.3cm;
+    font-weight: 700; font-size: 0.95cm; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--acafrao);
+  }
+  .placa.entrada .linha { width: 6cm; height: 0.08cm; background: rgba(255,255,255,.35); margin: 0.9cm auto 0.8cm; }
+  .placa.entrada .contato { font-weight: 500; font-size: 0.6cm; color: rgba(255,255,255,.9); line-height: 1.6; }
+  .placa.entrada .contato b { font-weight: 700; color: #fff; }
+</style>
+</head>
+<body>
+
+<!-- 1. Fachada / entrada -->
+<section class="placa inversa entrada">
+  <div class="corpo">
+    <div class="marca-grande">SAFRAN</div>
+    <div class="sub">Congelados</div>
+    <div class="linha"></div>
+    <div class="contato">
+      Refeições congeladas · receitas autorais<br>
+      <b>safrancongelados.com.br</b> · @safrancongelados · (82) 99955-0922
+    </div>
+  </div>
+</section>
+
+<!-- 2. Produção -->
+<section class="placa">
+  <div class="faixa"><div class="marca">SAFRAN</div></div>
+  <div class="corpo">
+    <div class="topo"><span class="ponto"></span>Área de manipulação</div>
+    <div class="nome">Produção</div>
+    <div class="rodape">
+      <div class="descricao">Acesso restrito a colaboradores <b>uniformizados</b> e com touca.</div>
+      <svg class="acafrao-mark" viewBox="0 0 48 48" fill="none" stroke="#842a9b" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 44V22"/><path d="M24 22c-7 0-12-6-12-14 7 0 12 6 12 14z"/><path d="M24 22c7 0 12-6 12-14-7 0-12 6-12 14z"/><path d="M24 30c-5 0-9-4-9-9"/><path d="M24 30c5 0 9-4 9-9"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Câmara fria -->
+<section class="placa">
+  <div class="faixa"><div class="marca">SAFRAN</div></div>
+  <div class="corpo">
+    <div class="topo"><span class="ponto"></span>Estoque congelado</div>
+    <div class="nome longo">Câmara fria</div>
+    <div class="rodape">
+      <div class="descricao"><b>Manter a porta fechada.</b> Conferir temperatura no registro diário.</div>
+      <svg class="acafrao-mark" viewBox="0 0 48 48" fill="none" stroke="#842a9b" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6v36M8 15l32 18M8 33l32-18"/><path d="M24 6l-4 4M24 6l4 4M24 42l-4-4M24 42l4-4"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Estoque seco -->
+<section class="placa">
+  <div class="faixa"><div class="marca">SAFRAN</div></div>
+  <div class="corpo">
+    <div class="topo"><span class="ponto"></span>Insumos e embalagens</div>
+    <div class="nome longo">Estoque seco</div>
+    <div class="rodape">
+      <div class="descricao">Organização por <b>PVPS</b>: primeiro que vence, primeiro que sai.</div>
+      <svg class="acafrao-mark" viewBox="0 0 48 48" fill="none" stroke="#842a9b" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="18" width="36" height="24" rx="2"/><path d="M6 18l4-10h28l4 10M18 26h12"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Expedição -->
+<section class="placa">
+  <div class="faixa"><div class="marca">SAFRAN</div></div>
+  <div class="corpo">
+    <div class="topo"><span class="ponto"></span>Pedidos e entregas</div>
+    <div class="nome">Expedição</div>
+    <div class="rodape">
+      <div class="descricao">Conferência de pedidos e saída para <b>entrega em Maceió</b>.</div>
+      <svg class="acafrao-mark" viewBox="0 0 48 48" fill="none" stroke="#842a9b" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h26v20H4zM30 18h8l6 7v7h-14z"/><circle cx="12" cy="36" r="4"/><circle cx="36" cy="36" r="4"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Higienização -->
+<section class="placa">
+  <div class="faixa"><div class="marca">SAFRAN</div></div>
+  <div class="corpo">
+    <div class="topo"><span class="ponto"></span>Lavagem de utensílios</div>
+    <div class="nome longo">Higienização</div>
+    <div class="rodape">
+      <div class="descricao">Lave as mãos antes de voltar à <b>área de produção</b>.</div>
+      <svg class="acafrao-mark" viewBox="0 0 48 48" fill="none" stroke="#842a9b" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6c-6 9-11 15-11 22a11 11 0 0022 0c0-7-5-13-11-22z"/><path d="M18 30a6 6 0 006 6"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Vestiário -->
+<section class="placa">
+  <div class="faixa"><div class="marca">SAFRAN</div></div>
+  <div class="corpo">
+    <div class="topo"><span class="ponto"></span>Colaboradores</div>
+    <div class="nome">Vestiário</div>
+    <div class="rodape">
+      <div class="descricao">Uniforme, touca e calçado fechado <b>obrigatórios</b> na produção.</div>
+      <svg class="acafrao-mark" viewBox="0 0 48 48" fill="none" stroke="#842a9b" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8l7 4 7-4 10 6-4 8-4-2v22H15V20l-4 2-4-8z"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Administrativo -->
+<section class="placa">
+  <div class="faixa"><div class="marca">SAFRAN</div></div>
+  <div class="corpo">
+    <div class="topo"><span class="ponto"></span>Escritório</div>
+    <div class="nome longo">Administrativo</div>
+    <div class="rodape">
+      <div class="descricao">Atendimento, pedidos e <b>financeiro</b>.</div>
+      <svg class="acafrao-mark" viewBox="0 0 48 48" fill="none" stroke="#842a9b" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="10" width="36" height="26" rx="2"/><path d="M6 20h36M16 42h16"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- 9. Acesso restrito -->
+<section class="placa inversa">
+  <div class="faixa"><div class="marca">SAFRAN</div></div>
+  <div class="corpo">
+    <div class="topo"><span class="ponto"></span>Atenção</div>
+    <div class="nome duas-linhas">Acesso<br>restrito</div>
+    <div class="rodape">
+      <div class="descricao">Somente <b>pessoal autorizado</b>. Visitantes, aguardar na recepção.</div>
+      <svg class="acafrao-mark" viewBox="0 0 48 48" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="20" width="28" height="22" rx="3"/><path d="M16 20v-6a8 8 0 0116 0v6"/><circle cx="24" cy="31" r="2.5"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- 10. Banheiro -->
+<section class="placa">
+  <div class="faixa"><div class="marca">SAFRAN</div></div>
+  <div class="corpo">
+    <div class="topo"><span class="ponto"></span>Sanitário</div>
+    <div class="nome">Banheiro</div>
+    <div class="rodape">
+      <div class="descricao">Lave as mãos com sabonete antes de <b>retornar ao trabalho</b>.</div>
+      <svg class="acafrao-mark" viewBox="0 0 48 48" fill="none" stroke="#842a9b" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="11" r="5"/><path d="M14 44V26a10 10 0 0120 0v18"/></svg>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
